@@ -285,6 +285,20 @@
 <a href="#285" id="285">285</a>
 <a href="#286" id="286">286</a>
 <a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
 </pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
 </span><span class="kw">use </span>chrono_tz::Tz;
 <span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
@@ -421,11 +435,18 @@
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>date(s: <span class="kw-2">&amp;</span>Series) -&gt; PolarsResult&lt;Series&gt; {
     <span class="kw">match </span>s.dtype() {
         <span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
-        </span>DataType::Datetime(<span class="kw">_</span>, <span class="prelude-val">Some</span>(<span class="kw">_</span>)) =&gt; s
-            .datetime()
-            .unwrap()
-            .replace_time_zone(<span class="prelude-val">None</span>, <span class="prelude-val">None</span>)<span class="question-mark">?
-            </span>.cast(<span class="kw-2">&amp;</span>DataType::Date),
+        </span>DataType::Datetime(<span class="kw">_</span>, <span class="prelude-val">Some</span>(tz)) =&gt; {
+            <span class="kw">let </span><span class="kw-2">mut </span>out = s
+                .datetime()
+                .unwrap()
+                .replace_time_zone(<span class="prelude-val">None</span>, <span class="prelude-val">None</span>)<span class="question-mark">?
+                </span>.cast(<span class="kw-2">&amp;</span>DataType::Date)<span class="question-mark">?</span>;
+            <span class="kw">if </span>tz != <span class="string">&quot;UTC&quot; </span>{
+                <span class="comment">// DST transitions may not preserve sortedness.
+                </span>out.set_sorted_flag(IsSorted::Not);
+            }
+            <span class="prelude-val">Ok</span>(out)
+        }
         DataType::Datetime(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; s.datetime().unwrap().cast(<span class="kw-2">&amp;</span>DataType::Date),
         DataType::Date =&gt; <span class="prelude-val">Ok</span>(s.clone()),
         dtype =&gt; <span class="macro">polars_bail!</span>(ComputeError: <span class="string">&quot;expected Datetime or Date, got {}&quot;</span>, dtype),
@@ -434,11 +455,18 @@
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>datetime(s: <span class="kw-2">&amp;</span>Series) -&gt; PolarsResult&lt;Series&gt; {
     <span class="kw">match </span>s.dtype() {
         <span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
-        </span>DataType::Datetime(tu, <span class="prelude-val">Some</span>(<span class="kw">_</span>)) =&gt; s
-            .datetime()
-            .unwrap()
-            .replace_time_zone(<span class="prelude-val">None</span>, <span class="prelude-val">None</span>)<span class="question-mark">?
-            </span>.cast(<span class="kw-2">&amp;</span>DataType::Datetime(<span class="kw-2">*</span>tu, <span class="prelude-val">None</span>)),
+        </span>DataType::Datetime(tu, <span class="prelude-val">Some</span>(tz)) =&gt; {
+            <span class="kw">let </span><span class="kw-2">mut </span>out = s
+                .datetime()
+                .unwrap()
+                .replace_time_zone(<span class="prelude-val">None</span>, <span class="prelude-val">None</span>)<span class="question-mark">?
+                </span>.cast(<span class="kw-2">&amp;</span>DataType::Datetime(<span class="kw-2">*</span>tu, <span class="prelude-val">None</span>))<span class="question-mark">?</span>;
+            <span class="kw">if </span>tz != <span class="string">&quot;UTC&quot; </span>{
+                <span class="comment">// DST transitions may not preserve sortedness.
+                </span>out.set_sorted_flag(IsSorted::Not);
+            }
+            <span class="prelude-val">Ok</span>(out)
+        }
         DataType::Datetime(tu, <span class="kw">_</span>) =&gt; s.datetime().unwrap().cast(<span class="kw-2">&amp;</span>DataType::Datetime(<span class="kw-2">*</span>tu, <span class="prelude-val">None</span>)),
         dtype =&gt; <span class="macro">polars_bail!</span>(ComputeError: <span class="string">&quot;expected Datetime, got {}&quot;</span>, dtype),
     }
