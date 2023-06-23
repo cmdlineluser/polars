@@ -110,6 +110,8 @@
 <a href="#110" id="110">110</a>
 <a href="#111" id="111">111</a>
 <a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
 </pre></div><pre class="rust"><code><span class="kw">mod </span>join;
 <span class="attr">#[cfg(feature = <span class="string">&quot;pivot&quot;</span>)]
 </span><span class="kw">pub mod </span>pivot;
@@ -156,7 +158,7 @@
     ///       &quot;code&quot; =&gt; &amp;[&quot;X1&quot;, &quot;X2&quot;, &quot;X3&quot;, &quot;X3&quot;, &quot;X2&quot;, &quot;X2&quot;, &quot;X1&quot;, &quot;X1&quot;]
     ///   }.unwrap();
     ///
-    ///   let dummies = df.to_dummies().unwrap();
+    ///   let dummies = df.to_dummies(None, false).unwrap();
     ///   dbg!(dummies);
     /// # }
     /// ```
@@ -185,8 +187,8 @@
     ///  +------+------+------+--------+--------+--------+---------+---------+---------+
     /// ```
     </span><span class="attr">#[cfg(feature = <span class="string">&quot;to_dummies&quot;</span>)]
-    </span><span class="kw">fn </span>to_dummies(<span class="kw-2">&amp;</span><span class="self">self</span>, separator: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; PolarsResult&lt;DataFrame&gt; {
-        <span class="self">self</span>._to_dummies(<span class="prelude-val">None</span>, separator)
+    </span><span class="kw">fn </span>to_dummies(<span class="kw-2">&amp;</span><span class="self">self</span>, separator: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, drop_first: bool) -&gt; PolarsResult&lt;DataFrame&gt; {
+        <span class="self">self</span>._to_dummies(<span class="prelude-val">None</span>, separator, drop_first)
     }
 
     <span class="attr">#[cfg(feature = <span class="string">&quot;to_dummies&quot;</span>)]
@@ -194,8 +196,9 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         columns: Vec&lt;<span class="kw-2">&amp;</span>str&gt;,
         separator: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
+        drop_first: bool,
     ) -&gt; PolarsResult&lt;DataFrame&gt; {
-        <span class="self">self</span>._to_dummies(<span class="prelude-val">Some</span>(columns), separator)
+        <span class="self">self</span>._to_dummies(<span class="prelude-val">Some</span>(columns), separator, drop_first)
     }
 
     <span class="attr">#[cfg(feature = <span class="string">&quot;to_dummies&quot;</span>)]
@@ -203,6 +206,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         columns: <span class="prelude-ty">Option</span>&lt;Vec&lt;<span class="kw-2">&amp;</span>str&gt;&gt;,
         separator: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
+        drop_first: bool,
     ) -&gt; PolarsResult&lt;DataFrame&gt; {
         <span class="kw">let </span>df = <span class="self">self</span>.to_df();
 
@@ -213,7 +217,7 @@
             df.get_columns()
                 .par_iter()
                 .map(|s| <span class="kw">match </span>set.contains(s.name()) {
-                    <span class="bool-val">true </span>=&gt; s.to_dummies(separator),
+                    <span class="bool-val">true </span>=&gt; s.to_dummies(separator, drop_first),
                     <span class="bool-val">false </span>=&gt; <span class="prelude-val">Ok</span>(s.clone().into_frame()),
                 })
                 .collect::&lt;PolarsResult&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()

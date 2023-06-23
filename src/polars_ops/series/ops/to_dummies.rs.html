@@ -98,19 +98,19 @@
 </span><span class="kw">type </span>DummyCa = Int32Chunked;
 
 <span class="kw">pub trait </span>ToDummies {
-    <span class="kw">fn </span>to_dummies(<span class="kw-2">&amp;</span><span class="self">self</span>, separator: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; PolarsResult&lt;DataFrame&gt;;
+    <span class="kw">fn </span>to_dummies(<span class="kw-2">&amp;</span><span class="self">self</span>, separator: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, drop_first: bool) -&gt; PolarsResult&lt;DataFrame&gt;;
 }
 
 <span class="kw">impl </span>ToDummies <span class="kw">for </span>Series {
-    <span class="kw">fn </span>to_dummies(<span class="kw-2">&amp;</span><span class="self">self</span>, separator: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; PolarsResult&lt;DataFrame&gt; {
+    <span class="kw">fn </span>to_dummies(<span class="kw-2">&amp;</span><span class="self">self</span>, separator: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, drop_first: bool) -&gt; PolarsResult&lt;DataFrame&gt; {
         <span class="kw">let </span>sep = separator.unwrap_or(<span class="string">&quot;_&quot;</span>);
         <span class="kw">let </span>col_name = <span class="self">self</span>.name();
-        <span class="kw">let </span>groups = <span class="self">self</span>.group_tuples(<span class="bool-val">true</span>, <span class="bool-val">false</span>)<span class="question-mark">?</span>;
+        <span class="kw">let </span>groups = <span class="self">self</span>.group_tuples(<span class="bool-val">true</span>, drop_first)<span class="question-mark">?</span>;
 
         <span class="comment">// safety: groups are in bounds
-        </span><span class="kw">let </span>columns = <span class="kw">unsafe </span>{ <span class="self">self</span>.agg_first(<span class="kw-2">&amp;</span>groups) }
-            .iter()
-            .zip(groups.iter())
+        </span><span class="kw">let </span>columns = <span class="kw">unsafe </span>{ <span class="self">self</span>.agg_first(<span class="kw-2">&amp;</span>groups) };
+        <span class="kw">let </span>columns = columns.iter().zip(groups.iter()).skip(drop_first <span class="kw">as </span>usize);
+        <span class="kw">let </span>columns = columns
             .map(|(av, group)| {
                 <span class="comment">// strings are formatted with extra \&quot; \&quot; in polars, so we
                 // extract the string
