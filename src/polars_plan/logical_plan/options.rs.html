@@ -330,6 +330,7 @@
 <a href="#330" id="330">330</a>
 <a href="#331" id="331">331</a>
 <a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::path::PathBuf;
 
 <span class="kw">use </span>polars_core::prelude::<span class="kw-2">*</span>;
@@ -345,6 +346,8 @@
 <span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
 
+<span class="attr">#[cfg(feature = <span class="string">&quot;python&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::prelude::python_udf::PythonFunction;
 <span class="kw">use </span><span class="kw">crate</span>::prelude::Expr;
 
 <span class="kw">pub type </span>FileCount = u32;
@@ -621,8 +624,7 @@
 #[cfg_attr(feature = <span class="string">&quot;serde&quot;</span>, derive(Serialize, Deserialize))]
 #[cfg(feature = <span class="string">&quot;python&quot;</span>)]
 </span><span class="kw">pub struct </span>PythonOptions {
-    <span class="comment">// Serialized Fn() -&gt; PolarsResult&lt;DataFrame&gt;
-    </span><span class="kw">pub </span>scan_fn: Vec&lt;u8&gt;,
+    <span class="kw">pub </span>scan_fn: <span class="prelude-ty">Option</span>&lt;PythonFunction&gt;,
     <span class="kw">pub </span>schema: SchemaRef,
     <span class="kw">pub </span>output_schema: <span class="prelude-ty">Option</span>&lt;SchemaRef&gt;,
     <span class="kw">pub </span>with_columns: <span class="prelude-ty">Option</span>&lt;Arc&lt;Vec&lt;String&gt;&gt;&gt;,

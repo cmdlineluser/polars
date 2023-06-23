@@ -360,7 +360,7 @@
             <span class="kw">let </span>buf = Vec::&lt;u8&gt;::deserialize(_deserializer)<span class="question-mark">?</span>;
 
             <span class="kw">if </span>buf.starts_with(MAGIC_BYTE_MARK) {
-                <span class="kw">let </span>udf = python_udf::PythonFunction::try_deserialize(<span class="kw-2">&amp;</span>buf)
+                <span class="kw">let </span>udf = python_udf::PythonUdfExpression::try_deserialize(<span class="kw-2">&amp;</span>buf)
                     .map_err(|e| D::Error::custom(<span class="macro">format!</span>(<span class="string">&quot;{e}&quot;</span>)))<span class="question-mark">?</span>;
                 <span class="prelude-val">Ok</span>(SpecialEq::new(udf))
             } <span class="kw">else </span>{
