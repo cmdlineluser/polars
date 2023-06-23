@@ -49,7 +49,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="polars.Expr.rolling_apply" href="polars.Expr.rolling_apply.html" />
-    <link rel="prev" title="polars.Expr.pct_change" href="polars.Expr.pct_change.html" />
+    <link rel="prev" title="polars.Expr.radians" href="polars.Expr.radians.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -670,6 +670,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_decimal.html">polars.Series.str.to_decimal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_lowercase.html">polars.Series.str.to_lowercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_time.html">polars.Series.str.to_time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_titlecase.html">polars.Series.str.to_titlecase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_uppercase.html">polars.Series.str.to_uppercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.zfill.html">polars.Series.str.zfill</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.parse_int.html">polars.Series.str.parse_int</a></li>
@@ -1062,6 +1063,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.cumprod.html">polars.Expr.cumprod</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.cumsum.html">polars.Expr.cumsum</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.cumulative_eval.html">polars.Expr.cumulative_eval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="polars.Expr.degrees.html">polars.Expr.degrees</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.diff.html">polars.Expr.diff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.dot.html">polars.Expr.dot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.entropy.html">polars.Expr.entropy</a></li>
@@ -1078,6 +1080,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.n_unique.html">polars.Expr.n_unique</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.null_count.html">polars.Expr.null_count</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.pct_change.html">polars.Expr.pct_change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="polars.Expr.radians.html">polars.Expr.radians</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">polars.Expr.rank</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.rolling_apply.html">polars.Expr.rolling_apply</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.rolling_max.html">polars.Expr.rolling_max</a></li>
@@ -1325,6 +1328,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_datetime.html">polars.Expr.str.to_datetime</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_decimal.html">polars.Expr.str.to_decimal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_lowercase.html">polars.Expr.str.to_lowercase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_titlecase.html">polars.Expr.str.to_titlecase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_time.html">polars.Expr.str.to_time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_uppercase.html">polars.Expr.str.to_uppercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.zfill.html">polars.Expr.str.zfill</a></li>
@@ -1581,7 +1585,7 @@ document.write(`
 <h1>polars.Expr.rank<a class="headerlink" href="#polars-expr-rank" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="polars.Expr.rank">
-<span class="sig-prename descclassname"><span class="pre">Expr.</span></span><span class="sig-name descname"><span class="pre">rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">RankMethod</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'average'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descending</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/expr/expr.py#L5715-L5804"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polars.Expr.rank" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">Expr.</span></span><span class="sig-name descname"><span class="pre">rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">RankMethod</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'average'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descending</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/expr/expr.py#L6589-L6678"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polars.Expr.rank" title="Permalink to this definition">#</a></dt>
 <dd><p>Assign ranks to data, dealing with ties appropriately.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1680,12 +1684,12 @@ on the order that the values occur in the Series.</p></li>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="polars.Expr.pct_change.html"
+       href="polars.Expr.radians.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">polars.Expr.pct_change</p>
+        <p class="prev-next-title">polars.Expr.radians</p>
       </div>
     </a>
     <a class="right-next"

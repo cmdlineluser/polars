@@ -670,6 +670,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_decimal.html">polars.Series.str.to_decimal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_lowercase.html">polars.Series.str.to_lowercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_time.html">polars.Series.str.to_time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_titlecase.html">polars.Series.str.to_titlecase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_uppercase.html">polars.Series.str.to_uppercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.zfill.html">polars.Series.str.zfill</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.parse_int.html">polars.Series.str.parse_int</a></li>
@@ -1062,6 +1063,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.cumprod.html">polars.Expr.cumprod</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.cumsum.html">polars.Expr.cumsum</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.cumulative_eval.html">polars.Expr.cumulative_eval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="polars.Expr.degrees.html">polars.Expr.degrees</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.diff.html">polars.Expr.diff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.dot.html">polars.Expr.dot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.entropy.html">polars.Expr.entropy</a></li>
@@ -1078,6 +1080,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.n_unique.html">polars.Expr.n_unique</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.null_count.html">polars.Expr.null_count</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.pct_change.html">polars.Expr.pct_change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="polars.Expr.radians.html">polars.Expr.radians</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.rank.html">polars.Expr.rank</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.rolling_apply.html">polars.Expr.rolling_apply</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.rolling_max.html">polars.Expr.rolling_max</a></li>
@@ -1325,6 +1328,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_datetime.html">polars.Expr.str.to_datetime</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_decimal.html">polars.Expr.str.to_decimal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_lowercase.html">polars.Expr.str.to_lowercase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_titlecase.html">polars.Expr.str.to_titlecase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_time.html">polars.Expr.str.to_time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_uppercase.html">polars.Expr.str.to_uppercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.zfill.html">polars.Expr.str.zfill</a></li>
@@ -1581,9 +1585,10 @@ document.write(`
 <h1>polars.Expr.fill_null<a class="headerlink" href="#polars-expr-fill-null" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="polars.Expr.fill_null">
-<span class="sig-prename descclassname"><span class="pre">Expr.</span></span><span class="sig-name descname"><span class="pre">fill_null</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FillNullStrategy</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/expr/expr.py#L2319-L2399"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polars.Expr.fill_null" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">Expr.</span></span><span class="sig-name descname"><span class="pre">fill_null</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FillNullStrategy</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/expr/expr.py#L2319-L2422"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polars.Expr.fill_null" title="Permalink to this definition">#</a></dt>
 <dd><p>Fill null values using the specified value or strategy.</p>
-<p>To interpolate over null values see interpolate.</p>
+<p>To interpolate over null values see interpolate.
+See the examples below to fill nulls with an expression.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -1604,38 +1609,60 @@ document.write(`
 <span class="gp">... </span>        <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="p">}</span>
 <span class="gp">... </span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">fill_null</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;zero&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fill_null</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;zero&quot;</span><span class="p">))</span>
+<span class="go">shape: (3, 2)</span>
+<span class="go">┌──────┬─────┐</span>
+<span class="go">│ a    ┆ b   │</span>
+<span class="go">│ ---  ┆ --- │</span>
+<span class="go">│ i64  ┆ i64 │</span>
+<span class="go">╞══════╪═════╡</span>
+<span class="go">│ 1    ┆ 4   │</span>
+<span class="go">│ 2    ┆ 0   │</span>
+<span class="go">│ null ┆ 6   │</span>
+<span class="go">└──────┴─────┘</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fill_null</span><span class="p">(</span><span class="mi">99</span><span class="p">))</span>
+<span class="go">shape: (3, 2)</span>
+<span class="go">┌──────┬─────┐</span>
+<span class="go">│ a    ┆ b   │</span>
+<span class="go">│ ---  ┆ --- │</span>
+<span class="go">│ i64  ┆ i64 │</span>
+<span class="go">╞══════╪═════╡</span>
+<span class="go">│ 1    ┆ 4   │</span>
+<span class="go">│ 2    ┆ 99  │</span>
+<span class="go">│ null ┆ 6   │</span>
+<span class="go">└──────┴─────┘</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fill_null</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;forward&quot;</span><span class="p">))</span>
+<span class="go">shape: (3, 2)</span>
+<span class="go">┌──────┬─────┐</span>
+<span class="go">│ a    ┆ b   │</span>
+<span class="go">│ ---  ┆ --- │</span>
+<span class="go">│ i64  ┆ i64 │</span>
+<span class="go">╞══════╪═════╡</span>
+<span class="go">│ 1    ┆ 4   │</span>
+<span class="go">│ 2    ┆ 4   │</span>
+<span class="go">│ null ┆ 6   │</span>
+<span class="go">└──────┴─────┘</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fill_null</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()))</span>
+<span class="go">shape: (3, 2)</span>
+<span class="go">┌──────┬─────┐</span>
+<span class="go">│ a    ┆ b   │</span>
+<span class="go">│ ---  ┆ --- │</span>
+<span class="go">│ i64  ┆ f64 │</span>
+<span class="go">╞══════╪═════╡</span>
+<span class="go">│ 1    ┆ 4.0 │</span>
+<span class="go">│ 2    ┆ 5.0 │</span>
+<span class="go">│ null ┆ 6.0 │</span>
+<span class="go">└──────┴─────┘</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">fill_null</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">median</span><span class="p">()))</span>
 <span class="go">shape: (3, 2)</span>
 <span class="go">┌─────┬─────┐</span>
 <span class="go">│ a   ┆ b   │</span>
 <span class="go">│ --- ┆ --- │</span>
-<span class="go">│ i64 ┆ i64 │</span>
+<span class="go">│ f64 ┆ f64 │</span>
 <span class="go">╞═════╪═════╡</span>
-<span class="go">│ 1   ┆ 4   │</span>
-<span class="go">│ 2   ┆ 0   │</span>
-<span class="go">│ 0   ┆ 6   │</span>
-<span class="go">└─────┴─────┘</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">fill_null</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span>
-<span class="go">shape: (3, 2)</span>
-<span class="go">┌─────┬─────┐</span>
-<span class="go">│ a   ┆ b   │</span>
-<span class="go">│ --- ┆ --- │</span>
-<span class="go">│ i64 ┆ i64 │</span>
-<span class="go">╞═════╪═════╡</span>
-<span class="go">│ 1   ┆ 4   │</span>
-<span class="go">│ 2   ┆ 99  │</span>
-<span class="go">│ 99  ┆ 6   │</span>
-<span class="go">└─────┴─────┘</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">fill_null</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;forward&quot;</span><span class="p">)</span>
-<span class="go">shape: (3, 2)</span>
-<span class="go">┌─────┬─────┐</span>
-<span class="go">│ a   ┆ b   │</span>
-<span class="go">│ --- ┆ --- │</span>
-<span class="go">│ i64 ┆ i64 │</span>
-<span class="go">╞═════╪═════╡</span>
-<span class="go">│ 1   ┆ 4   │</span>
-<span class="go">│ 2   ┆ 4   │</span>
-<span class="go">│ 2   ┆ 6   │</span>
+<span class="go">│ 1.0 ┆ 4.0 │</span>
+<span class="go">│ 2.0 ┆ 5.0 │</span>
+<span class="go">│ 1.5 ┆ 6.0 │</span>
 <span class="go">└─────┴─────┘</span>
 </pre></div>
 </div>

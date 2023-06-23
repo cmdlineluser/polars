@@ -670,6 +670,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="series/api/polars.Series.str.to_decimal.html">polars.Series.str.to_decimal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="series/api/polars.Series.str.to_lowercase.html">polars.Series.str.to_lowercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="series/api/polars.Series.str.to_time.html">polars.Series.str.to_time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="series/api/polars.Series.str.to_titlecase.html">polars.Series.str.to_titlecase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="series/api/polars.Series.str.to_uppercase.html">polars.Series.str.to_uppercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="series/api/polars.Series.str.zfill.html">polars.Series.str.zfill</a></li>
 <li class="toctree-l3"><a class="reference internal" href="series/api/polars.Series.str.parse_int.html">polars.Series.str.parse_int</a></li>
@@ -1062,6 +1063,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.cumprod.html">polars.Expr.cumprod</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.cumsum.html">polars.Expr.cumsum</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.cumulative_eval.html">polars.Expr.cumulative_eval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.degrees.html">polars.Expr.degrees</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.diff.html">polars.Expr.diff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.dot.html">polars.Expr.dot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.entropy.html">polars.Expr.entropy</a></li>
@@ -1078,6 +1080,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.n_unique.html">polars.Expr.n_unique</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.null_count.html">polars.Expr.null_count</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.pct_change.html">polars.Expr.pct_change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.radians.html">polars.Expr.radians</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.rank.html">polars.Expr.rank</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.rolling_apply.html">polars.Expr.rolling_apply</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.rolling_max.html">polars.Expr.rolling_max</a></li>
@@ -1325,6 +1328,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.str.to_datetime.html">polars.Expr.str.to_datetime</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.str.to_decimal.html">polars.Expr.str.to_decimal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.str.to_lowercase.html">polars.Expr.str.to_lowercase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.str.to_titlecase.html">polars.Expr.str.to_titlecase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.str.to_time.html">polars.Expr.str.to_time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.str.to_uppercase.html">polars.Expr.str.to_uppercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.str.zfill.html">polars.Expr.str.zfill</a></li>
@@ -1600,7 +1604,7 @@ testing primitives and strategy generators/helpers to make it easy to generate
 suitable test DataFrames and Series.</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.testing.parametric.dataframes.html#polars.testing.parametric.dataframes" title="polars.testing.parametric.dataframes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">testing.parametric.dataframes</span></code></a>([cols, lazy, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.testing.parametric.dataframes.html#polars.testing.parametric.dataframes" title="polars.testing.parametric.dataframes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">testing.parametric.dataframes</span></code></a>()</p></td>
 <td><p>Hypothesis strategy for producing polars DataFrames or LazyFrames.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api/polars.testing.parametric.series.html#polars.testing.parametric.series" title="polars.testing.parametric.series"><code class="xref py py-obj docutils literal notranslate"><span class="pre">testing.parametric.series</span></code></a>(*[, name, dtype, ...])</p></td>

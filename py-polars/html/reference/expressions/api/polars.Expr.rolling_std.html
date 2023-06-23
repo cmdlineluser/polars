@@ -670,6 +670,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_decimal.html">polars.Series.str.to_decimal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_lowercase.html">polars.Series.str.to_lowercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_time.html">polars.Series.str.to_time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_titlecase.html">polars.Series.str.to_titlecase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.to_uppercase.html">polars.Series.str.to_uppercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.zfill.html">polars.Series.str.zfill</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../series/api/polars.Series.str.parse_int.html">polars.Series.str.parse_int</a></li>
@@ -1062,6 +1063,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.cumprod.html">polars.Expr.cumprod</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.cumsum.html">polars.Expr.cumsum</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.cumulative_eval.html">polars.Expr.cumulative_eval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="polars.Expr.degrees.html">polars.Expr.degrees</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.diff.html">polars.Expr.diff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.dot.html">polars.Expr.dot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.entropy.html">polars.Expr.entropy</a></li>
@@ -1078,6 +1080,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.n_unique.html">polars.Expr.n_unique</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.null_count.html">polars.Expr.null_count</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.pct_change.html">polars.Expr.pct_change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="polars.Expr.radians.html">polars.Expr.radians</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.rank.html">polars.Expr.rank</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.rolling_apply.html">polars.Expr.rolling_apply</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.rolling_max.html">polars.Expr.rolling_max</a></li>
@@ -1325,6 +1328,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_datetime.html">polars.Expr.str.to_datetime</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_decimal.html">polars.Expr.str.to_decimal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_lowercase.html">polars.Expr.str.to_lowercase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_titlecase.html">polars.Expr.str.to_titlecase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_time.html">polars.Expr.str.to_time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.to_uppercase.html">polars.Expr.str.to_uppercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="polars.Expr.str.zfill.html">polars.Expr.str.zfill</a></li>
@@ -1581,13 +1585,15 @@ document.write(`
 <h1>polars.Expr.rolling_std<a class="headerlink" href="#polars-expr-rolling-std" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="polars.Expr.rolling_std">
-<span class="sig-prename descclassname"><span class="pre">Expr.</span></span><span class="sig-name descname"><span class="pre">rolling_std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">timedelta</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_periods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">closed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ClosedInterval</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'left'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/expr/expr.py#L5114-L5226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polars.Expr.rolling_std" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">Expr.</span></span><span class="sig-name descname"><span class="pre">rolling_std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">timedelta</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_periods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">closed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ClosedInterval</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'left'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/expr/expr.py#L5664-L5893"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polars.Expr.rolling_std" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute a rolling standard deviation.</p>
 <p>A window of length <cite>window_size</cite> will traverse the array. The values that fill
 this window will (optionally) be multiplied with the weights given by the
 <cite>weight</cite> vector. The resulting values will be aggregated to their sum.</p>
-<p>If you pass a <code class="docutils literal notranslate"><span class="pre">by</span></code> column <code class="docutils literal notranslate"><span class="pre">&lt;t_0,</span> <span class="pre">t_1,</span> <span class="pre">...,</span> <span class="pre">t_2&gt;</span></code>, then by default the
-windows will be:</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">by</span></code> has not been specified (the default), the window at a given row will
+include the row itself, and the <cite>window_size - 1</cite> elements before it.</p>
+<p>If you pass a <code class="docutils literal notranslate"><span class="pre">by</span></code> column <code class="docutils literal notranslate"><span class="pre">&lt;t_0,</span> <span class="pre">t_1,</span> <span class="pre">...,</span> <span class="pre">t_n&gt;</span></code>, then <cite>closed=”left”</cite> means
+the windows will be:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>[t_0 - window_size, t_0)</p></li>
@@ -1596,8 +1602,8 @@ windows will be:</p>
 <li><p>[t_n - window_size, t_n)</p></li>
 </ul>
 </div></blockquote>
-<p>Otherwise, the window at a given row will include the row itself, and the
-<cite>window_size - 1</cite> elements before it.</p>
+<p>With <cite>closed=”right”</cite>, the left endpoint is not included and the right
+endpoint is included.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
@@ -1635,7 +1641,8 @@ a result. If None, it will be set equal to window size.</p>
 set the column that will be used to determine the windows. This column must
 be of dtype Datetime.</p>
 </dd>
-<dt><strong>closed</strong><span class="classifier">{‘left’, ‘right’, ‘both’, ‘none’}</span></dt><dd><p>Define which sides of the temporal interval are closed (inclusive).</p>
+<dt><strong>closed</strong><span class="classifier">{‘left’, ‘right’, ‘both’, ‘none’}</span></dt><dd><p>Define which sides of the temporal interval are closed (inclusive); only
+applicable if <cite>by</cite> has been set.</p>
 </dd>
 <dt><strong>ddof</strong></dt><dd><p>“Delta Degrees of Freedom”: The divisor for a length N window is N - ddof</p>
 </dd>
@@ -1652,25 +1659,137 @@ breaking change.</p>
 window, consider using <cite>groupby_rolling</cite> this method can cache the window size
 computation.</p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">]})</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="p">[</span>
-<span class="gp">... </span>        <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rolling_std</span><span class="p">(</span><span class="n">window_size</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">rolling_std</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rolling_std</span><span class="p">(</span><span class="n">window_size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
-<span class="go">shape: (6, 1)</span>
-<span class="go">┌──────────┐</span>
-<span class="go">│ A        │</span>
-<span class="go">│ ---      │</span>
-<span class="go">│ f64      │</span>
-<span class="go">╞══════════╡</span>
-<span class="go">│ null     │</span>
-<span class="go">│ null     │</span>
-<span class="go">│ 1.0      │</span>
-<span class="go">│ 1.0      │</span>
-<span class="go">│ 1.527525 │</span>
-<span class="go">│ 2.0      │</span>
-<span class="go">└──────────┘</span>
+<span class="go">shape: (6, 2)</span>
+<span class="go">┌─────┬─────────────┐</span>
+<span class="go">│ A   ┆ rolling_std │</span>
+<span class="go">│ --- ┆ ---         │</span>
+<span class="go">│ f64 ┆ f64         │</span>
+<span class="go">╞═════╪═════════════╡</span>
+<span class="go">│ 1.0 ┆ null        │</span>
+<span class="go">│ 2.0 ┆ 0.707107    │</span>
+<span class="go">│ 3.0 ┆ 0.707107    │</span>
+<span class="go">│ 4.0 ┆ 0.707107    │</span>
+<span class="go">│ 5.0 ┆ 0.707107    │</span>
+<span class="go">│ 6.0 ┆ 0.707107    │</span>
+<span class="go">└─────┴─────────────┘</span>
+</pre></div>
+</div>
+<p>Specify weights to multiply the values in the window with:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">rolling_std</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rolling_std</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">window_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">shape: (6, 2)</span>
+<span class="go">┌─────┬─────────────┐</span>
+<span class="go">│ A   ┆ rolling_std │</span>
+<span class="go">│ --- ┆ ---         │</span>
+<span class="go">│ f64 ┆ f64         │</span>
+<span class="go">╞═════╪═════════════╡</span>
+<span class="go">│ 1.0 ┆ null        │</span>
+<span class="go">│ 2.0 ┆ 0.883883    │</span>
+<span class="go">│ 3.0 ┆ 1.237437    │</span>
+<span class="go">│ 4.0 ┆ 1.59099     │</span>
+<span class="go">│ 5.0 ┆ 1.944544    │</span>
+<span class="go">│ 6.0 ┆ 2.298097    │</span>
+<span class="go">└─────┴─────────────┘</span>
+</pre></div>
+</div>
+<p>Center the values in the window</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">rolling_std</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rolling_std</span><span class="p">(</span><span class="n">window_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">shape: (6, 2)</span>
+<span class="go">┌─────┬─────────────┐</span>
+<span class="go">│ A   ┆ rolling_std │</span>
+<span class="go">│ --- ┆ ---         │</span>
+<span class="go">│ f64 ┆ f64         │</span>
+<span class="go">╞═════╪═════════════╡</span>
+<span class="go">│ 1.0 ┆ null        │</span>
+<span class="go">│ 2.0 ┆ 1.0         │</span>
+<span class="go">│ 3.0 ┆ 1.0         │</span>
+<span class="go">│ 4.0 ┆ 1.0         │</span>
+<span class="go">│ 5.0 ┆ 1.0         │</span>
+<span class="go">│ 6.0 ┆ null        │</span>
+<span class="go">└─────┴─────────────┘</span>
+</pre></div>
+</div>
+<p>Create a DataFrame with a datetime column and a row number column</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stop</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_temporal</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="s2">&quot;1h&quot;</span><span class="p">,</span> <span class="n">eager</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
+<span class="gp">... </span><span class="p">)</span><span class="o">.</span><span class="n">with_row_count</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_temporal</span>
+<span class="go">shape: (25, 2)</span>
+<span class="go">┌────────┬─────────────────────┐</span>
+<span class="go">│ row_nr ┆ date                │</span>
+<span class="go">│ ---    ┆ ---                 │</span>
+<span class="go">│ u32    ┆ datetime[μs]        │</span>
+<span class="go">╞════════╪═════════════════════╡</span>
+<span class="go">│ 0      ┆ 2001-01-01 00:00:00 │</span>
+<span class="go">│ 1      ┆ 2001-01-01 01:00:00 │</span>
+<span class="go">│ 2      ┆ 2001-01-01 02:00:00 │</span>
+<span class="go">│ 3      ┆ 2001-01-01 03:00:00 │</span>
+<span class="go">│ …      ┆ …                   │</span>
+<span class="go">│ 21     ┆ 2001-01-01 21:00:00 │</span>
+<span class="go">│ 22     ┆ 2001-01-01 22:00:00 │</span>
+<span class="go">│ 23     ┆ 2001-01-01 23:00:00 │</span>
+<span class="go">│ 24     ┆ 2001-01-02 00:00:00 │</span>
+<span class="go">└────────┴─────────────────────┘</span>
+</pre></div>
+</div>
+<p>Compute the rolling std with the default left closure of temporal windows</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df_temporal</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">rolling_row_std</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;row_nr&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rolling_std</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">window_size</span><span class="o">=</span><span class="s2">&quot;2h&quot;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s2">&quot;date&quot;</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">shape: (25, 3)</span>
+<span class="go">┌────────┬─────────────────────┬─────────────────┐</span>
+<span class="go">│ row_nr ┆ date                ┆ rolling_row_std │</span>
+<span class="go">│ ---    ┆ ---                 ┆ ---             │</span>
+<span class="go">│ u32    ┆ datetime[μs]        ┆ f64             │</span>
+<span class="go">╞════════╪═════════════════════╪═════════════════╡</span>
+<span class="go">│ 0      ┆ 2001-01-01 00:00:00 ┆ null            │</span>
+<span class="go">│ 1      ┆ 2001-01-01 01:00:00 ┆ 0.0             │</span>
+<span class="go">│ 2      ┆ 2001-01-01 02:00:00 ┆ 0.707107        │</span>
+<span class="go">│ 3      ┆ 2001-01-01 03:00:00 ┆ 0.707107        │</span>
+<span class="go">│ …      ┆ …                   ┆ …               │</span>
+<span class="go">│ 21     ┆ 2001-01-01 21:00:00 ┆ 0.707107        │</span>
+<span class="go">│ 22     ┆ 2001-01-01 22:00:00 ┆ 0.707107        │</span>
+<span class="go">│ 23     ┆ 2001-01-01 23:00:00 ┆ 0.707107        │</span>
+<span class="go">│ 24     ┆ 2001-01-02 00:00:00 ┆ 0.707107        │</span>
+<span class="go">└────────┴─────────────────────┴─────────────────┘</span>
+</pre></div>
+</div>
+<p>Compute the rolling std with the closure of windows on both sides</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df_temporal</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">rolling_row_std</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;row_nr&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rolling_std</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">window_size</span><span class="o">=</span><span class="s2">&quot;2h&quot;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s2">&quot;both&quot;</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">shape: (25, 3)</span>
+<span class="go">┌────────┬─────────────────────┬─────────────────┐</span>
+<span class="go">│ row_nr ┆ date                ┆ rolling_row_std │</span>
+<span class="go">│ ---    ┆ ---                 ┆ ---             │</span>
+<span class="go">│ u32    ┆ datetime[μs]        ┆ f64             │</span>
+<span class="go">╞════════╪═════════════════════╪═════════════════╡</span>
+<span class="go">│ 0      ┆ 2001-01-01 00:00:00 ┆ 0.0             │</span>
+<span class="go">│ 1      ┆ 2001-01-01 01:00:00 ┆ 0.707107        │</span>
+<span class="go">│ 2      ┆ 2001-01-01 02:00:00 ┆ 1.0             │</span>
+<span class="go">│ 3      ┆ 2001-01-01 03:00:00 ┆ 1.0             │</span>
+<span class="go">│ …      ┆ …                   ┆ …               │</span>
+<span class="go">│ 21     ┆ 2001-01-01 21:00:00 ┆ 1.0             │</span>
+<span class="go">│ 22     ┆ 2001-01-01 22:00:00 ┆ 1.0             │</span>
+<span class="go">│ 23     ┆ 2001-01-01 23:00:00 ┆ 1.0             │</span>
+<span class="go">│ 24     ┆ 2001-01-02 00:00:00 ┆ 1.0             │</span>
+<span class="go">└────────┴─────────────────────┴─────────────────┘</span>
 </pre></div>
 </div>
 </dd></dl>

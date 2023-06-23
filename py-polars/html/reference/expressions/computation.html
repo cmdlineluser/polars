@@ -666,6 +666,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.str.to_decimal.html">polars.Series.str.to_decimal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.str.to_lowercase.html">polars.Series.str.to_lowercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.str.to_time.html">polars.Series.str.to_time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.str.to_titlecase.html">polars.Series.str.to_titlecase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.str.to_uppercase.html">polars.Series.str.to_uppercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.str.zfill.html">polars.Series.str.zfill</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.str.parse_int.html">polars.Series.str.parse_int</a></li>
@@ -1058,6 +1059,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.cumprod.html">polars.Expr.cumprod</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.cumsum.html">polars.Expr.cumsum</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.cumulative_eval.html">polars.Expr.cumulative_eval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.degrees.html">polars.Expr.degrees</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.diff.html">polars.Expr.diff</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.dot.html">polars.Expr.dot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.entropy.html">polars.Expr.entropy</a></li>
@@ -1074,6 +1076,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.n_unique.html">polars.Expr.n_unique</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.null_count.html">polars.Expr.null_count</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.pct_change.html">polars.Expr.pct_change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.radians.html">polars.Expr.radians</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.rank.html">polars.Expr.rank</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.rolling_apply.html">polars.Expr.rolling_apply</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.rolling_max.html">polars.Expr.rolling_max</a></li>
@@ -1321,6 +1324,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.str.to_datetime.html">polars.Expr.str.to_datetime</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.str.to_decimal.html">polars.Expr.str.to_decimal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.str.to_lowercase.html">polars.Expr.str.to_lowercase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.str.to_titlecase.html">polars.Expr.str.to_titlecase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.str.to_time.html">polars.Expr.str.to_time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.str.to_uppercase.html">polars.Expr.str.to_uppercase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.str.zfill.html">polars.Expr.str.zfill</a></li>
@@ -1623,53 +1627,59 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.cumulative_eval.html#polars.Expr.cumulative_eval" title="polars.Expr.cumulative_eval"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.cumulative_eval</span></code></a>(expr[, min_periods, ...])</p></td>
 <td><p>Run an expression over a sliding window that increases <cite>1</cite> slot every iteration.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.diff.html#polars.Expr.diff" title="polars.Expr.diff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.diff</span></code></a>([n, null_behavior])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.degrees.html#polars.Expr.degrees" title="polars.Expr.degrees"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.degrees</span></code></a>()</p></td>
+<td><p>Convert from radians to degrees.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.diff.html#polars.Expr.diff" title="polars.Expr.diff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.diff</span></code></a>([n, null_behavior])</p></td>
 <td><p>Calculate the n-th discrete difference.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.dot.html#polars.Expr.dot" title="polars.Expr.dot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.dot</span></code></a>(other)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.dot.html#polars.Expr.dot" title="polars.Expr.dot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.dot</span></code></a>(other)</p></td>
 <td><p>Compute the dot/inner product between two Expressions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.entropy.html#polars.Expr.entropy" title="polars.Expr.entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.entropy</span></code></a>([base, normalize])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.entropy.html#polars.Expr.entropy" title="polars.Expr.entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.entropy</span></code></a>([base, normalize])</p></td>
 <td><p>Computes the entropy.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.ewm_mean.html#polars.Expr.ewm_mean" title="polars.Expr.ewm_mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.ewm_mean</span></code></a>([com, span, half_life, alpha, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.ewm_mean.html#polars.Expr.ewm_mean" title="polars.Expr.ewm_mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.ewm_mean</span></code></a>([com, span, half_life, alpha, ...])</p></td>
 <td><p>Exponentially-weighted moving average.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.ewm_std.html#polars.Expr.ewm_std" title="polars.Expr.ewm_std"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.ewm_std</span></code></a>([com, span, half_life, alpha, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.ewm_std.html#polars.Expr.ewm_std" title="polars.Expr.ewm_std"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.ewm_std</span></code></a>([com, span, half_life, alpha, ...])</p></td>
 <td><p>Exponentially-weighted moving standard deviation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.ewm_var.html#polars.Expr.ewm_var" title="polars.Expr.ewm_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.ewm_var</span></code></a>([com, span, half_life, alpha, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.ewm_var.html#polars.Expr.ewm_var" title="polars.Expr.ewm_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.ewm_var</span></code></a>([com, span, half_life, alpha, ...])</p></td>
 <td><p>Exponentially-weighted moving variance.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.exp.html#polars.Expr.exp" title="polars.Expr.exp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.exp</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.exp.html#polars.Expr.exp" title="polars.Expr.exp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.exp</span></code></a>()</p></td>
 <td><p>Compute the exponential, element-wise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.hash.html#polars.Expr.hash" title="polars.Expr.hash"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.hash</span></code></a>([seed, seed_1, seed_2, seed_3])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.hash.html#polars.Expr.hash" title="polars.Expr.hash"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.hash</span></code></a>([seed, seed_1, seed_2, seed_3])</p></td>
 <td><p>Hash the elements in the selection.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.kurtosis.html#polars.Expr.kurtosis" title="polars.Expr.kurtosis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.kurtosis</span></code></a>(*[, fisher, bias])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.kurtosis.html#polars.Expr.kurtosis" title="polars.Expr.kurtosis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.kurtosis</span></code></a>(*[, fisher, bias])</p></td>
 <td><p>Compute the kurtosis (Fisher or Pearson) of a dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.log.html#polars.Expr.log" title="polars.Expr.log"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.log</span></code></a>([base])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.log.html#polars.Expr.log" title="polars.Expr.log"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.log</span></code></a>([base])</p></td>
 <td><p>Compute the logarithm to a given base.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.log10.html#polars.Expr.log10" title="polars.Expr.log10"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.log10</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.log10.html#polars.Expr.log10" title="polars.Expr.log10"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.log10</span></code></a>()</p></td>
 <td><p>Compute the base 10 logarithm of the input array, element-wise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.log1p.html#polars.Expr.log1p" title="polars.Expr.log1p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.log1p</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.log1p.html#polars.Expr.log1p" title="polars.Expr.log1p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.log1p</span></code></a>()</p></td>
 <td><p>Compute the natural logarithm of each element plus one.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.mode.html#polars.Expr.mode" title="polars.Expr.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.mode</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.mode.html#polars.Expr.mode" title="polars.Expr.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.mode</span></code></a>()</p></td>
 <td><p>Compute the most occurring value(s).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.n_unique.html#polars.Expr.n_unique" title="polars.Expr.n_unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.n_unique</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.n_unique.html#polars.Expr.n_unique" title="polars.Expr.n_unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.n_unique</span></code></a>()</p></td>
 <td><p>Count unique values.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.null_count.html#polars.Expr.null_count" title="polars.Expr.null_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.null_count</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.null_count.html#polars.Expr.null_count" title="polars.Expr.null_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.null_count</span></code></a>()</p></td>
 <td><p>Count null values.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.pct_change.html#polars.Expr.pct_change" title="polars.Expr.pct_change"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.pct_change</span></code></a>([n])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.pct_change.html#polars.Expr.pct_change" title="polars.Expr.pct_change"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.pct_change</span></code></a>([n])</p></td>
 <td><p>Computes percentage change between values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.radians.html#polars.Expr.radians" title="polars.Expr.radians"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.radians</span></code></a>()</p></td>
+<td><p>Convert from degrees to radians.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.rank.html#polars.Expr.rank" title="polars.Expr.rank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.rank</span></code></a>([method, descending, seed])</p></td>
 <td><p>Assign ranks to data, dealing with ties appropriately.</p></td>
