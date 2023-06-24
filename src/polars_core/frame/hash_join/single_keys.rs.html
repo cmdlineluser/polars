@@ -68,13 +68,9 @@
 <a href="#68" id="68">68</a>
 <a href="#69" id="69">69</a>
 <a href="#70" id="70">70</a>
-<a href="#71" id="71">71</a>
-<a href="#72" id="72">72</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>create_probe_table&lt;T, IntoSlice&gt;(
-    keys: Vec&lt;IntoSlice&gt;,
-) -&gt; Vec&lt;PlHashMap&lt;T, Vec&lt;IdxSize&gt;&gt;&gt;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>build_tables&lt;T, IntoSlice&gt;(keys: Vec&lt;IntoSlice&gt;) -&gt; Vec&lt;PlHashMap&lt;T, Vec&lt;IdxSize&gt;&gt;&gt;
 <span class="kw">where
     </span>T: Send + Hash + Eq + Sync + Copy + AsU64,
     IntoSlice: AsRef&lt;[T]&gt; + Send + Sync,

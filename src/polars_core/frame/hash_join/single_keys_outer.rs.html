@@ -125,6 +125,9 @@
 <a href="#125" id="125">125</a>
 <a href="#126" id="126">126</a>
 <a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Probe the build table and add tuples to the results (inner join)
@@ -211,12 +214,15 @@
     <span class="kw">let </span><span class="kw-2">mut </span>results = Vec::with_capacity(size);
 
     <span class="comment">// prepare hash table
-    </span><span class="kw">let </span><span class="kw-2">mut </span>hash_tbls = prepare_hashed_relation_threaded(build);
-    <span class="kw">if </span>validate.needs_checks() {
+    </span><span class="kw">let </span><span class="kw-2">mut </span>hash_tbls = <span class="kw">if </span>validate.needs_checks() {
+        <span class="kw">let </span>expected_size = build.iter().map(|i| i.size_hint().<span class="number">0</span>).sum();
+        <span class="kw">let </span>hash_tbls = prepare_hashed_relation_threaded(build);
         <span class="kw">let </span>build_size = hash_tbls.iter().map(|m| m.len()).sum();
-        <span class="kw">let </span>expected_size = probe.iter().map(|i| i.size_hint().<span class="number">0</span>).sum();
-        validate.validate_build(build_size, expected_size, <span class="bool-val">true</span>)<span class="question-mark">?</span>;
-    }
+        validate.validate_build(build_size, expected_size, !swap)<span class="question-mark">?</span>;
+        hash_tbls
+    } <span class="kw">else </span>{
+        prepare_hashed_relation_threaded(build)
+    };
     <span class="kw">let </span>random_state = hash_tbls[<span class="number">0</span>].hasher().clone();
 
     <span class="comment">// we pre hash the probing values

@@ -132,10 +132,13 @@
 <a href="#132" id="132">132</a>
 <a href="#133" id="133">133</a>
 <a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>polars_utils::iter::EnumerateIdxTrait;
 <span class="kw">use </span>polars_utils::sync::SyncPtr;
 
-<span class="kw">use </span><span class="kw">super</span>::single_keys::create_probe_table;
+<span class="kw">use </span><span class="kw">super</span>::single_keys::build_tables;
 <span class="kw">use super</span>::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::frame::hash_join::single_keys::probe_to_offsets;
 <span class="kw">use </span><span class="kw">crate</span>::utils::flatten;
@@ -182,12 +185,15 @@
     <span class="comment">// NOTE: see the left join for more elaborate comments
 
     // first we hash one relation
-    </span><span class="kw">let </span>hash_tbls = create_probe_table(build);
-    <span class="kw">if </span>validate.needs_checks() {
+    </span><span class="kw">let </span>hash_tbls = <span class="kw">if </span>validate.needs_checks() {
+        <span class="kw">let </span>expected_size = build.iter().map(|v| v.as_ref().len()).sum();
+        <span class="kw">let </span>hash_tbls = build_tables(build);
         <span class="kw">let </span>build_size = hash_tbls.iter().map(|m| m.len()).sum();
-        <span class="kw">let </span>expected_size = probe.iter().map(|v| v.as_ref().len()).sum();
-        validate.validate_build(build_size, expected_size, swap)<span class="question-mark">?</span>;
-    }
+        validate.validate_build(build_size, expected_size, !swap)<span class="question-mark">?</span>;
+        hash_tbls
+    } <span class="kw">else </span>{
+        build_tables(build)
+    };
 
     <span class="kw">let </span>n_tables = hash_tbls.len() <span class="kw">as </span>u64;
     <span class="macro">debug_assert!</span>(n_tables.is_power_of_two());

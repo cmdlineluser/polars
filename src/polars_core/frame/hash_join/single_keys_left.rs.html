@@ -176,7 +176,10 @@
 <a href="#176" id="176">176</a>
 <a href="#177" id="177">177</a>
 <a href="#178" id="178">178</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::single_keys::create_probe_table;
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::single_keys::build_tables;
 <span class="kw">use super</span>::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::frame::hash_join::single_keys::probe_to_offsets;
 <span class="kw">use </span><span class="kw">crate</span>::utils::flatten::flatten_par;
@@ -290,12 +293,15 @@
     T: Send + Hash + Eq + Sync + Copy + AsU64,
 {
     <span class="comment">// first we hash one relation
-    </span><span class="kw">let </span>hash_tbls = create_probe_table(build);
-    <span class="kw">if </span>validate.needs_checks() {
+    </span><span class="kw">let </span>hash_tbls = <span class="kw">if </span>validate.needs_checks() {
+        <span class="kw">let </span>expected_size = build.iter().map(|v| v.as_ref().len()).sum();
+        <span class="kw">let </span>hash_tbls = build_tables(build);
         <span class="kw">let </span>build_size = hash_tbls.iter().map(|m| m.len()).sum();
-        <span class="kw">let </span>expected_size = probe.iter().map(|v| v.as_ref().len()).sum();
         validate.validate_build(build_size, expected_size, <span class="bool-val">false</span>)<span class="question-mark">?</span>;
-    }
+        hash_tbls
+    } <span class="kw">else </span>{
+        build_tables(build)
+    };
 
     <span class="comment">// we determine the offset so that we later know which index to store in the join tuples
     </span><span class="kw">let </span>offsets = probe_to_offsets(<span class="kw-2">&amp;</span>probe);

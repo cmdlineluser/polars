@@ -350,13 +350,13 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         build_size: usize,
         expected_size: usize,
-        swap: bool,
+        check_rhs: bool,
     ) -&gt; PolarsResult&lt;()&gt; {
         <span class="kw">use </span>JoinValidation::<span class="kw-2">*</span>;
 
         <span class="comment">// all lhs `Many`s are valid
         // lhs `One`s need to be checked
-        </span><span class="kw">let </span>valid = <span class="kw">match </span><span class="self">self</span>.swap(swap) {
+        </span><span class="kw">let </span>valid = <span class="kw">match </span><span class="self">self</span>.swap(check_rhs) {
             ManyToMany | ManyToOne =&gt; <span class="bool-val">true</span>,
             OneToMany | OneToOne =&gt; build_size == expected_size,
         };
