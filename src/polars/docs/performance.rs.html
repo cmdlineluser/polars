@@ -156,7 +156,7 @@
 //!
 //!     df_a.try_apply(&quot;a&quot;, |s| s.categorical().cloned())?;
 //!     df_b.try_apply(&quot;b&quot;, |s| s.categorical().cloned())?;
-//!     df_a.join(&amp;df_b, [&quot;a&quot;], [&quot;b&quot;], JoinType::Inner, None)
+//!     df_a.join(&amp;df_b, [&quot;a&quot;], [&quot;b&quot;], JoinArgs::new(JoinType::Inner))
 //! }
 //! ```
 //!

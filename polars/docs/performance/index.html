@@ -51,7 +51,7 @@ on.</p>
 
     df_a.try_apply(<span class="string">&quot;a&quot;</span>, |s| s.categorical().cloned())<span class="question-mark">?</span>;
     df_b.try_apply(<span class="string">&quot;b&quot;</span>, |s| s.categorical().cloned())<span class="question-mark">?</span>;
-    df_a.join(<span class="kw-2">&amp;</span>df_b, [<span class="string">&quot;a&quot;</span>], [<span class="string">&quot;b&quot;</span>], JoinType::Inner, <span class="prelude-val">None</span>)
+    df_a.join(<span class="kw-2">&amp;</span>df_b, [<span class="string">&quot;a&quot;</span>], [<span class="string">&quot;b&quot;</span>], JoinArgs::new(JoinType::Inner))
 }</code></pre></div>
 <h4 id="example-lazy-join-multiple-dataframes-on-a-categorical"><a href="#example-lazy-join-multiple-dataframes-on-a-categorical">Example: Lazy join multiple DataFrames on a Categorical</a></h4>
 <p>A lazy Query always has a global string cache (unless you opt-out) for the duration of that query (until <code>collect</code> is called).

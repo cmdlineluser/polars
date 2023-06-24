@@ -701,8 +701,6 @@
 <a href="#701" id="701">701</a>
 <a href="#702" id="702">702</a>
 <a href="#703" id="703">703</a>
-<a href="#704" id="704">704</a>
-<a href="#705" id="705">705</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//!
 //! # Polars Eager cookbook
 //!
@@ -1097,7 +1095,7 @@
 //! temp.outer_join(&amp;rain, [&quot;days&quot;], [&quot;days&quot;]);
 //!
 //! // join on multiple columns
-//! temp.join(&amp;rain, vec![&quot;days&quot;, &quot;other&quot;], vec![&quot;days&quot;, &quot;other&quot;], JoinType::Left, None);
+//! temp.join(&amp;rain, vec![&quot;days&quot;, &quot;other&quot;], vec![&quot;days&quot;, &quot;other&quot;], JoinArgs::new(JoinType::Left));
 //!
 //! # Ok(())
 //! # }
@@ -1140,9 +1138,7 @@
 //!      )?;
 //!
 //! // groupby &quot;foo&quot; | pivot &quot;bar&quot; column | aggregate &quot;N&quot;
-//!  let pivoted = df.groupby([&quot;foo&quot;])?
-//!     .pivot([&quot;bar&quot;], [&quot;N&quot;])
-//!     .first();
+//!  let pivoted = pivot::pivot(&amp;df, [&quot;foo&quot;], [&quot;bar&quot;], [&quot;N&quot;], false, Some(first()), None);
 //!
 //! // pivoted:
 //! // +-----+------+------+------+------+------+
@@ -1336,7 +1332,7 @@
 //! use polars::prelude::*;
 //! use std::fs::File;
 //!
-//! # fn example(df: &amp;mut DataFrame) -&gt; PolarsResult&lt;()&gt; {
+//! # fn example(df: &amp;mut DataFrame) -&gt; PolarsResult&lt;u64&gt; {
 //! // create a file
 //! let file = File::create(&quot;example.parquet&quot;).expect(&quot;could not create file&quot;);
 //!

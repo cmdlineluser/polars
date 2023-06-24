@@ -113,7 +113,7 @@ The lazy API allows you to create complex well performing queries on top of Pola
 <span class="kw">let </span>lf_a = df_a.clone().lazy();
 <span class="kw">let </span>lf_b = df_b.clone().lazy();
 
-<span class="kw">let </span>joined = lf_a.join(lf_b, <span class="macro">vec!</span>[col(<span class="string">&quot;a&quot;</span>)], <span class="macro">vec!</span>[col(<span class="string">&quot;foo&quot;</span>)], JoinType::Outer).collect()<span class="question-mark">?</span>;
+<span class="kw">let </span>joined = lf_a.join(lf_b, <span class="macro">vec!</span>[col(<span class="string">&quot;a&quot;</span>)], <span class="macro">vec!</span>[col(<span class="string">&quot;foo&quot;</span>)], JoinArgs::new(JoinType::Outer)).collect()<span class="question-mark">?</span>;
 <span class="comment">// joined:
 
 // ╭─────┬─────┬─────┬──────┬─────────╮
@@ -191,7 +191,7 @@ The lazy API allows you to create complex well performing queries on top of Pola
 that you need to pass the values to an external function you do not control. The snippet below
 shows how we use the <code>Struct</code> datatype to be able to apply a function over multiple inputs.</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>polars::prelude::<span class="kw-2">*</span>;
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>polars::prelude::<span class="kw-2">*</span>;
 <span class="kw">fn </span>my_black_box_function(a: f32, b: f32) -&gt; f32 {
     <span class="comment">// do something
     </span>a

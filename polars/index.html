@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Polars: DataFrames in Rust"><title>polars - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-f40c346f39d9abc1.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="polars" data-themes="" data-resource-suffix="" data-rustdoc-version="1.72.0-nightly (04075b320 2023-06-22)" data-search-js="search-95c92dd01058facf.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-190c35055d2a8300.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../polars/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../polars/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">Crate polars</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 0.30.0</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#reexports">Re-exports</a></li><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#functions">Functions</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">polars</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../src/polars/lib.rs.html#1-396">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="polars-dataframes-in-rust"><a href="#polars-dataframes-in-rust">Polars: <em><small>DataFrames in Rust</small></em></a></h2>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Polars: DataFrames in Rust"><title>polars - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-f40c346f39d9abc1.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="polars" data-themes="" data-resource-suffix="" data-rustdoc-version="1.72.0-nightly (04075b320 2023-06-22)" data-search-js="search-95c92dd01058facf.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-190c35055d2a8300.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../polars/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../polars/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">Crate polars</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 0.30.0</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#reexports">Re-exports</a></li><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#functions">Functions</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">polars</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../src/polars/lib.rs.html#1-392">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="polars-dataframes-in-rust"><a href="#polars-dataframes-in-rust">Polars: <em><small>DataFrames in Rust</small></em></a></h2>
 <p>Polars is a DataFrame library for Rust. It is based on <a href="https://arrow.apache.org/">Apache Arrow</a>’s memory model.
 Apache arrow provides very cache efficient columnar data structures and is becoming the defacto
 standard for columnar data.</p>
@@ -14,7 +14,7 @@ in parallel and your queries are optimized just in time.</p>
     .agg([
         <span class="comment">// expressions can be combined into powerful aggregations
         </span>col(<span class="string">&quot;foo&quot;</span>)
-            .sort_by([col(<span class="string">&quot;ham&quot;</span>).rank(Default::default())], [<span class="bool-val">false</span>])
+            .sort_by([col(<span class="string">&quot;ham&quot;</span>).rank(Default::default(), <span class="prelude-val">None</span>)], [<span class="bool-val">false</span>])
             .last()
             .alias(<span class="string">&quot;last_foo_ranked_by_ham&quot;</span>),
         <span class="comment">// every expression runs in parallel
@@ -27,7 +27,7 @@ in parallel and your queries are optimized just in time.</p>
     </span>.select([col(<span class="string">&quot;ham&quot;</span>), col(<span class="string">&quot;spam&quot;</span>)]);
 
 <span class="kw">let </span>df = lf1
-    .join(lf2, [col(<span class="string">&quot;reverse&quot;</span>)], [col(<span class="string">&quot;foo&quot;</span>)], JoinType::Left)
+    .join(lf2, [col(<span class="string">&quot;reverse&quot;</span>)], [col(<span class="string">&quot;foo&quot;</span>)], JoinArgs::new(JoinType::Left))
     <span class="comment">// now we finally materialize the result.
     </span>.collect()<span class="question-mark">?</span>;</code></pre></div>
 <p>This means that Polars data structures can be shared zero copy with processes in many different
@@ -331,95 +331,53 @@ outperforms Mimalloc on all tasks and is therefor the default Linux allocator us
 mimalloc = { version = &quot;*&quot;, default-features = false }
 </code></pre></div><h3 id="config-with-env-vars"><a href="#config-with-env-vars">Config with ENV vars</a></h3>
 <ul>
-<li>
-<p><code>POLARS_FMT_TABLE_FORMATTING</code> -&gt; define styling of tables using any of the following options (default = UTF8_FULL_CONDENSED):</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code>                             ASCII_FULL
-                             ASCII_FULL_CONDENSED
-                             ASCII_NO_BORDERS
-                             ASCII_BORDERS_ONLY
-                             ASCII_BORDERS_ONLY_CONDENSED
-                             ASCII_HORIZONTAL_ONLY
-                             ASCII_MARKDOWN
-                             UTF8_FULL
-                             UTF8_FULL_CONDENSED
-                             UTF8_NO_BORDERS
-                             UTF8_BORDERS_ONLY
-                             UTF8_HORIZONTAL_ONLY
-                             NOTHING
-
-                             These options are defined by comfy-table which provides examples <span class="kw">for </span>each at:
-                             https:<span class="comment">//github.com/Nukesor/comfy-table/blob/main/src/style/presets.rs</span></code></pre></div>
+<li><code>POLARS_FMT_TABLE_FORMATTING</code> -&gt; define styling of tables using any of the following options (default = UTF8_FULL_CONDENSED). These options are defined by comfy-table which provides examples for each at <a href="https://github.com/Nukesor/comfy-table/blob/main/src/style/presets.rs">https://github.com/Nukesor/comfy-table/blob/main/src/style/presets.rs</a>
+<ul>
+<li><code>ASCII_FULL</code></li>
+<li><code>ASCII_FULL_CONDENSED</code></li>
+<li><code>ASCII_NO_BORDERS</code></li>
+<li><code>ASCII_BORDERS_ONLY</code></li>
+<li><code>ASCII_BORDERS_ONLY_CONDENSED</code></li>
+<li><code>ASCII_HORIZONTAL_ONLY</code></li>
+<li><code>ASCII_MARKDOWN</code></li>
+<li><code>UTF8_FULL</code></li>
+<li><code>UTF8_FULL_CONDENSED</code></li>
+<li><code>UTF8_NO_BORDERS</code></li>
+<li><code>UTF8_BORDERS_ONLY</code></li>
+<li><code>UTF8_HORIZONTAL_ONLY</code></li>
+<li><code>NOTHING</code></li>
+</ul>
 </li>
-<li>
-<p><code>POLARS_FMT_TABLE_CELL_ALIGNMENT</code> -&gt; define cell alignment using any of the following options (default = LEFT):
-LEFT
-CENTER
-RIGHT</p>
+<li><code>POLARS_FMT_TABLE_CELL_ALIGNMENT</code> -&gt; define cell alignment using any of the following options (default = LEFT):
+<ul>
+<li><code>LEFT</code></li>
+<li><code>CENTER</code></li>
+<li><code>RIGHT</code></li>
+</ul>
 </li>
-<li>
-<p><code>POLARS_FMT_TABLE_DATAFRAME_SHAPE_BELOW</code> -&gt; print shape information below the table.</p>
-</li>
-<li>
-<p><code>POLARS_FMT_TABLE_HIDE_COLUMN_NAMES</code> -&gt; hide table column names.</p>
-</li>
-<li>
-<p><code>POLARS_FMT_TABLE_HIDE_COLUMN_DATA_TYPES</code> -&gt; hide data types for columns.</p>
-</li>
-<li>
-<p><code>POLARS_FMT_TABLE_HIDE_COLUMN_SEPARATOR</code> -&gt; hide separator that separates column names from rows.</p>
-</li>
-<li>
-<p><code>POLARS_FMT_TABLE_HIDE_DATAFRAME_SHAPE_INFORMATION&quot;</code> -&gt; omit table shape information.</p>
-</li>
-<li>
-<p><code>POLARS_FMT_TABLE_INLINE_COLUMN_DATA_TYPE</code> -&gt; put column data type on the same line as the column name.</p>
-</li>
-<li>
-<p><code>POLARS_FMT_TABLE_ROUNDED_CORNERS</code> -&gt; apply rounded corners to UTF8-styled tables.</p>
-</li>
-<li>
-<p><code>POLARS_FMT_MAX_COLS</code> -&gt; maximum number of columns shown when formatting DataFrames.</p>
-</li>
-<li>
-<p><code>POLARS_FMT_MAX_ROWS</code> -&gt; maximum number of rows shown when formatting DataFrames, <code>-1</code> to show all.</p>
-</li>
-<li>
-<p><code>POLARS_FMT_STR_LEN</code> -&gt; maximum number of characters printed per string value.</p>
-</li>
-<li>
-<p><code>POLARS_TABLE_WIDTH</code> -&gt; width of the tables used during DataFrame formatting.</p>
-</li>
-<li>
-<p><code>POLARS_MAX_THREADS</code> -&gt; maximum number of threads used to initialize thread pool (on startup).</p>
-</li>
-<li>
-<p><code>POLARS_VERBOSE</code> -&gt; print logging info to stderr.</p>
-</li>
-<li>
-<p><code>POLARS_NO_PARTITION</code> -&gt; polars may choose to partition the groupby operation, based on data
-cardinality. Setting this env var will turn partitioned groupby’s off.</p>
-</li>
-<li>
-<p><code>POLARS_PARTITION_UNIQUE_COUNT</code> -&gt; at which (estimated) key count a partitioned groupby should run.
-defaults to <code>1000</code>, any higher cardinality will run default groupby.</p>
-</li>
-<li>
-<p><code>POLARS_FORCE_PARTITION</code> -&gt; force partitioned groupby if the keys and aggregations allow it.</p>
-</li>
-<li>
-<p><code>POLARS_ALLOW_EXTENSION</code> -&gt; allows for <code>[ObjectChunked&lt;T&gt;]</code> to be used in arrow, opening up possibilities like using
-<code>T</code> in complex lazy expressions. However this does require <code>unsafe</code> code allow this.</p>
-</li>
-<li>
-<p><code>POLARS_NO_PARQUET_STATISTICS</code> -&gt; if set, statistics in parquet files are ignored.</p>
-</li>
-<li>
-<p><code>POLARS_PANIC_ON_ERR</code> -&gt; panic instead of returning an Error.</p>
-</li>
-<li>
-<p><code>POLARS_NO_CHUNKED_JOIN</code> -&gt; force rechunk before joins.</p>
-</li>
+<li><code>POLARS_FMT_TABLE_DATAFRAME_SHAPE_BELOW</code> -&gt; print shape information below the table.</li>
+<li><code>POLARS_FMT_TABLE_HIDE_COLUMN_NAMES</code> -&gt; hide table column names.</li>
+<li><code>POLARS_FMT_TABLE_HIDE_COLUMN_DATA_TYPES</code> -&gt; hide data types for columns.</li>
+<li><code>POLARS_FMT_TABLE_HIDE_COLUMN_SEPARATOR</code> -&gt; hide separator that separates column names from rows.</li>
+<li><code>POLARS_FMT_TABLE_HIDE_DATAFRAME_SHAPE_INFORMATION&quot;</code> -&gt; omit table shape information.</li>
+<li><code>POLARS_FMT_TABLE_INLINE_COLUMN_DATA_TYPE</code> -&gt; put column data type on the same line as the column name.</li>
+<li><code>POLARS_FMT_TABLE_ROUNDED_CORNERS</code> -&gt; apply rounded corners to UTF8-styled tables.</li>
+<li><code>POLARS_FMT_MAX_COLS</code> -&gt; maximum number of columns shown when formatting DataFrames.</li>
+<li><code>POLARS_FMT_MAX_ROWS</code> -&gt; maximum number of rows shown when formatting DataFrames, <code>-1</code> to show all.</li>
+<li><code>POLARS_FMT_STR_LEN</code> -&gt; maximum number of characters printed per string value.</li>
+<li><code>POLARS_TABLE_WIDTH</code> -&gt; width of the tables used during DataFrame formatting.</li>
+<li><code>POLARS_MAX_THREADS</code> -&gt; maximum number of threads used to initialize thread pool (on startup).</li>
+<li><code>POLARS_VERBOSE</code> -&gt; print logging info to stderr.</li>
+<li><code>POLARS_NO_PARTITION</code> -&gt; polars may choose to partition the groupby operation, based on data
+cardinality. Setting this env var will turn partitioned groupby’s off.</li>
+<li><code>POLARS_PARTITION_UNIQUE_COUNT</code> -&gt; at which (estimated) key count a partitioned groupby should run.
+defaults to <code>1000</code>, any higher cardinality will run default groupby.</li>
+<li><code>POLARS_FORCE_PARTITION</code> -&gt; force partitioned groupby if the keys and aggregations allow it.</li>
+<li><code>POLARS_ALLOW_EXTENSION</code> -&gt; allows for <code>[ObjectChunked&lt;T&gt;]</code> to be used in arrow, opening up possibilities like using
+<code>T</code> in complex lazy expressions. However this does require <code>unsafe</code> code allow this.</li>
+<li><code>POLARS_NO_PARQUET_STATISTICS</code> -&gt; if set, statistics in parquet files are ignored.</li>
+<li><code>POLARS_PANIC_ON_ERR</code> -&gt; panic instead of returning an Error.</li>
+<li><code>POLARS_NO_CHUNKED_JOIN</code> -&gt; force rechunk before joins.</li>
 </ul>
 <h3 id="user-guide"><a href="#user-guide">User Guide</a></h3>
 <p>If you want to read more, <a href="https://pola-rs.github.io/polars-book/">check the User Guide</a>.</p>
