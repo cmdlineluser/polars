@@ -458,6 +458,10 @@
 <a href="#458" id="458">458</a>
 <a href="#459" id="459">459</a>
 <a href="#460" id="460">460</a>
+<a href="#461" id="461">461</a>
+<a href="#462" id="462">462</a>
+<a href="#463" id="463">463</a>
+<a href="#464" id="464">464</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Implementations of the ChunkCast Trait.
 </span><span class="kw">use </span>std::convert::TryFrom;
 
@@ -683,7 +687,8 @@
             </span>.downcast_iter()
             .map(|arr| Box::new(binary_to_utf8_unchecked(arr)) <span class="kw">as </span>ArrayRef)
             .collect();
-        Utf8Chunked::from_chunks(<span class="self">self</span>.name(), chunks)
+        <span class="kw">let </span>field = Arc::new(Field::new(<span class="self">self</span>.name(), DataType::Utf8));
+        Utf8Chunked::from_chunks_and_metadata(chunks, field, <span class="self">self</span>.bit_settings, <span class="bool-val">true</span>, <span class="bool-val">true</span>)
     }
 }
 
@@ -698,7 +703,10 @@
                 )) <span class="kw">as </span>ArrayRef
             })
             .collect();
-        <span class="kw">unsafe </span>{ BinaryChunked::from_chunks(<span class="self">self</span>.name(), chunks) }
+        <span class="kw">let </span>field = Arc::new(Field::new(<span class="self">self</span>.name(), DataType::Binary));
+        <span class="kw">unsafe </span>{
+            BinaryChunked::from_chunks_and_metadata(chunks, field, <span class="self">self</span>.bit_settings, <span class="bool-val">true</span>, <span class="bool-val">true</span>)
+        }
     }
 }
 
