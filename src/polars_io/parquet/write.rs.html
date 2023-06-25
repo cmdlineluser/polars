@@ -326,6 +326,11 @@
 <a href="#326" id="326">326</a>
 <a href="#327" id="327">327</a>
 <a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::io::Write;
 
 <span class="kw">use </span>arrow::array::Array;
@@ -379,7 +384,7 @@
     }
 }
 
-<span class="attr">#[derive(Debug, Eq, PartialEq, Hash, Clone, Copy, Default)]
+<span class="attr">#[derive(Debug, Eq, PartialEq, Hash, Clone, Copy)]
 #[cfg_attr(feature = <span class="string">&quot;serde&quot;</span>, derive(Serialize, Deserialize))]
 </span><span class="kw">pub enum </span>ParquetCompression {
     Uncompressed,
@@ -388,8 +393,13 @@
     Lzo,
     Brotli(<span class="prelude-ty">Option</span>&lt;BrotliLevel&gt;),
     Zstd(<span class="prelude-ty">Option</span>&lt;ZstdLevel&gt;),
-    <span class="attr">#[default]
-    </span>Lz4Raw,
+    Lz4Raw,
+}
+
+<span class="kw">impl </span>Default <span class="kw">for </span>ParquetCompression {
+    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::Zstd(<span class="prelude-val">None</span>)
+    }
 }
 
 <span class="kw">impl </span>From&lt;ParquetCompression&gt; <span class="kw">for </span>CompressionOptions {
@@ -441,7 +451,7 @@
     {
         ParquetWriter {
             writer,
-            compression: CompressionOptions::Zstd(<span class="prelude-val">None</span>),
+            compression: ParquetCompression::default().into(),
             statistics: <span class="bool-val">false</span>,
             row_group_size: <span class="prelude-val">None</span>,
             data_pagesize_limit: <span class="prelude-val">None</span>,
@@ -449,9 +459,9 @@
         }
     }
 
-    <span class="doccomment">/// Set the compression used. Defaults to `Lz4Raw`.
+    <span class="doccomment">/// Set the compression used. Defaults to `Zstd`.
     ///
-    /// The default compression `Lz4Raw` has very good performance, but may not yet been supported
+    /// The default compression `Zstd` has very good performance, but may not yet been supported
     /// by older readers. If you want more compatibility guarantees, consider using `Snappy`.
     </span><span class="kw">pub fn </span>with_compression(<span class="kw-2">mut </span><span class="self">self</span>, compression: ParquetCompression) -&gt; <span class="self">Self </span>{
         <span class="self">self</span>.compression = compression.into();
