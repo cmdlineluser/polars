@@ -385,6 +385,26 @@
 <a href="#385" id="385">385</a>
 <a href="#386" id="386">386</a>
 <a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
+<a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
+<a href="#403" id="403">403</a>
+<a href="#404" id="404">404</a>
+<a href="#405" id="405">405</a>
+<a href="#406" id="406">406</a>
+<a href="#407" id="407">407</a>
 </pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;rank&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>rank;
 
@@ -519,8 +539,7 @@
         }
         <span class="kw">match </span><span class="self">self</span>.is_sorted_flag() {
             IsSorted::Ascending | IsSorted::Descending =&gt; {
-                <span class="comment">// TODO! optimize this branch
-                </span><span class="kw">if </span><span class="self">self</span>.null_count() &gt; <span class="number">0 </span>{
+                <span class="kw">if </span><span class="self">self</span>.null_count() &gt; <span class="number">0 </span>{
                     <span class="kw">let </span><span class="kw-2">mut </span>arr = MutablePrimitiveArray::with_capacity(<span class="self">self</span>.len());
                     <span class="kw">let </span><span class="kw-2">mut </span>iter = <span class="self">self</span>.into_iter();
                     <span class="kw">let </span><span class="kw-2">mut </span>last = <span class="prelude-val">None</span>;
@@ -566,18 +585,39 @@
     }
 
     <span class="kw">fn </span>n_unique(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PolarsResult&lt;usize&gt; {
-        <span class="kw">let </span><span class="kw-2">mut </span>set: PlHashSet&lt;T::Native&gt; = PlHashSet::new();
-        <span class="kw">if </span><span class="self">self</span>.null_count() &gt; <span class="number">0 </span>{
-            <span class="kw">for </span>arr <span class="kw">in </span><span class="self">self</span>.downcast_iter() {
-                set.extend(arr.into_iter().flatten())
+        <span class="comment">// prevent stackoverflow repeated sorted.unique call
+        </span><span class="kw">if </span><span class="self">self</span>.is_empty() {
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="number">0</span>);
+        }
+        <span class="kw">match </span><span class="self">self</span>.is_sorted_flag() {
+            IsSorted::Ascending | IsSorted::Descending =&gt; {
+                <span class="kw">if </span><span class="self">self</span>.null_count() &gt; <span class="number">0 </span>{
+                    <span class="kw">let </span><span class="kw-2">mut </span>count = <span class="number">0</span>;
+                    <span class="kw">let </span><span class="kw-2">mut </span>iter = <span class="self">self</span>.into_iter();
+                    <span class="kw">let </span><span class="kw-2">mut </span>last = <span class="prelude-val">None</span>;
+
+                    <span class="kw">if let </span><span class="prelude-val">Some</span>(val) = iter.next() {
+                        last = val;
+                        count += <span class="number">1</span>;
+                    };
+
+                    iter.for_each(|opt_val| {
+                        <span class="kw">if </span>opt_val != last {
+                            last = opt_val;
+                            count += <span class="number">1</span>;
+                        }
+                    });
+
+                    <span class="prelude-val">Ok</span>(count)
+                } <span class="kw">else </span>{
+                    <span class="kw">let </span>mask = <span class="self">self</span>.not_equal_and_validity(<span class="kw-2">&amp;</span><span class="self">self</span>.shift(<span class="number">1</span>));
+                    <span class="prelude-val">Ok</span>(mask.sum().unwrap() <span class="kw">as </span>usize)
+                }
             }
-            <span class="prelude-val">Ok</span>(set.len() + <span class="number">1</span>)
-        } <span class="kw">else </span>{
-            <span class="kw">for </span>arr <span class="kw">in </span><span class="self">self</span>.downcast_iter() {
-                <span class="kw">let </span>slice = arr.values().as_slice();
-                set.extend(slice.iter().copied())
+            IsSorted::Not =&gt; {
+                <span class="kw">let </span>sorted = <span class="self">self</span>.sort(<span class="bool-val">false</span>);
+                sorted.n_unique()
             }
-            <span class="prelude-val">Ok</span>(set.len())
         }
     }
 
