@@ -498,11 +498,11 @@
     <span class="kw">let </span>values = rows
         .iter()
         .map(|row| {
-            has_nulls |= <span class="kw-2">*</span>row.get_unchecked(<span class="number">0</span>) == null_sentinel;
+            has_nulls |= <span class="kw-2">*</span>row.get_unchecked_release(<span class="number">0</span>) == null_sentinel;
             <span class="comment">// skip null sentinel
             </span><span class="kw">let </span>start = <span class="number">1</span>;
             <span class="kw">let </span>end = start + T::ENCODED_LEN - <span class="number">1</span>;
-            <span class="kw">let </span>slice = row.get_unchecked(start..end);
+            <span class="kw">let </span>slice = row.get_unchecked_release(start..end);
             <span class="kw">let </span>bytes = T::Encoded::from_slice(slice);
             T::decode(bytes)
         })
@@ -529,11 +529,11 @@
     <span class="kw">let </span>values = rows
         .iter()
         .map(|row| {
-            has_nulls |= <span class="kw-2">*</span>row.get_unchecked(<span class="number">0</span>) == null_sentinel;
+            has_nulls |= <span class="kw-2">*</span>row.get_unchecked_release(<span class="number">0</span>) == null_sentinel;
             <span class="comment">// skip null sentinel
             </span><span class="kw">let </span>start = <span class="number">1</span>;
             <span class="kw">let </span>end = start + bool::ENCODED_LEN - <span class="number">1</span>;
-            <span class="kw">let </span>slice = row.get_unchecked(start..end);
+            <span class="kw">let </span>slice = row.get_unchecked_release(start..end);
             <span class="kw">let </span>bytes = &lt;bool <span class="kw">as </span>FixedLengthEncoding&gt;::Encoded::from_slice(slice);
             bool::decode(bytes)
         })
@@ -553,13 +553,13 @@
 }
 <span class="kw">unsafe fn </span>increment_row_counter(rows: <span class="kw-2">&amp;mut </span>[<span class="kw-2">&amp;</span>[u8]], fixed_size: usize) {
     <span class="kw">for </span>row <span class="kw">in </span>rows {
-        <span class="kw-2">*</span>row = row.get_unchecked(fixed_size..);
+        <span class="kw-2">*</span>row = row.get_unchecked_release(fixed_size..);
     }
 }
 
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">unsafe fn </span>decode_nulls(rows: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[u8]], null_sentinel: u8) -&gt; Bitmap {
     rows.iter()
-        .map(|row| <span class="kw-2">*</span>row.get_unchecked(<span class="number">0</span>) != null_sentinel)
+        .map(|row| <span class="kw-2">*</span>row.get_unchecked_release(<span class="number">0</span>) != null_sentinel)
         .collect()
 }
 </code></pre></div></section></main></body></html>
