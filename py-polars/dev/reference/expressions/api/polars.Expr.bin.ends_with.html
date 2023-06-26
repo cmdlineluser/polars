@@ -1585,7 +1585,7 @@ document.write(`
 <h1>polars.Expr.bin.ends_with<a class="headerlink" href="#polars-expr-bin-ends-with" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="polars.Expr.bin.ends_with">
-<span class="sig-prename descclassname"><span class="pre">Expr.bin.</span></span><span class="sig-name descname"><span class="pre">ends_with</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Expr</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/expr/binary.py#L36-L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polars.Expr.bin.ends_with" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">Expr.bin.</span></span><span class="sig-name descname"><span class="pre">ends_with</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Expr</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/expr/binary.py#L66-L110"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polars.Expr.bin.ends_with" title="Permalink to this definition">#</a></dt>
 <dd><p>Check if string values end with a binary substring.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1594,7 +1594,47 @@ document.write(`
 </dd>
 </dl>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>Boolean mask</dt><dd></dd>
 </dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="polars.Expr.bin.starts_with.html#polars.Expr.bin.starts_with" title="polars.Expr.bin.starts_with"><code class="xref py py-obj docutils literal notranslate"><span class="pre">starts_with</span></code></a></dt><dd><p>Check if the binary substring exists at the start</p>
+</dd>
+<dt><a class="reference internal" href="polars.Expr.bin.contains.html#polars.Expr.bin.contains" title="polars.Expr.bin.contains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">contains</span></code></a></dt><dd><p>Check if the binary substring exists anywhere</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">colors</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="s2">&quot;code&quot;</span><span class="p">:</span> <span class="p">[</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x00\x00\x00</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\xff\xff\x00</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x00\x00\xff</span><span class="s2">&quot;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">colors</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">bin</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;code_encoded_hex&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">bin</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\xff</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;contains_ff&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">bin</span><span class="o">.</span><span class="n">starts_with</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\xff</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;starts_with_ff&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">bin</span><span class="o">.</span><span class="n">ends_with</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\xff</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;ends_with_ff&quot;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">shape: (3, 5)</span>
+<span class="go">┌────────┬──────────────────┬─────────────┬────────────────┬──────────────┐</span>
+<span class="go">│ name   ┆ code_encoded_hex ┆ contains_ff ┆ starts_with_ff ┆ ends_with_ff │</span>
+<span class="go">│ ---    ┆ ---              ┆ ---         ┆ ---            ┆ ---          │</span>
+<span class="go">│ str    ┆ str              ┆ bool        ┆ bool           ┆ bool         │</span>
+<span class="go">╞════════╪══════════════════╪═════════════╪════════════════╪══════════════╡</span>
+<span class="go">│ black  ┆ 000000           ┆ false       ┆ false          ┆ false        │</span>
+<span class="go">│ yellow ┆ ffff00           ┆ true        ┆ true           ┆ false        │</span>
+<span class="go">│ blue   ┆ 0000ff           ┆ true        ┆ false          ┆ true         │</span>
+<span class="go">└────────┴──────────────────┴─────────────┴────────────────┴──────────────┘</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>
