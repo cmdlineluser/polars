@@ -16,7 +16,7 @@
         offset: <a class="struct" href="struct.Duration.html" title="struct polars::prelude::Duration">Duration</a>
     ) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../frame/struct.DataFrame.html" title="struct polars::frame::DataFrame">DataFrame</a>, <a class="enum" href="../error/enum.PolarsError.html" title="enum polars::error::PolarsError">PolarsError</a>&gt;
        <span class="where">where I: <a class="trait" href="../chunked_array/object/trait.IntoVec.html" title="trait polars::chunked_array::object::IntoVec">IntoVec</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</span>;
-}</code></pre><h2 id="required-methods" class="small-section-header">Required Methods<a href="#required-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="tymethod.upsample" class="method"><a class="srclink rightside" href="../../src/polars_time/upsample.rs.html#40-46">source</a><h4 class="code-header">fn <a href="#tymethod.upsample" class="fn">upsample</a>&lt;I&gt;(
+}</code></pre><h2 id="required-methods" class="small-section-header">Required Methods<a href="#required-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="tymethod.upsample" class="method"><a class="srclink rightside" href="../../src/polars_time/upsample.rs.html#45-51">source</a><h4 class="code-header">fn <a href="#tymethod.upsample" class="fn">upsample</a>&lt;I&gt;(
     &amp;self,
     by: I,
     time_column: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
@@ -41,18 +41,23 @@ the following string language:</p>
 <li>1s    (1 second)</li>
 <li>1m    (1 minute)</li>
 <li>1h    (1 hour)</li>
-<li>1d    (1 day)</li>
-<li>1w    (1 week)</li>
+<li>1d    (1 calendar day)</li>
+<li>1w    (1 calendar week)</li>
 <li>1mo   (1 calendar month)</li>
+<li>1q    (1 calendar quarter)</li>
 <li>1y    (1 calendar year)</li>
 <li>1i    (1 index count)
 Or combine them:
 “3d12h4m25s” # 3 days, 12 hours, 4 minutes, and 25 seconds
 Suffix with <code>&quot;_saturating&quot;</code> to saturate dates with days too
 large for their month to the last day of the month (e.g.
-2022-02-29 to 2022-02-28).</li>
+2022-02-29 to 2022-02-28).
+By “calendar day”, we mean the corresponding time on the next
+day (which may not be 24 hours, depending on daylight savings).
+Similarly for “calendar week”, “calendar month”, “calendar quarter”,
+and “calendar year”.</li>
 </ul>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.upsample_stable" class="method"><a class="srclink rightside" href="../../src/polars_time/upsample.rs.html#72-78">source</a><h4 class="code-header">fn <a href="#tymethod.upsample_stable" class="fn">upsample_stable</a>&lt;I&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.upsample_stable" class="method"><a class="srclink rightside" href="../../src/polars_time/upsample.rs.html#85-91">source</a><h4 class="code-header">fn <a href="#tymethod.upsample_stable" class="fn">upsample_stable</a>&lt;I&gt;(
     &amp;self,
     by: I,
     time_column: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
@@ -77,12 +82,20 @@ the following string language:</p>
 <li>1s    (1 second)</li>
 <li>1m    (1 minute)</li>
 <li>1h    (1 hour)</li>
-<li>1d    (1 day)</li>
-<li>1w    (1 week)</li>
+<li>1d    (1 calendar day)</li>
+<li>1w    (1 calendar week)</li>
 <li>1mo   (1 calendar month)</li>
+<li>1q    (1 calendar quarter)</li>
 <li>1y    (1 calendar year)</li>
 <li>1i    (1 index count)
 Or combine them:
-“3d12h4m25s” # 3 days, 12 hours, 4 minutes, and 25 seconds</li>
+“3d12h4m25s” # 3 days, 12 hours, 4 minutes, and 25 seconds
+Suffix with <code>&quot;_saturating&quot;</code> to saturate dates with days too
+large for their month to the last day of the month (e.g.
+2022-02-29 to 2022-02-28).
+By “calendar day”, we mean the corresponding time on the next
+day (which may not be 24 hours, depending on daylight savings).
+Similarly for “calendar week”, “calendar month”, “calendar quarter”,
+and “calendar year”.</li>
 </ul>
-</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-PolarsUpsample-for-DataFrame" class="impl"><a class="srclink rightside" href="../../src/polars_time/upsample.rs.html#81">source</a><a href="#impl-PolarsUpsample-for-DataFrame" class="anchor">§</a><h3 class="code-header">impl <a class="trait" href="trait.PolarsUpsample.html" title="trait polars::prelude::PolarsUpsample">PolarsUpsample</a> for <a class="struct" href="../frame/struct.DataFrame.html" title="struct polars::frame::DataFrame">DataFrame</a></h3></section></div><script src="../../implementors/polars_time/upsample/trait.PolarsUpsample.js" data-ignore-extern-crates="polars_core" async></script></section></div></main></body></html>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-PolarsUpsample-for-DataFrame" class="impl"><a class="srclink rightside" href="../../src/polars_time/upsample.rs.html#94">source</a><a href="#impl-PolarsUpsample-for-DataFrame" class="anchor">§</a><h3 class="code-header">impl <a class="trait" href="trait.PolarsUpsample.html" title="trait polars::prelude::PolarsUpsample">PolarsUpsample</a> for <a class="struct" href="../frame/struct.DataFrame.html" title="struct polars::frame::DataFrame">DataFrame</a></h3></section></div><script src="../../implementors/polars_time/upsample/trait.PolarsUpsample.js" data-ignore-extern-crates="polars_core" async></script></section></div></main></body></html>

@@ -197,6 +197,19 @@
 <a href="#197" id="197">197</a>
 <a href="#198" id="198">198</a>
 <a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
 </pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
 </span><span class="kw">use </span>chrono_tz::Tz;
 <span class="kw">use </span>polars_core::frame::hash_join::JoinArgs;
@@ -226,9 +239,10 @@
     /// - 1s    (1 second)
     /// - 1m    (1 minute)
     /// - 1h    (1 hour)
-    /// - 1d    (1 day)
-    /// - 1w    (1 week)
+    /// - 1d    (1 calendar day)
+    /// - 1w    (1 calendar week)
     /// - 1mo   (1 calendar month)
+    /// - 1q    (1 calendar quarter)
     /// - 1y    (1 calendar year)
     /// - 1i    (1 index count)
     /// Or combine them:
@@ -236,6 +250,10 @@
     /// Suffix with `&quot;_saturating&quot;` to saturate dates with days too
     /// large for their month to the last day of the month (e.g.
     /// 2022-02-29 to 2022-02-28).
+    /// By &quot;calendar day&quot;, we mean the corresponding time on the next
+    /// day (which may not be 24 hours, depending on daylight savings).
+    /// Similarly for &quot;calendar week&quot;, &quot;calendar month&quot;, &quot;calendar quarter&quot;,
+    /// and &quot;calendar year&quot;.
     </span><span class="kw">fn </span>upsample&lt;I: IntoVec&lt;String&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         by: I,
@@ -261,13 +279,21 @@
     /// - 1s    (1 second)
     /// - 1m    (1 minute)
     /// - 1h    (1 hour)
-    /// - 1d    (1 day)
-    /// - 1w    (1 week)
+    /// - 1d    (1 calendar day)
+    /// - 1w    (1 calendar week)
     /// - 1mo   (1 calendar month)
+    /// - 1q    (1 calendar quarter)
     /// - 1y    (1 calendar year)
     /// - 1i    (1 index count)
     /// Or combine them:
     /// &quot;3d12h4m25s&quot; # 3 days, 12 hours, 4 minutes, and 25 seconds
+    /// Suffix with `&quot;_saturating&quot;` to saturate dates with days too
+    /// large for their month to the last day of the month (e.g.
+    /// 2022-02-29 to 2022-02-28).
+    /// By &quot;calendar day&quot;, we mean the corresponding time on the next
+    /// day (which may not be 24 hours, depending on daylight savings).
+    /// Similarly for &quot;calendar week&quot;, &quot;calendar month&quot;, &quot;calendar quarter&quot;,
+    /// and &quot;calendar year&quot;.
     </span><span class="kw">fn </span>upsample_stable&lt;I: IntoVec&lt;String&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         by: I,
