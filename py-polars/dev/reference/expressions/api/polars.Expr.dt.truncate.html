@@ -1585,7 +1585,7 @@ document.write(`
 <h1>polars.Expr.dt.truncate<a class="headerlink" href="#polars-expr-dt-truncate" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="polars.Expr.dt.truncate">
-<span class="sig-prename descclassname"><span class="pre">Expr.dt.</span></span><span class="sig-name descname"><span class="pre">truncate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">every</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">timedelta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">timedelta</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Expr</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/expr/datetime.py#L36-L156"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polars.Expr.dt.truncate" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">Expr.dt.</span></span><span class="sig-name descname"><span class="pre">truncate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">every</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">timedelta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">timedelta</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Expr</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/expr/datetime.py#L36-L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polars.Expr.dt.truncate" title="Permalink to this definition">#</a></dt>
 <dd><p>Divide the date/datetime range into buckets.</p>
 <p>Each date/datetime is mapped to the start of its bucket. Note that weekly
 buckets start on Monday.</p>
@@ -1614,11 +1614,9 @@ the following string language:</p>
 <li><p>1s  # 1 second</p></li>
 <li><p>1m  # 1 minute</p></li>
 <li><p>1h  # 1 hour</p></li>
-<li><p>1d  # 1 day</p></li>
+<li><p>1d  # 1 calendar day</p></li>
 <li><p>1w  # 1 calendar week</p></li>
 <li><p>1mo # 1 calendar month</p></li>
-<li><p>1mo_saturating # same as above, but saturates to the last day of the month
-if the target date does not exist</p></li>
 <li><p>1q  # 1 calendar quarter</p></li>
 <li><p>1y  # 1 calendar year</p></li>
 </ul>
@@ -1629,6 +1627,9 @@ if the target date does not exist</p></li>
 <p>Suffix with <cite>“_saturating”</cite> to indicate that dates too large for
 their month should saturate at the largest date (e.g. 2022-02-29 -&gt; 2022-02-28)
 instead of erroring.</p>
+<p>By “calendar day”, we mean the corresponding time on the next day (which may
+not be 24 hours, due to daylight savings). Similarly for “calendar week”,
+“calendar month”, “calendar quarter”, and “calendar year”.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">datetime</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
