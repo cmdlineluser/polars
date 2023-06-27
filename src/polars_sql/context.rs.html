@@ -636,6 +636,9 @@
 <a href="#636" id="636">636</a>
 <a href="#637" id="637">637</a>
 <a href="#638" id="638">638</a>
+<a href="#639" id="639">639</a>
+<a href="#640" id="640">640</a>
+<a href="#641" id="641">641</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::cell::RefCell;
 <span class="kw">use </span>std::collections::BTreeSet;
 
@@ -1066,7 +1069,10 @@
                 }
                 <span class="kw">let </span>tbl_name = name.<span class="number">0</span>.get(<span class="number">0</span>).unwrap().value.as_str();
                 <span class="kw">if let </span><span class="prelude-val">Some</span>(lf) = <span class="self">self</span>.get_table_from_current_scope(tbl_name) {
-                    <span class="prelude-val">Ok</span>((tbl_name.to_string(), lf))
+                    <span class="kw">match </span>alias {
+                        <span class="prelude-val">Some</span>(alias) =&gt; <span class="prelude-val">Ok</span>((alias.to_string(), lf)),
+                        <span class="prelude-val">None </span>=&gt; <span class="prelude-val">Ok</span>((tbl_name.to_string(), lf)),
+                    }
                 } <span class="kw">else </span>{
                     <span class="macro">polars_bail!</span>(ComputeError: <span class="string">&quot;relation &#39;{}&#39; was not found&quot;</span>, tbl_name);
                 }
