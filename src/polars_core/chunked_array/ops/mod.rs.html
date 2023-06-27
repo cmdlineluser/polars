@@ -768,6 +768,7 @@
 <a href="#768" id="768">768</a>
 <a href="#769" id="769">769</a>
 <a href="#770" id="770">770</a>
+<a href="#771" id="771">771</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Traits for miscellaneous operations on ChunkedArray
 </span><span class="kw">use </span>arrow::offset::OffsetsBuffer;
 <span class="kw">use </span>polars_arrow::prelude::QuantileInterpolOptions;
@@ -1124,7 +1125,8 @@
 <span class="doccomment">/// Aggregation operations
 </span><span class="kw">pub trait </span>ChunkAgg&lt;T&gt; {
     <span class="doccomment">/// Aggregate the sum of the ChunkedArray.
-    /// Returns `None` if the array is empty or only contains null values.
+    /// Returns `None` if not implemented for `T`.
+    /// If the array is empty, `0` is returned
     </span><span class="kw">fn </span>sum(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
         <span class="prelude-val">None
     </span>}

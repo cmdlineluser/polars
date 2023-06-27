@@ -1025,9 +1025,6 @@
 <a href="#1025" id="1025">1025</a>
 <a href="#1026" id="1026">1026</a>
 <a href="#1027" id="1027">1027</a>
-<a href="#1028" id="1028">1028</a>
-<a href="#1029" id="1029">1029</a>
-<a href="#1030" id="1030">1030</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Implementations of the ChunkAgg trait.
 </span><span class="kw">mod </span>quantile;
 <span class="kw">mod </span>var;
@@ -1038,7 +1035,7 @@
 <span class="kw">use </span>arrow::compute;
 <span class="kw">use </span>arrow::types::simd::Simd;
 <span class="kw">use </span>arrow::types::NativeType;
-<span class="kw">use </span>num_traits::{Float, ToPrimitive};
+<span class="kw">use </span>num_traits::{Float, ToPrimitive, Zero};
 <span class="kw">use </span>polars_arrow::kernels::rolling::{compare_fn_nan_max, compare_fn_nan_min};
 <span class="kw">pub use </span>quantile::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>var::<span class="kw-2">*</span>;
@@ -1069,18 +1066,15 @@
     }
 }
 
-<span class="kw">fn </span>sum_float_unaligned_slice&lt;T: NumericNative&gt;(values: <span class="kw-2">&amp;</span>[T]) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
-    <span class="prelude-val">Some</span>(values.iter().copied().sum())
+<span class="kw">fn </span>sum_float_unaligned_slice&lt;T: NumericNative&gt;(values: <span class="kw-2">&amp;</span>[T]) -&gt; T {
+    values.iter().copied().sum()
 }
 
-<span class="kw">fn </span>sum_float_unaligned&lt;T: NumericNative&gt;(array: <span class="kw-2">&amp;</span>PrimitiveArray&lt;T&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt; {
-    <span class="kw">if </span>array.len() == <span class="number">0 </span>{
-        <span class="kw">return </span><span class="prelude-val">Some</span>(T::zero());
+<span class="kw">fn </span>sum_float_unaligned&lt;T: NumericNative&gt;(array: <span class="kw-2">&amp;</span>PrimitiveArray&lt;T&gt;) -&gt; T {
+    <span class="kw">if </span>array.len() == <span class="number">0 </span>|| array.null_count() == array.len() {
+        <span class="kw">return </span>T::zero();
     }
-    <span class="kw">if </span>array.null_count() == array.len() {
-        <span class="kw">return </span><span class="prelude-val">None</span>;
-    }
-    <span class="prelude-val">Some</span>(array.into_iter().flatten().copied().sum())
+    array.into_iter().flatten().copied().sum()
 }
 
 <span class="doccomment">/// Floating point arithmetic is non-associative.
@@ -1092,7 +1086,7 @@
 /// The SIMD chunks have a certain alignment and depending of the start of the buffer
 /// head and tail may have different sizes, making a sum non-deterministic for the same
 /// values but different memory locations
-</span><span class="kw">fn </span>stable_sum&lt;T: NumericNative + NativeType&gt;(array: <span class="kw-2">&amp;</span>PrimitiveArray&lt;T&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;T&gt;
+</span><span class="kw">fn </span>stable_sum&lt;T: NumericNative + NativeType&gt;(array: <span class="kw-2">&amp;</span>PrimitiveArray&lt;T&gt;) -&gt; T
 <span class="kw">where
     </span>T: NumericNative + NativeType,
     &lt;T <span class="kw">as </span>Simd&gt;::Simd: Add&lt;Output = &lt;T <span class="kw">as </span>Simd&gt;::Simd&gt;
@@ -1105,14 +1099,14 @@
         <span class="kw">let </span>(a, <span class="kw">_</span>, <span class="kw">_</span>) = &lt;T <span class="kw">as </span>Simd&gt;::Simd::align(values);
         <span class="comment">// we only choose SIMD path if buffer is aligned to SIMD
         </span><span class="kw">if </span>a.is_empty() {
-            compute::aggregate::sum_primitive(array)
+            compute::aggregate::sum_primitive(array).unwrap_or(T::zero())
         } <span class="kw">else if </span>array.null_count() == <span class="number">0 </span>{
             sum_float_unaligned_slice(values)
         } <span class="kw">else </span>{
             sum_float_unaligned(array)
         }
     } <span class="kw">else </span>{
-        compute::aggregate::sum_primitive(array)
+        compute::aggregate::sum_primitive(array).unwrap_or(T::zero())
     }
 }
 
@@ -1124,15 +1118,11 @@
         + compute::aggregate::SimdOrd&lt;T::Native&gt;,
 {
     <span class="kw">fn </span>sum(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;T::Native&gt; {
-        <span class="self">self</span>.downcast_iter()
-            .map(stable_sum)
-            .fold(<span class="prelude-val">None</span>, |acc, v| <span class="kw">match </span>v {
-                <span class="prelude-val">Some</span>(v) =&gt; <span class="kw">match </span>acc {
-                    <span class="prelude-val">None </span>=&gt; <span class="prelude-val">Some</span>(v),
-                    <span class="prelude-val">Some</span>(acc) =&gt; <span class="prelude-val">Some</span>(acc + v),
-                },
-                <span class="prelude-val">None </span>=&gt; acc,
-            })
+        <span class="prelude-val">Some</span>(
+            <span class="self">self</span>.downcast_iter()
+                .map(stable_sum)
+                .fold(T::Native::zero(), |acc, v| acc + v),
+        )
     }
 
     <span class="kw">fn </span>min(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;T::Native&gt; {
@@ -1194,6 +1184,9 @@
     }
 
     <span class="kw">fn </span>mean(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;f64&gt; {
+        <span class="kw">if </span><span class="self">self</span>.is_empty() || <span class="self">self</span>.null_count() == <span class="self">self</span>.len() {
+            <span class="kw">return </span><span class="prelude-val">None</span>;
+        }
         <span class="kw">match </span><span class="self">self</span>.dtype() {
             DataType::Float64 =&gt; {
                 <span class="kw">let </span>len = (<span class="self">self</span>.len() - <span class="self">self</span>.null_count()) <span class="kw">as </span>f64;
@@ -1253,20 +1246,18 @@
 </span><span class="kw">impl </span>BooleanChunked {
     <span class="doccomment">/// Returns `None` if the array is empty or only contains null values.
     </span><span class="kw">pub fn </span>sum(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;IdxSize&gt; {
-        <span class="kw">if </span><span class="self">self</span>.is_empty() {
-            <span class="prelude-val">None
+        <span class="prelude-val">Some</span>(<span class="kw">if </span><span class="self">self</span>.is_empty() {
+            <span class="number">0
         </span>} <span class="kw">else </span>{
-            <span class="prelude-val">Some</span>(
-                <span class="self">self</span>.downcast_iter()
-                    .map(|arr| <span class="kw">match </span>arr.validity() {
-                        <span class="prelude-val">Some</span>(validity) =&gt; {
-                            (arr.len() - (validity &amp; arr.values()).unset_bits()) <span class="kw">as </span>IdxSize
-                        }
-                        <span class="prelude-val">None </span>=&gt; (arr.len() - arr.values().unset_bits()) <span class="kw">as </span>IdxSize,
-                    })
-                    .sum(),
-            )
-        }
+            <span class="self">self</span>.downcast_iter()
+                .map(|arr| <span class="kw">match </span>arr.validity() {
+                    <span class="prelude-val">Some</span>(validity) =&gt; {
+                        (arr.len() - (validity &amp; arr.values()).unset_bits()) <span class="kw">as </span>IdxSize
+                    }
+                    <span class="prelude-val">None </span>=&gt; (arr.len() - arr.values().unset_bits()) <span class="kw">as </span>IdxSize,
+                })
+                .sum()
+        })
     }
 
     <span class="kw">pub fn </span>min(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;bool&gt; {
@@ -1302,6 +1293,9 @@
         }
     }
     <span class="kw">pub fn </span>mean(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;f64&gt; {
+        <span class="kw">if </span><span class="self">self</span>.is_empty() || <span class="self">self</span>.null_count() == <span class="self">self</span>.len() {
+            <span class="kw">return </span><span class="prelude-val">None</span>;
+        }
         <span class="self">self</span>.sum()
             .map(|sum| sum <span class="kw">as </span>f64 / (<span class="self">self</span>.len() - <span class="self">self</span>.null_count()) <span class="kw">as </span>f64)
     }
