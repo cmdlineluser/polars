@@ -192,7 +192,7 @@
     <span class="kw">for </span><span class="kw-2">&amp;</span>i <span class="kw">in </span>idx {
         <span class="kw">let </span>start = i <span class="kw">as </span>usize * width;
         <span class="kw">let </span>end = start + width;
-        out.copy_from_slice(values.get_unchecked(start..end));
+        out.extend_from_slice(values.get_unchecked(start..end));
     }
 
     <span class="kw">let </span>validity = <span class="kw">if </span>list_values.null_count() &gt; <span class="number">0 </span>{
