@@ -792,6 +792,8 @@
 <a href="#792" id="792">792</a>
 <a href="#793" id="793">793</a>
 <a href="#794" id="794">794</a>
+<a href="#795" id="795">795</a>
+<a href="#796" id="796">796</a>
 </pre></div><pre class="rust"><code><span class="kw">mod </span>functions;
 <span class="kw">mod </span>generic;
 <span class="kw">mod </span>groupby;
@@ -1006,27 +1008,29 @@
         names_left: <span class="kw-2">&amp;mut </span>PlHashSet&lt;Arc&lt;str&gt;&gt;,
         names_right: <span class="kw-2">&amp;mut </span>PlHashSet&lt;Arc&lt;str&gt;&gt;,
         expr_arena: <span class="kw-2">&amp;mut </span>Arena&lt;AExpr&gt;,
-    ) -&gt; bool {
+    ) -&gt; (bool, bool) {
         <span class="kw">let </span><span class="kw-2">mut </span>pushed_at_least_one = <span class="bool-val">false</span>;
+        <span class="kw">let </span><span class="kw-2">mut </span>already_projected = <span class="bool-val">false</span>;
         <span class="kw">let </span>names = aexpr_to_leaf_names(proj, expr_arena);
         <span class="kw">let </span>root_projections = aexpr_to_leaf_nodes(proj, expr_arena);
 
         <span class="kw">for </span>(name, root_projection) <span class="kw">in </span>names.into_iter().zip(root_projections) {
-            <span class="kw">if </span>check_input_node(root_projection, schema_left, expr_arena)
-                &amp;&amp; names_left.insert(name.clone())
-            {
+            <span class="kw">let </span>was_not_in_left = names_left.insert(name.clone());
+            <span class="kw">let </span>was_not_in_right = names_right.insert(name.clone());
+            already_projected |= !was_not_in_left;
+            already_projected |= !was_not_in_right;
+
+            <span class="kw">if </span>check_input_node(root_projection, schema_left, expr_arena) &amp;&amp; was_not_in_left {
                 pushdown_left.push(proj);
                 pushed_at_least_one = <span class="bool-val">true</span>;
             }
-            <span class="kw">if </span>check_input_node(root_projection, schema_right, expr_arena)
-                &amp;&amp; names_right.insert(name)
-            {
+            <span class="kw">if </span>check_input_node(root_projection, schema_right, expr_arena) &amp;&amp; was_not_in_right {
                 pushdown_right.push(proj);
                 pushed_at_least_one = <span class="bool-val">true</span>;
             }
         }
 
-        pushed_at_least_one
+        (pushed_at_least_one, already_projected)
     }
 
     <span class="doccomment">/// This pushes down current node and assigns the result to this node.
