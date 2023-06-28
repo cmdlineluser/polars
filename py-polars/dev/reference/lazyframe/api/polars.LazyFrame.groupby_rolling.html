@@ -1639,9 +1639,9 @@ not be 24 hours, due to daylight savings). Similarly for “calendar week”,
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>index_column</strong></dt><dd><p>Column used to group based on the time window.
-Often to type Date/Datetime
-This column must be sorted in ascending order. If not the output will not
-make sense.</p>
+Often of type Date/Datetime.
+This column must be sorted in ascending order (or, if <cite>by</cite> is specified,
+then it must be sorted in ascending order within each group).</p>
 <p>In case of a rolling groupby on indices, dtype needs to be one of
 {Int32, Int64}. Note that Int32 gets temporarily cast to Int64, so if
 performance matters use an Int64 column.</p>
