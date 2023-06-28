@@ -337,9 +337,46 @@
 <a href="#337" id="337">337</a>
 <a href="#338" id="338">338</a>
 <a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
+<a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
+<a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
 </pre></div><pre class="rust"><code><span class="kw">mod </span>drop;
 <span class="attr">#[cfg(feature = <span class="string">&quot;merge_sorted&quot;</span>)]
 </span><span class="kw">mod </span>merge_sorted;
+<span class="attr">#[cfg(feature = <span class="string">&quot;python&quot;</span>)]
+</span><span class="kw">mod </span>python_udf;
 <span class="kw">mod </span>rename;
 
 <span class="kw">use </span>std::borrow::Cow;
@@ -353,6 +390,8 @@
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
 <span class="kw">use </span>smartstring::alias::String <span class="kw">as </span>SmartString;
 
+<span class="attr">#[cfg(feature = <span class="string">&quot;python&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::dsl::python_udf::PythonFunction;
 <span class="attr">#[cfg(feature = <span class="string">&quot;merge_sorted&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::logical_plan::functions::merge_sorted::merge_sorted;
 <span class="kw">use </span><span class="kw">crate</span>::prelude::<span class="kw-2">*</span>;
@@ -360,6 +399,17 @@
 <span class="attr">#[derive(Clone)]
 #[cfg_attr(feature = <span class="string">&quot;serde&quot;</span>, derive(Serialize, Deserialize))]
 </span><span class="kw">pub enum </span>FunctionNode {
+    <span class="attr">#[cfg(feature = <span class="string">&quot;python&quot;</span>)]
+    </span>OpaquePython {
+        function: PythonFunction,
+        schema: <span class="prelude-ty">Option</span>&lt;SchemaRef&gt;,
+        <span class="doccomment">///  allow predicate pushdown optimizations
+        </span>predicate_pd: bool,
+        <span class="doccomment">///  allow projection pushdown optimizations
+        </span>projection_pd: bool,
+        streamable: bool,
+        validate_output: bool,
+    },
     <span class="attr">#[cfg_attr(feature = <span class="string">&quot;serde&quot;</span>, serde(skip))]
     </span>Opaque {
         function: Arc&lt;<span class="kw">dyn </span>DataFrameUdf&gt;,
@@ -460,6 +510,8 @@
             | Drop { .. } =&gt; <span class="bool-val">true</span>,
             Melt { args, .. } =&gt; args.streamable,
             Opaque { streamable, .. } =&gt; <span class="kw-2">*</span>streamable,
+            <span class="attr">#[cfg(feature = <span class="string">&quot;python&quot;</span>)]
+            </span>OpaquePython { streamable, .. } =&gt; <span class="kw-2">*</span>streamable,
         }
     }
 
@@ -487,6 +539,11 @@
                     <span class="prelude-val">Ok</span>(Cow::Owned(output_schema))
                 }
             },
+            <span class="attr">#[cfg(feature = <span class="string">&quot;python&quot;</span>)]
+            </span>OpaquePython { schema, .. } =&gt; <span class="prelude-val">Ok</span>(schema
+                .as_ref()
+                .map(|schema| Cow::Owned(schema.clone()))
+                .unwrap_or_else(|| Cow::Borrowed(input_schema))),
             Pipeline { schema, .. } =&gt; <span class="prelude-val">Ok</span>(Cow::Owned(schema.clone())),
             FastProjection { columns } =&gt; {
                 <span class="kw">let </span>schema = columns
@@ -541,6 +598,8 @@
         <span class="kw">use </span>FunctionNode::<span class="kw-2">*</span>;
         <span class="kw">match </span><span class="self">self </span>{
             Opaque { predicate_pd, .. } =&gt; <span class="kw-2">*</span>predicate_pd,
+            <span class="attr">#[cfg(feature = <span class="string">&quot;python&quot;</span>)]
+            </span>OpaquePython { predicate_pd, .. } =&gt; <span class="kw-2">*</span>predicate_pd,
             FastProjection { .. }
             | DropNulls { .. }
             | Rechunk
@@ -559,6 +618,8 @@
         <span class="kw">use </span>FunctionNode::<span class="kw-2">*</span>;
         <span class="kw">match </span><span class="self">self </span>{
             Opaque { projection_pd, .. } =&gt; <span class="kw-2">*</span>projection_pd,
+            <span class="attr">#[cfg(feature = <span class="string">&quot;python&quot;</span>)]
+            </span>OpaquePython { projection_pd, .. } =&gt; <span class="kw-2">*</span>projection_pd,
             FastProjection { .. }
             | DropNulls { .. }
             | Rechunk
@@ -588,6 +649,13 @@
         <span class="kw">use </span>FunctionNode::<span class="kw-2">*</span>;
         <span class="kw">match </span><span class="self">self </span>{
             Opaque { function, .. } =&gt; function.call_udf(df),
+            <span class="attr">#[cfg(feature = <span class="string">&quot;python&quot;</span>)]
+            </span>OpaquePython {
+                function,
+                validate_output,
+                schema,
+                ..
+            } =&gt; python_udf::call_python_udf(function, df, <span class="kw-2">*</span>validate_output, schema.as_deref()),
             FastProjection { columns } =&gt; df.select(columns.as_ref()),
             DropNulls { subset } =&gt; df.drop_nulls(<span class="prelude-val">Some</span>(subset.as_ref())),
             Rechunk =&gt; {
@@ -641,6 +709,8 @@
         <span class="kw">use </span>FunctionNode::<span class="kw-2">*</span>;
         <span class="kw">match </span><span class="self">self </span>{
             Opaque { fmt_str, .. } =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;{fmt_str}&quot;</span>),
+            <span class="attr">#[cfg(feature = <span class="string">&quot;python&quot;</span>)]
+            </span>OpaquePython { .. } =&gt; <span class="macro">write!</span>(f, <span class="string">&quot;python dataframe udf&quot;</span>),
             FastProjection { columns } =&gt; {
                 <span class="macro">write!</span>(f, <span class="string">&quot;FAST_PROJECT: &quot;</span>)<span class="question-mark">?</span>;
                 <span class="kw">let </span>columns = columns.as_ref();
