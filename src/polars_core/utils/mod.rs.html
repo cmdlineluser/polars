@@ -932,6 +932,25 @@
 <a href="#932" id="932">932</a>
 <a href="#933" id="933">933</a>
 <a href="#934" id="934">934</a>
+<a href="#935" id="935">935</a>
+<a href="#936" id="936">936</a>
+<a href="#937" id="937">937</a>
+<a href="#938" id="938">938</a>
+<a href="#939" id="939">939</a>
+<a href="#940" id="940">940</a>
+<a href="#941" id="941">941</a>
+<a href="#942" id="942">942</a>
+<a href="#943" id="943">943</a>
+<a href="#944" id="944">944</a>
+<a href="#945" id="945">945</a>
+<a href="#946" id="946">946</a>
+<a href="#947" id="947">947</a>
+<a href="#948" id="948">948</a>
+<a href="#949" id="949">949</a>
+<a href="#950" id="950">950</a>
+<a href="#951" id="951">951</a>
+<a href="#952" id="952">952</a>
+<a href="#953" id="953">953</a>
 </pre></div><pre class="rust"><code><span class="kw">pub mod </span>flatten;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>series;
 <span class="kw">mod </span>supertype;
@@ -1246,6 +1265,25 @@
         UInt64 =&gt; <span class="macro">__with_ty__! </span>{ u64 },
         Float32 =&gt; <span class="macro">__with_ty__! </span>{ f32 },
         Float64 =&gt; <span class="macro">__with_ty__! </span>{ f64 },
+        <span class="kw">_ </span>=&gt; <span class="macro">unimplemented!</span>()
+    }
+})}
+
+<span class="attr">#[macro_export]
+</span><span class="macro">macro_rules! </span>with_match_physical_integer_type {(
+    <span class="macro-nonterminal">$dtype</span>:expr, | <span class="macro-nonterminal">$</span><span class="kw">_</span>:<span class="macro-nonterminal">tt $T</span>:ident | $(<span class="macro-nonterminal">$body</span>:tt)*
+) =&gt; ({
+    <span class="macro">macro_rules! </span>__with_ty__ {( <span class="macro-nonterminal">$</span><span class="kw">_ </span><span class="macro-nonterminal">$T</span>:ident ) =&gt; ( $(<span class="macro-nonterminal">$body</span>)* )}
+    <span class="kw">use </span><span class="macro-nonterminal">$crate::datatypes::DataType</span>::<span class="kw-2">*</span>;
+    <span class="kw">match </span><span class="macro-nonterminal">$dtype </span>{
+        Int8 =&gt; <span class="macro">__with_ty__! </span>{ i8 },
+        Int16 =&gt; <span class="macro">__with_ty__! </span>{ i16 },
+        Int32 =&gt; <span class="macro">__with_ty__! </span>{ i32 },
+        Int64 =&gt; <span class="macro">__with_ty__! </span>{ i64 },
+        UInt8 =&gt; <span class="macro">__with_ty__! </span>{ u8 },
+        UInt16 =&gt; <span class="macro">__with_ty__! </span>{ u16 },
+        UInt32 =&gt; <span class="macro">__with_ty__! </span>{ u32 },
+        UInt64 =&gt; <span class="macro">__with_ty__! </span>{ u64 },
         <span class="kw">_ </span>=&gt; <span class="macro">unimplemented!</span>()
     }
 })}

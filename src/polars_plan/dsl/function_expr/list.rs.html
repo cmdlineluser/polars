@@ -241,6 +241,18 @@
 <a href="#241" id="241">241</a>
 <a href="#242" id="242">242</a>
 <a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>polars_arrow::utils::CustomIterTools;
 <span class="kw">use </span>polars_ops::chunked_array::list::<span class="kw-2">*</span>;
 
@@ -259,6 +271,8 @@
     <span class="attr">#[cfg(feature = <span class="string">&quot;list_count&quot;</span>)]
     </span>CountMatch,
     Sum,
+    <span class="attr">#[cfg(feature = <span class="string">&quot;list_sets&quot;</span>)]
+    </span>SetOperation(SetOperation),
 }
 
 <span class="kw">impl </span>Display <span class="kw">for </span>ListFunction {
@@ -276,6 +290,8 @@
             <span class="attr">#[cfg(feature = <span class="string">&quot;list_count&quot;</span>)]
             </span>CountMatch =&gt; <span class="string">&quot;count&quot;</span>,
             Sum =&gt; <span class="string">&quot;sum&quot;</span>,
+            <span class="attr">#[cfg(feature = <span class="string">&quot;list_sets&quot;</span>)]
+            </span>SetOperation(s) =&gt; <span class="kw">return </span><span class="macro">write!</span>(f, <span class="string">&quot;{s}&quot;</span>),
         };
         <span class="macro">write!</span>(f, <span class="string">&quot;{name}&quot;</span>)
     }
@@ -483,5 +499,13 @@
 
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>sum(s: <span class="kw-2">&amp;</span>Series) -&gt; PolarsResult&lt;Series&gt; {
     <span class="prelude-val">Ok</span>(s.list()<span class="question-mark">?</span>.lst_sum())
+}
+
+<span class="attr">#[cfg(feature = <span class="string">&quot;list_sets&quot;</span>)]
+</span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>set_operation(s: <span class="kw-2">&amp;</span>[Series], set_type: SetOperation) -&gt; PolarsResult&lt;Series&gt; {
+    <span class="kw">let </span>s0 = <span class="kw-2">&amp;</span>s[<span class="number">0</span>];
+    <span class="kw">let </span>s1 = <span class="kw-2">&amp;</span>s[<span class="number">1</span>];
+
+    <span class="prelude-val">Ok</span>(list_set_operation(s0.list()<span class="question-mark">?</span>, s1.list()<span class="question-mark">?</span>, set_type).into_series())
 }
 </code></pre></div></section></main></body></html>

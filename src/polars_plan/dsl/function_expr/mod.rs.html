@@ -641,6 +641,8 @@
 <a href="#641" id="641">641</a>
 <a href="#642" id="642">642</a>
 <a href="#643" id="643">643</a>
+<a href="#644" id="644">644</a>
+<a href="#645" id="645">645</a>
 </pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;abs&quot;</span>)]
 </span><span class="kw">mod </span>abs;
 <span class="attr">#[cfg(feature = <span class="string">&quot;arg_where&quot;</span>)]
@@ -1076,6 +1078,8 @@
                     <span class="attr">#[cfg(feature = <span class="string">&quot;list_count&quot;</span>)]
                     </span>CountMatch =&gt; <span class="macro">map_as_slice!</span>(list::count_match),
                     Sum =&gt; <span class="macro">map!</span>(list::sum),
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;list_sets&quot;</span>)]
+                    </span>SetOperation(s) =&gt; <span class="macro">map_as_slice!</span>(list::set_operation, s),
                 }
             }
             <span class="attr">#[cfg(feature = <span class="string">&quot;dtype-array&quot;</span>)]

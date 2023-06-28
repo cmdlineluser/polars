@@ -310,6 +310,43 @@
 <a href="#310" id="310">310</a>
 <a href="#311" id="311">311</a>
 <a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
 </pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;list_to_struct&quot;</span>)]
 </span><span class="kw">use </span>std::sync::RwLock;
 
@@ -607,8 +644,9 @@
         }
     }
     <span class="attr">#[cfg(feature = <span class="string">&quot;list_count&quot;</span>)]
-    </span><span class="kw">pub fn </span>count_match&lt;E: Into&lt;Expr&gt;&gt;(<span class="self">self</span>, other: E) -&gt; Expr {
-        <span class="kw">let </span>other = other.into();
+    </span><span class="doccomment">/// Count how often the value produced by ``element`` occurs.
+    </span><span class="kw">pub fn </span>count_match&lt;E: Into&lt;Expr&gt;&gt;(<span class="self">self</span>, element: E) -&gt; Expr {
+        <span class="kw">let </span>other = element.into();
 
         Expr::Function {
             input: <span class="macro">vec!</span>[<span class="self">self</span>.<span class="number">0</span>, other],
@@ -620,6 +658,42 @@
                 ..Default::default()
             },
         }
+    }
+
+    <span class="attr">#[cfg(feature = <span class="string">&quot;list_sets&quot;</span>)]
+    </span><span class="kw">fn </span>set_operation(<span class="self">self</span>, other: Expr, set_operation: SetOperation) -&gt; Expr {
+        Expr::Function {
+            input: <span class="macro">vec!</span>[<span class="self">self</span>.<span class="number">0</span>, other],
+            function: FunctionExpr::ListExpr(ListFunction::SetOperation(set_operation)),
+            options: FunctionOptions {
+                collect_groups: ApplyOptions::ApplyFlat,
+                input_wildcard_expansion: <span class="bool-val">true</span>,
+                auto_explode: <span class="bool-val">false</span>,
+                cast_to_supertypes: <span class="bool-val">true</span>,
+                ..Default::default()
+            },
+        }
+    }
+
+    <span class="doccomment">/// Return the SET UNION between both list arrays.
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;list_sets&quot;</span>)]
+    </span><span class="kw">pub fn </span>union&lt;E: Into&lt;Expr&gt;&gt;(<span class="self">self</span>, other: E) -&gt; Expr {
+        <span class="kw">let </span>other = other.into();
+        <span class="self">self</span>.set_operation(other, SetOperation::Union)
+    }
+
+    <span class="doccomment">/// Return the SET DIFFERENCE between both list arrays.
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;list_sets&quot;</span>)]
+    </span><span class="kw">pub fn </span>difference&lt;E: Into&lt;Expr&gt;&gt;(<span class="self">self</span>, other: E) -&gt; Expr {
+        <span class="kw">let </span>other = other.into();
+        <span class="self">self</span>.set_operation(other, SetOperation::Difference)
+    }
+
+    <span class="doccomment">/// Return the SET INTERSECTION between both list arrays.
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;list_sets&quot;</span>)]
+    </span><span class="kw">pub fn </span>intersection&lt;E: Into&lt;Expr&gt;&gt;(<span class="self">self</span>, other: E) -&gt; Expr {
+        <span class="kw">let </span>other = other.into();
+        <span class="self">self</span>.set_operation(other, SetOperation::Intersection)
     }
 }
 </code></pre></div></section></main></body></html>

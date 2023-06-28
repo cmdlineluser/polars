@@ -26,6 +26,10 @@
 <a href="#26" id="26">26</a>
 <a href="#27" id="27">27</a>
 <a href="#28" id="28">28</a>
+<a href="#29" id="29">29</a>
+<a href="#30" id="30">30</a>
+<a href="#31" id="31">31</a>
+<a href="#32" id="32">32</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>polars_core::prelude::<span class="kw-2">*</span>;
 
 <span class="kw">mod </span>count;
@@ -33,6 +37,8 @@
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>hash;
 <span class="kw">mod </span>min_max;
 <span class="kw">mod </span>namespace;
+<span class="attr">#[cfg(feature = <span class="string">&quot;list_sets&quot;</span>)]
+</span><span class="kw">mod </span>sets;
 <span class="kw">mod </span>sum_mean;
 <span class="attr">#[cfg(feature = <span class="string">&quot;list_to_struct&quot;</span>)]
 </span><span class="kw">mod </span>to_struct;
@@ -42,6 +48,8 @@
 <span class="attr">#[cfg(not(feature = <span class="string">&quot;list_count&quot;</span>))]
 </span><span class="kw">use </span>count::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>namespace::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(feature = <span class="string">&quot;list_sets&quot;</span>)]
+</span><span class="kw">pub use </span>sets::<span class="kw-2">*</span>;
 <span class="attr">#[cfg(feature = <span class="string">&quot;list_to_struct&quot;</span>)]
 </span><span class="kw">pub use </span>to_struct::<span class="kw-2">*</span>;
 

@@ -351,6 +351,8 @@
 <a href="#351" id="351">351</a>
 <a href="#352" id="352">352</a>
 <a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::<span class="kw-2">*</span>;
 
 <span class="kw">impl </span>FunctionExpr {
@@ -456,6 +458,8 @@
                     <span class="attr">#[cfg(feature = <span class="string">&quot;list_count&quot;</span>)]
                     </span>CountMatch =&gt; mapper.with_dtype(IDX_DTYPE),
                     Sum =&gt; mapper.nested_sum_type(),
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;list_sets&quot;</span>)]
+                    </span>SetOperation(<span class="kw">_</span>) =&gt; mapper.with_same_dtype(),
                 }
             }
             <span class="attr">#[cfg(feature = <span class="string">&quot;dtype-array&quot;</span>)]
