@@ -550,11 +550,13 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.contains.html">polars.Series.list.contains</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.count_match.html">polars.Series.list.count_match</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.diff.html">polars.Series.list.diff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.difference.html">polars.Series.list.difference</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.eval.html">polars.Series.list.eval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.explode.html">polars.Series.list.explode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.first.html">polars.Series.list.first</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.get.html">polars.Series.list.get</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.head.html">polars.Series.list.head</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.intersection.html">polars.Series.list.intersection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.join.html">polars.Series.list.join</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.last.html">polars.Series.list.last</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.lengths.html">polars.Series.list.lengths</a></li>
@@ -569,6 +571,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.tail.html">polars.Series.list.tail</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.take.html">polars.Series.list.take</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.to_struct.html">polars.Series.list.to_struct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.union.html">polars.Series.list.union</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../series/api/polars.Series.list.unique.html">polars.Series.list.unique</a></li>
 </ul>
 </li>
@@ -1181,11 +1184,13 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.contains.html">polars.Expr.list.contains</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.count_match.html">polars.Expr.list.count_match</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.diff.html">polars.Expr.list.diff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.difference.html">polars.Expr.list.difference</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.eval.html">polars.Expr.list.eval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.explode.html">polars.Expr.list.explode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.first.html">polars.Expr.list.first</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.get.html">polars.Expr.list.get</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.head.html">polars.Expr.list.head</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.intersection.html">polars.Expr.list.intersection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.join.html">polars.Expr.list.join</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.last.html">polars.Expr.list.last</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.lengths.html">polars.Expr.list.lengths</a></li>
@@ -1200,6 +1205,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.tail.html">polars.Expr.list.tail</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.take.html">polars.Expr.list.take</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.to_struct.html">polars.Expr.list.to_struct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.union.html">polars.Expr.list.union</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.list.unique.html">polars.Expr.list.unique</a></li>
 </ul>
 </li>
@@ -1595,20 +1601,26 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.list.diff.html#polars.Expr.list.diff" title="polars.Expr.list.diff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.diff</span></code></a>([n, null_behavior])</p></td>
 <td><p>Calculate the n-th discrete difference of every sublist.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.list.eval.html#polars.Expr.list.eval" title="polars.Expr.list.eval"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.eval</span></code></a>(expr, *[, parallel])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.list.difference.html#polars.Expr.list.difference" title="polars.Expr.list.difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.difference</span></code></a>(other)</p></td>
+<td><p>Compute the SET DIFFERENCE between the  elements in this list and the elements of <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.list.eval.html#polars.Expr.list.eval" title="polars.Expr.list.eval"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.eval</span></code></a>(expr, *[, parallel])</p></td>
 <td><p>Run any polars expression against the lists' elements.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.list.explode.html#polars.Expr.list.explode" title="polars.Expr.list.explode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.explode</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.list.explode.html#polars.Expr.list.explode" title="polars.Expr.list.explode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.explode</span></code></a>()</p></td>
 <td><p>Returns a column with a separate row for every list element.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.list.first.html#polars.Expr.list.first" title="polars.Expr.list.first"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.first</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.list.first.html#polars.Expr.list.first" title="polars.Expr.list.first"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.first</span></code></a>()</p></td>
 <td><p>Get the first value of the sublists.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.list.get.html#polars.Expr.list.get" title="polars.Expr.list.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.get</span></code></a>(index)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.list.get.html#polars.Expr.list.get" title="polars.Expr.list.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.get</span></code></a>(index)</p></td>
 <td><p>Get the value by index in the sublists.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.list.head.html#polars.Expr.list.head" title="polars.Expr.list.head"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.head</span></code></a>([n])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.list.head.html#polars.Expr.list.head" title="polars.Expr.list.head"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.head</span></code></a>([n])</p></td>
 <td><p>Slice the first <cite>n</cite> values of every sublist.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.list.intersection.html#polars.Expr.list.intersection" title="polars.Expr.list.intersection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.intersection</span></code></a>(other)</p></td>
+<td><p>Compute the SET INTERSECTION between the  elements in this list and the elements of <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.list.join.html#polars.Expr.list.join" title="polars.Expr.list.join"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.join</span></code></a>(separator)</p></td>
 <td><p>Join all string items in a sublist and place a separator between them.</p></td>
@@ -1652,7 +1664,10 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.list.to_struct.html#polars.Expr.list.to_struct" title="polars.Expr.list.to_struct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.to_struct</span></code></a>([n_field_strategy, ...])</p></td>
 <td><p>Convert the series of type <code class="docutils literal notranslate"><span class="pre">List</span></code> to a series of type <code class="docutils literal notranslate"><span class="pre">Struct</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.list.unique.html#polars.Expr.list.unique" title="polars.Expr.list.unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.unique</span></code></a>(*[, maintain_order])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.list.union.html#polars.Expr.list.union" title="polars.Expr.list.union"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.union</span></code></a>(other)</p></td>
+<td><p>Compute the SET UNION between the elements in this list and the elements of <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.list.unique.html#polars.Expr.list.unique" title="polars.Expr.list.unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.list.unique</span></code></a>(*[, maintain_order])</p></td>
 <td><p>Get the unique/distinct values in the list.</p></td>
 </tr>
 </tbody>
