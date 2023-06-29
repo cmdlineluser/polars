@@ -720,6 +720,11 @@
 <a href="#720" id="720">720</a>
 <a href="#721" id="721">721</a>
 <a href="#722" id="722">722</a>
+<a href="#723" id="723">723</a>
+<a href="#724" id="724">724</a>
+<a href="#725" id="725">725</a>
+<a href="#726" id="726">726</a>
+<a href="#727" id="727">727</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::convert::TryFrom;
 
 <span class="kw">use </span>arrow::compute::cast::utf8_to_large_utf8;
@@ -739,6 +744,8 @@
 </span><span class="kw">use </span><span class="kw">crate</span>::chunked_array::object::extension::polars_extension::PolarsExtension;
 <span class="attr">#[cfg(feature = <span class="string">&quot;object&quot;</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::chunked_array::object::extension::EXTENSION_NAME;
+<span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::chunked_array::temporal::validate_time_zone;
 <span class="attr">#[cfg(all(feature = <span class="string">&quot;dtype-decimal&quot;</span>, feature = <span class="string">&quot;python&quot;</span>))]
 </span><span class="kw">use </span><span class="kw">crate</span>::config::decimal_is_active;
 <span class="kw">use </span><span class="kw">crate</span>::config::verbose;
@@ -921,8 +928,11 @@
                 <span class="kw">if </span>tz.as_deref() == <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>) {
                     tz = <span class="prelude-val">None</span>;
                 }
-                <span class="comment">// we still drop timezone for now
-                </span><span class="kw">let </span>chunks = cast_chunks(<span class="kw-2">&amp;</span>chunks, <span class="kw-2">&amp;</span>DataType::Int64, <span class="bool-val">false</span>).unwrap();
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(_tz) = <span class="kw-2">&amp;</span>tz {
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
+                    </span>validate_time_zone(_tz)<span class="question-mark">?</span>;
+                }
+                <span class="kw">let </span>chunks = cast_chunks(<span class="kw-2">&amp;</span>chunks, <span class="kw-2">&amp;</span>DataType::Int64, <span class="bool-val">false</span>).unwrap();
                 <span class="kw">let </span>s = Int64Chunked::from_chunks(name, chunks)
                     .into_datetime(tu.into(), tz)
                     .into_series();
