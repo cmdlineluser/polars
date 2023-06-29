@@ -534,7 +534,7 @@
 <span class="doccomment">/// Create a column of length `n` containing `n` copies of the literal `value`. Generally you won&#39;t need this function,
 /// as `lit(value)` already represents a column containing only `value` whose length is automatically set to the correct
 /// number of rows.
-</span><span class="kw">pub fn </span>repeat&lt;L: Literal&gt;(value: L, n: Expr) -&gt; Expr {
+</span><span class="kw">pub fn </span>repeat&lt;E: Into&lt;Expr&gt;&gt;(value: E, n: Expr) -&gt; Expr {
     <span class="kw">let </span>function = |s: Series, n: Series| {
         <span class="macro">polars_ensure!</span>(
             n.dtype().is_integer(),
@@ -546,6 +546,6 @@
         )<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(s.new_from_index(<span class="number">0</span>, n)))
     };
-    apply_binary(lit(value), n, function, GetOutput::same_type()).alias(<span class="string">&quot;repeat&quot;</span>)
+    apply_binary(value.into(), n, function, GetOutput::same_type()).alias(<span class="string">&quot;repeat&quot;</span>)
 }
 </code></pre></div></section></main></body></html>
