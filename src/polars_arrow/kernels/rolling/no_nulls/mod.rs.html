@@ -142,7 +142,6 @@
 <a href="#142" id="142">142</a>
 <a href="#143" id="143">143</a>
 <a href="#144" id="144">144</a>
-<a href="#145" id="145">145</a>
 </pre></div><pre class="rust"><code><span class="kw">mod </span>mean;
 <span class="kw">mod </span>min_max;
 <span class="kw">mod </span>quantile;
@@ -257,20 +256,19 @@
 <span class="kw">where
     </span>T: Float + std::ops::AddAssign,
 {
-    <span class="kw">let </span>weighted_iter = vals.iter().zip(weights).map(|(x, y)| <span class="kw-2">*</span>x * <span class="kw-2">*</span>y);
+    <span class="comment">// Assumes the weights have already been standardized to 1
+    </span><span class="macro">debug_assert!</span>(
+        weights.iter().fold(T::zero(), |acc, x| acc + <span class="kw-2">*</span>x) == T::one(),
+        <span class="string">&quot;Rolling weighted variance Weights don&#39;t sum to 1&quot;
+    </span>);
+    <span class="kw">let </span>(wssq, wmean) = vals
+        .iter()
+        .zip(weights)
+        .fold((T::zero(), T::zero()), |(wssq, wsum), (<span class="kw-2">&amp;</span>v, <span class="kw-2">&amp;</span>w)| {
+            (wssq + v * v * w, wsum + v * w)
+        });
 
-    <span class="kw">let </span><span class="kw-2">mut </span>sum = T::zero();
-    <span class="kw">let </span><span class="kw-2">mut </span>sum_of_squares = T::zero();
-
-    <span class="kw">for </span>val <span class="kw">in </span>weighted_iter {
-        sum += val;
-        sum_of_squares += val * val;
-    }
-    <span class="kw">let </span>count = NumCast::from(vals.len()).unwrap();
-
-    <span class="kw">let </span>mean = sum / count;
-    <span class="comment">// apply Bessel&#39;s correction
-    </span>((sum_of_squares / count) - mean * mean) / (count - T::one()) * count
+    wssq - wmean * wmean
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>compute_sum_weights&lt;T&gt;(values: <span class="kw-2">&amp;</span>[T], weights: <span class="kw-2">&amp;</span>[T]) -&gt; T

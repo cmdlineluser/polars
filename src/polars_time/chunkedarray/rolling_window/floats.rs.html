@@ -171,6 +171,7 @@
 <a href="#171" id="171">171</a>
 <a href="#172" id="172">172</a>
 <a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>num::pow::Pow;
 <span class="kw">use </span>num::Float;
 <span class="kw">use </span>polars_core::export::num;
@@ -292,7 +293,8 @@
                 options.min_periods,
                 options.center,
                 options.weights.as_deref(),
-            ),
+            )
+            .unwrap(),
             <span class="kw">_ </span>=&gt; rolling::nulls::rolling_quantile(
                 arr,
                 quantile,

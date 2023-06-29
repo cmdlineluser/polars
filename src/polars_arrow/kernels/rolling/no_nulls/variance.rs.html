@@ -242,12 +242,8 @@
 <a href="#242" id="242">242</a>
 <a href="#243" id="243">243</a>
 <a href="#244" id="244">244</a>
-<a href="#245" id="245">245</a>
-<a href="#246" id="246">246</a>
-<a href="#247" id="247">247</a>
-<a href="#248" id="248">248</a>
-<a href="#249" id="249">249</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>no_nulls::{rolling_apply_agg_window, RollingAggWindowNoNulls};
+<span class="kw">use </span>polars_error::polars_ensure;
 
 <span class="kw">use </span><span class="kw">super</span>::mean::MeanWindow;
 <span class="kw">use super</span>::<span class="kw-2">*</span>;
@@ -403,41 +399,35 @@
         + Zero
         + Sub&lt;Output = T&gt;,
 {
-    <span class="kw">match </span>(center, weights) {
-        (<span class="bool-val">true</span>, <span class="prelude-val">None</span>) =&gt; rolling_apply_agg_window::&lt;VarWindow&lt;<span class="kw">_</span>&gt;, <span class="kw">_</span>, <span class="kw">_</span>&gt;(
+    <span class="kw">let </span>offset_fn = <span class="kw">match </span>center {
+        <span class="bool-val">true </span>=&gt; det_offsets_center,
+        <span class="bool-val">false </span>=&gt; det_offsets,
+    };
+    <span class="kw">match </span>weights {
+        <span class="prelude-val">None </span>=&gt; rolling_apply_agg_window::&lt;VarWindow&lt;<span class="kw">_</span>&gt;, <span class="kw">_</span>, <span class="kw">_</span>&gt;(
             values,
             window_size,
             min_periods,
-            det_offsets_center,
+            offset_fn,
             params,
         ),
-        (<span class="bool-val">false</span>, <span class="prelude-val">None</span>) =&gt; rolling_apply_agg_window::&lt;VarWindow&lt;<span class="kw">_</span>&gt;, <span class="kw">_</span>, <span class="kw">_</span>&gt;(
-            values,
-            window_size,
-            min_periods,
-            det_offsets,
-            params,
-        ),
-        (<span class="bool-val">true</span>, <span class="prelude-val">Some</span>(weights)) =&gt; {
-            <span class="kw">let </span>weights = coerce_weights(weights);
+        <span class="prelude-val">Some</span>(weights) =&gt; {
+            <span class="comment">// Validate and standardize the weights like we do for the mean. This definition is fine
+            // because frequency weights and unbiasing don&#39;t make sense for rolling operations.
+            </span><span class="kw">let </span><span class="kw-2">mut </span>wts = no_nulls::coerce_weights(weights);
+            <span class="kw">let </span>wsum = wts.iter().fold(T::zero(), |acc, x| acc + <span class="kw-2">*</span>x);
+            <span class="macro">polars_ensure!</span>(
+                wsum != T::zero(),
+                ComputeError: <span class="string">&quot;Weighted variance is undefined if weights sum to 0&quot;
+            </span>);
+            wts.iter_mut().for_each(|w| <span class="kw-2">*</span>w = <span class="kw-2">*</span>w / wsum);
             <span class="kw">super</span>::rolling_apply_weights(
                 values,
                 window_size,
                 min_periods,
-                det_offsets_center,
+                offset_fn,
                 compute_var_weights,
-                <span class="kw-2">&amp;</span>weights,
-            )
-        }
-        (<span class="bool-val">false</span>, <span class="prelude-val">Some</span>(weights)) =&gt; {
-            <span class="kw">let </span>weights = coerce_weights(weights);
-            <span class="kw">super</span>::rolling_apply_weights(
-                values,
-                window_size,
-                min_periods,
-                det_offsets,
-                compute_var_weights,
-                <span class="kw-2">&amp;</span>weights,
+                <span class="kw-2">&amp;</span>wts,
             )
         }
     }
