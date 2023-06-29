@@ -146,7 +146,6 @@
 <a href="#146" id="146">146</a>
 <a href="#147" id="147">147</a>
 <a href="#148" id="148">148</a>
-<a href="#149" id="149">149</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::io::BufRead;
 
 <span class="kw">use </span>arrow::datatypes::DataType;
@@ -293,7 +292,6 @@
     }
 
     <span class="kw">let </span>v: Vec&lt;<span class="kw-2">&amp;</span>DataType&gt; = data_types.iter().collect();
-    <span class="macro">dbg!</span>(<span class="kw-2">&amp;</span>v);
-    <span class="macro">dbg!</span>(<span class="prelude-val">Ok</span>(<span class="kw">crate</span>::json::infer_schema::coerce_data_type(<span class="kw-2">&amp;</span>v)))
+    <span class="prelude-val">Ok</span>(<span class="kw">crate</span>::json::infer_schema::coerce_data_type(<span class="kw-2">&amp;</span>v))
 }
 </code></pre></div></section></main></body></html>
