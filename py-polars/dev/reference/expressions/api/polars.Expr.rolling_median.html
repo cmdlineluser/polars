@@ -1683,7 +1683,7 @@ computation.</p>
 <span class="go">└─────┴────────────────┘</span>
 </pre></div>
 </div>
-<p>Specify weights to multiply the values in the window with:</p>
+<p>Specify weights for the values in each window:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">rolling_median</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rolling_median</span><span class="p">(</span>
 <span class="gp">... </span>        <span class="n">window_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]</span>
@@ -1696,11 +1696,11 @@ computation.</p>
 <span class="go">│ f64 ┆ f64            │</span>
 <span class="go">╞═════╪════════════════╡</span>
 <span class="go">│ 1.0 ┆ null           │</span>
-<span class="go">│ 2.0 ┆ 0.875          │</span>
-<span class="go">│ 3.0 ┆ 1.375          │</span>
-<span class="go">│ 4.0 ┆ 1.875          │</span>
-<span class="go">│ 5.0 ┆ 2.375          │</span>
-<span class="go">│ 6.0 ┆ 2.875          │</span>
+<span class="go">│ 2.0 ┆ 1.5            │</span>
+<span class="go">│ 3.0 ┆ 2.5            │</span>
+<span class="go">│ 4.0 ┆ 3.5            │</span>
+<span class="go">│ 5.0 ┆ 4.5            │</span>
+<span class="go">│ 6.0 ┆ 5.5            │</span>
 <span class="go">└─────┴────────────────┘</span>
 </pre></div>
 </div>
