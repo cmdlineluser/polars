@@ -769,7 +769,7 @@
 <span class="kw">pub mod </span>iterator;
 <span class="kw">pub mod </span>kernels;
 <span class="attr">#[cfg(feature = <span class="string">&quot;ndarray&quot;</span>)]
-</span><span class="kw">mod </span>ndarray;
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>ndarray;
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;dtype-array&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>array;

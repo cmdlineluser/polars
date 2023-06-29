@@ -50,6 +50,8 @@
 <a href="#50" id="50">50</a>
 <a href="#51" id="51">51</a>
 <a href="#52" id="52">52</a>
+<a href="#53" id="53">53</a>
+<a href="#54" id="54">54</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Everything you need to get started with Polars.
 </span><span class="kw">pub use </span>std::sync::Arc;
 
@@ -69,6 +71,8 @@
 <span class="kw">pub use </span><span class="kw">crate</span>::chunked_array::iterator::PolarsIterator;
 <span class="attr">#[cfg(feature = <span class="string">&quot;dtype-categorical&quot;</span>)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::chunked_array::logical::categorical::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(feature = <span class="string">&quot;ndarray&quot;</span>)]
+</span><span class="kw">pub use </span><span class="kw">crate</span>::chunked_array::ndarray::IndexOrder;
 <span class="attr">#[cfg(feature = <span class="string">&quot;object&quot;</span>)]
 </span><span class="kw">pub use </span><span class="kw">crate</span>::chunked_array::object::PolarsObject;
 <span class="kw">pub use </span><span class="kw">crate</span>::chunked_array::ops::aggregate::<span class="kw-2">*</span>;
