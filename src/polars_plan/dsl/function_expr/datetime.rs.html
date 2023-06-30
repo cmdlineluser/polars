@@ -299,8 +299,33 @@
 <a href="#299" id="299">299</a>
 <a href="#300" id="300">300</a>
 <a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
+<a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
 </pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
 </span><span class="kw">use </span>chrono_tz::Tz;
+<span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
+</span><span class="kw">use </span>polars_time::dst_offset <span class="kw">as </span>dst_offset_fn;
 <span class="attr">#[cfg(feature = <span class="string">&quot;serde&quot;</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
 
@@ -333,6 +358,8 @@
     </span>MonthStart,
     <span class="attr">#[cfg(feature = <span class="string">&quot;date_offset&quot;</span>)]
     </span>MonthEnd,
+    <span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
+    </span>DSTOffset,
     Round(String, String),
     <span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
     </span>CastTimezone(<span class="prelude-ty">Option</span>&lt;TimeZone&gt;, <span class="prelude-ty">Option</span>&lt;bool&gt;),
@@ -378,6 +405,8 @@
             </span>MonthStart =&gt; <span class="string">&quot;month_start&quot;</span>,
             <span class="attr">#[cfg(feature = <span class="string">&quot;date_offset&quot;</span>)]
             </span>MonthEnd =&gt; <span class="string">&quot;month_end&quot;</span>,
+            <span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
+            </span>DSTOffset =&gt; <span class="string">&quot;dst_offset&quot;</span>,
             Round(..) =&gt; <span class="string">&quot;round&quot;</span>,
             <span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
             </span>CastTimezone(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="string">&quot;replace_timezone&quot;</span>,
@@ -553,6 +582,23 @@
         DataType::Date =&gt; s.date().unwrap().month_end(<span class="prelude-val">None</span>)<span class="question-mark">?</span>.into_series(),
         dt =&gt; <span class="macro">polars_bail!</span>(opq = month_end, got = dt, expected = <span class="string">&quot;date/datetime&quot;</span>),
     })
+}
+
+<span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
+</span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>dst_offset(s: <span class="kw-2">&amp;</span>Series) -&gt; PolarsResult&lt;Series&gt; {
+    <span class="kw">match </span>s.dtype() {
+        DataType::Datetime(time_unit, <span class="prelude-val">Some</span>(tz)) =&gt; {
+            <span class="kw">let </span>tz = tz
+                .parse::&lt;Tz&gt;()
+                .expect(<span class="string">&quot;Time zone has already been validated&quot;</span>);
+            <span class="prelude-val">Ok</span>(dst_offset_fn(s.datetime().unwrap(), time_unit, <span class="kw-2">&amp;</span>tz).into_series())
+        }
+        dt =&gt; <span class="macro">polars_bail!</span>(
+            opq = dst_offset,
+            got = dt,
+            expected = <span class="string">&quot;time-zone-aware datetime&quot;
+        </span>),
+    }
 }
 
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>round(s: <span class="kw-2">&amp;</span>Series, every: <span class="kw-2">&amp;</span>str, offset: <span class="kw-2">&amp;</span>str) -&gt; PolarsResult&lt;Series&gt; {

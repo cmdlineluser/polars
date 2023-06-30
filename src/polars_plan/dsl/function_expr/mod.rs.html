@@ -643,6 +643,8 @@
 <a href="#643" id="643">643</a>
 <a href="#644" id="644">644</a>
 <a href="#645" id="645">645</a>
+<a href="#646" id="646">646</a>
+<a href="#647" id="647">647</a>
 </pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">&quot;abs&quot;</span>)]
 </span><span class="kw">mod </span>abs;
 <span class="attr">#[cfg(feature = <span class="string">&quot;arg_where&quot;</span>)]
@@ -1259,6 +1261,8 @@
             </span>MonthStart =&gt; <span class="macro">map!</span>(datetime::month_start),
             <span class="attr">#[cfg(feature = <span class="string">&quot;date_offset&quot;</span>)]
             </span>MonthEnd =&gt; <span class="macro">map!</span>(datetime::month_end),
+            <span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
+            </span>DSTOffset =&gt; <span class="macro">map!</span>(datetime::dst_offset),
             Round(every, offset) =&gt; <span class="macro">map!</span>(datetime::round, <span class="kw-2">&amp;</span>every, <span class="kw-2">&amp;</span>offset),
             <span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
             </span>CastTimezone(tz, use_earliest) =&gt; {

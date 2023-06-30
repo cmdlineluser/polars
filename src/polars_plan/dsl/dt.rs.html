@@ -286,6 +286,13 @@
 <a href="#286" id="286">286</a>
 <a href="#287" id="287">287</a>
 <a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>polars_time::prelude::TemporalMethods;
 
 <span class="kw">use super</span>::<span class="kw-2">*</span>;
@@ -535,6 +542,13 @@
     </span><span class="kw">pub fn </span>month_end(<span class="self">self</span>) -&gt; Expr {
         <span class="self">self</span>.<span class="number">0
             </span>.map_private(FunctionExpr::TemporalExpr(TemporalFunction::MonthEnd))
+    }
+
+    <span class="comment">// Get the additional offset from UTC currently in effect (usually due to daylight saving time)
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
+    </span><span class="kw">pub fn </span>dst_offset(<span class="self">self</span>) -&gt; Expr {
+        <span class="self">self</span>.<span class="number">0
+            </span>.map_private(FunctionExpr::TemporalExpr(TemporalFunction::DSTOffset))
     }
 
     <span class="kw">pub fn </span>round&lt;S: AsRef&lt;str&gt;&gt;(<span class="self">self</span>, every: S, offset: S) -&gt; Expr {
