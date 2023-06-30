@@ -1755,7 +1755,7 @@ computation.</p>
 <p>Compute the rolling max with the default left closure of temporal windows</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df_temporal</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">rolling_row_max</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;row_nr&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rolling_max</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">window_size</span><span class="o">=</span><span class="s2">&quot;2h&quot;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s2">&quot;date&quot;</span>
+<span class="gp">... </span>        <span class="n">window_size</span><span class="o">=</span><span class="s2">&quot;2h&quot;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="go">shape: (25, 3)</span>

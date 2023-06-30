@@ -1639,7 +1639,7 @@ their month should saturate at the largest date
 <p>If a timedelta or the dynamic string language is used, the <cite>by</cite>
 and <cite>closed</cite> arguments must also be set.</p>
 </dd>
-<dt><strong>weights</strong></dt><dd><p>An optional slice with the same length of the window that will be multiplied
+<dt><strong>weights</strong></dt><dd><p>An optional slice with the same length as the window that will be multiplied
 elementwise with the values in the window.</p>
 </dd>
 <dt><strong>min_periods</strong></dt><dd><p>The number of values in the window that should be non-null before computing
@@ -1755,7 +1755,7 @@ computation.</p>
 <p>Compute the rolling sum with the default left closure of temporal windows</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df_temporal</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">rolling_row_sum</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;row_nr&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rolling_sum</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">window_size</span><span class="o">=</span><span class="s2">&quot;2h&quot;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s2">&quot;date&quot;</span>
+<span class="gp">... </span>        <span class="n">window_size</span><span class="o">=</span><span class="s2">&quot;2h&quot;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="go">shape: (25, 3)</span>

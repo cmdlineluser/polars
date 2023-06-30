@@ -1595,7 +1595,7 @@ document.write(`
 <dd><p>Apply a rolling mean (moving mean) over the values in this array.</p>
 <p>A window of length <cite>window_size</cite> will traverse the array. The values that fill
 this window will (optionally) be multiplied with the weights given by the
-<cite>weight</cite> vector. The resulting values will be aggregated to their sum.</p>
+<cite>weight</cite> vector. The resulting values will be aggregated to their mean.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">by</span></code> has not been specified (the default), the window at a given row will
 include the row itself, and the <cite>window_size - 1</cite> elements before it.</p>
 <p>If you pass a <code class="docutils literal notranslate"><span class="pre">by</span></code> column <code class="docutils literal notranslate"><span class="pre">&lt;t_0,</span> <span class="pre">t_1,</span> <span class="pre">...,</span> <span class="pre">t_n&gt;</span></code>, then <cite>closed=”left”</cite>
@@ -1755,7 +1755,7 @@ computation.</p>
 <p>Compute the rolling mean with the default left closure of temporal windows</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df_temporal</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">rolling_row_mean</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;row_nr&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rolling_mean</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">window_size</span><span class="o">=</span><span class="s2">&quot;2h&quot;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s2">&quot;date&quot;</span>
+<span class="gp">... </span>        <span class="n">window_size</span><span class="o">=</span><span class="s2">&quot;2h&quot;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="go">shape: (25, 3)</span>
