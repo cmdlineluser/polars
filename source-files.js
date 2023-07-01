@@ -33,6 +33,7 @@ var sourcesIndex = JSON.parse('{\
 "dyn_clone":["",[],["lib.rs","macros.rs"]],\
 "either":["",[],["lib.rs"]],\
 "enum_dispatch":["",[],["attributed_parser.rs","cache.rs","enum_dispatch_arg_list.rs","enum_dispatch_item.rs","enum_dispatch_variant.rs","expansion.rs","filter_attrs.rs","lib.rs","supported_generics.rs","syn_utils.rs"]],\
+"equivalent":["",[],["lib.rs"]],\
 "ethnum":["",[["int",[],["api.rs","cmp.rs","convert.rs","fmt.rs","iter.rs","ops.rs","parse.rs"]],["intrinsics",[["native",[],["add.rs","ctz.rs","divmod.rs","mul.rs","rot.rs","shl.rs","shr.rs","sub.rs"]]],["cast.rs","native.rs","signed.rs"]],["macros",[],["cmp.rs","fmt.rs","iter.rs","ops.rs","parse.rs"]],["uint",[],["api.rs","cmp.rs","convert.rs","fmt.rs","iter.rs","ops.rs","parse.rs"]]],["error.rs","fmt.rs","int.rs","intrinsics.rs","lib.rs","parse.rs","uint.rs"]],\
 "fallible_streaming_iterator":["",[],["lib.rs"]],\
 "fast_float":["",[],["binary.rs","common.rs","decimal.rs","float.rs","lib.rs","number.rs","parse.rs","simple.rs","table.rs"]],\
@@ -57,7 +58,7 @@ var sourcesIndex = JSON.parse('{\
 "hex":["",[],["error.rs","lib.rs"]],\
 "home":["",[],["env.rs","lib.rs"]],\
 "iana_time_zone":["",[],["ffi_utils.rs","lib.rs","tz_linux.rs"]],\
-"indexmap":["",[["map",[["core",[],["raw.rs"]]],["core.rs"]]],["arbitrary.rs","equivalent.rs","lib.rs","macros.rs","map.rs","mutable_keys.rs","set.rs","util.rs"]],\
+"indexmap":["",[["map",[["core",[],["raw.rs"]]],["core.rs","iter.rs","slice.rs"]],["set",[],["iter.rs","slice.rs"]]],["arbitrary.rs","lib.rs","macros.rs","map.rs","mutable_keys.rs","set.rs","util.rs"]],\
 "itoa":["",[],["lib.rs","udiv128.rs"]],\
 "itoap":["",[],["common.rs","lib.rs","sse2.rs"]],\
 "lexical":["",[],["lib.rs"]],\
