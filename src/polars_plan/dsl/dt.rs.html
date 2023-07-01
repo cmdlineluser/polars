@@ -293,6 +293,13 @@
 <a href="#293" id="293">293</a>
 <a href="#294" id="294">294</a>
 <a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>polars_time::prelude::TemporalMethods;
 
 <span class="kw">use super</span>::<span class="kw-2">*</span>;
@@ -542,6 +549,13 @@
     </span><span class="kw">pub fn </span>month_end(<span class="self">self</span>) -&gt; Expr {
         <span class="self">self</span>.<span class="number">0
             </span>.map_private(FunctionExpr::TemporalExpr(TemporalFunction::MonthEnd))
+    }
+
+    <span class="comment">// Get the base offset from UTC
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
+    </span><span class="kw">pub fn </span>base_utc_offset(<span class="self">self</span>) -&gt; Expr {
+        <span class="self">self</span>.<span class="number">0
+            </span>.map_private(FunctionExpr::TemporalExpr(TemporalFunction::BaseUtcOffset))
     }
 
     <span class="comment">// Get the additional offset from UTC currently in effect (usually due to daylight saving time)

@@ -355,6 +355,8 @@
 <a href="#355" id="355">355</a>
 <a href="#356" id="356">356</a>
 <a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::<span class="kw-2">*</span>;
 
 <span class="kw">impl </span>FunctionExpr {
@@ -409,6 +411,8 @@
                     </span>MonthStart =&gt; mapper.with_same_dtype().unwrap().dtype,
                     <span class="attr">#[cfg(feature = <span class="string">&quot;date_offset&quot;</span>)]
                     </span>MonthEnd =&gt; mapper.with_same_dtype().unwrap().dtype,
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
+                    </span>BaseUtcOffset =&gt; DataType::Duration(TimeUnit::Milliseconds),
                     <span class="attr">#[cfg(feature = <span class="string">&quot;timezones&quot;</span>)]
                     </span>DSTOffset =&gt; DataType::Duration(TimeUnit::Milliseconds),
                     Round(..) =&gt; mapper.with_same_dtype().unwrap().dtype,
