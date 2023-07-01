@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["enable_string_cache","using_string_cache"],"macro":["apply_method_all_arrow_series","df"],"mod":["chunked_array","datatypes","doc","docs","error","export","frame","functions","prelude","series","testing"]};
+window.SIDEBAR_ITEMS = {"constant":["VERSION"],"fn":["enable_string_cache","using_string_cache"],"macro":["apply_method_all_arrow_series","df"],"mod":["chunked_array","datatypes","doc","docs","error","export","frame","functions","prelude","series","testing"]};

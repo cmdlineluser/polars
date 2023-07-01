@@ -391,6 +391,9 @@
 <a href="#391" id="391">391</a>
 <a href="#392" id="392">392</a>
 <a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Polars: *&lt;small&gt;DataFrames in Rust&lt;/small&gt;*
 //!
 //! Polars is a DataFrame library for Rust. It is based on [Apache Arrow](https://arrow.apache.org/)&#39;s memory model.
@@ -784,4 +787,7 @@
 </span><span class="kw">pub use </span>polars_lazy <span class="kw">as </span>lazy;
 <span class="attr">#[cfg(feature = <span class="string">&quot;temporal&quot;</span>)]
 </span><span class="kw">pub use </span>polars_time <span class="kw">as </span>time;
+
+<span class="doccomment">/// Polars crate version
+</span><span class="kw">pub const </span>VERSION: <span class="kw-2">&amp;</span>str = <span class="macro">env!</span>(<span class="string">&quot;CARGO_PKG_VERSION&quot;</span>);
 </code></pre></div></section></main></body></html>
