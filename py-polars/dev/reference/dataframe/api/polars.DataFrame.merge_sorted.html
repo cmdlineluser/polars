@@ -1595,7 +1595,7 @@ document.write(`
 <h1>polars.DataFrame.merge_sorted<a class="headerlink" href="#polars-dataframe-merge-sorted" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="polars.DataFrame.merge_sorted">
-<span class="sig-prename descclassname"><span class="pre">DataFrame.</span></span><span class="sig-name descname"><span class="pre">merge_sorted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/dataframe/frame.py#L8889-L8907"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polars.DataFrame.merge_sorted" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">DataFrame.</span></span><span class="sig-name descname"><span class="pre">merge_sorted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/dataframe/frame.py#L8889-L8953"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polars.DataFrame.merge_sorted" title="Permalink to this definition">#</a></dt>
 <dd><p>Take two sorted DataFrames and merge them by the sorted key.</p>
 <p>The output of this operation will also be sorted.
 It is the callers responsibility that the frames are sorted
@@ -1611,6 +1611,53 @@ by that key otherwise the output will not make sense.</p>
 </dl>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df0</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;steve&quot;</span><span class="p">,</span> <span class="s2">&quot;elise&quot;</span><span class="p">,</span> <span class="s2">&quot;bob&quot;</span><span class="p">],</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">18</span><span class="p">]}</span>
+<span class="gp">... </span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df0</span>
+<span class="go">shape: (3, 2)</span>
+<span class="go">┌───────┬─────┐</span>
+<span class="go">│ name  ┆ age │</span>
+<span class="go">│ ---   ┆ --- │</span>
+<span class="go">│ str   ┆ i64 │</span>
+<span class="go">╞═══════╪═════╡</span>
+<span class="go">│ bob   ┆ 18  │</span>
+<span class="go">│ steve ┆ 42  │</span>
+<span class="go">│ elise ┆ 44  │</span>
+<span class="go">└───────┴─────┘</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df1</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;anna&quot;</span><span class="p">,</span> <span class="s2">&quot;megan&quot;</span><span class="p">,</span> <span class="s2">&quot;steve&quot;</span><span class="p">,</span> <span class="s2">&quot;thomas&quot;</span><span class="p">],</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">21</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">20</span><span class="p">]}</span>
+<span class="gp">... </span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df1</span>
+<span class="go">shape: (4, 2)</span>
+<span class="go">┌────────┬─────┐</span>
+<span class="go">│ name   ┆ age │</span>
+<span class="go">│ ---    ┆ --- │</span>
+<span class="go">│ str    ┆ i64 │</span>
+<span class="go">╞════════╪═════╡</span>
+<span class="go">│ thomas ┆ 20  │</span>
+<span class="go">│ anna   ┆ 21  │</span>
+<span class="go">│ megan  ┆ 33  │</span>
+<span class="go">│ steve  ┆ 42  │</span>
+<span class="go">└────────┴─────┘</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df0</span><span class="o">.</span><span class="n">merge_sorted</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">)</span>
+<span class="go">shape: (7, 2)</span>
+<span class="go">┌────────┬─────┐</span>
+<span class="go">│ name   ┆ age │</span>
+<span class="go">│ ---    ┆ --- │</span>
+<span class="go">│ str    ┆ i64 │</span>
+<span class="go">╞════════╪═════╡</span>
+<span class="go">│ bob    ┆ 18  │</span>
+<span class="go">│ thomas ┆ 20  │</span>
+<span class="go">│ anna   ┆ 21  │</span>
+<span class="go">│ megan  ┆ 33  │</span>
+<span class="go">│ steve  ┆ 42  │</span>
+<span class="go">│ steve  ┆ 42  │</span>
+<span class="go">│ elise  ┆ 44  │</span>
+<span class="go">└────────┴─────┘</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>
