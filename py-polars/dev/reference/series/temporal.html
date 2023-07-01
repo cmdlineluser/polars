@@ -48,7 +48,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'reference/series/temporal';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="polars.Series.dt.cast_time_unit" href="api/polars.Series.dt.cast_time_unit.html" />
+    <link rel="next" title="polars.Series.dt.base_utc_offset" href="api/polars.Series.dt.base_utc_offset.html" />
     <link rel="prev" title="polars.Series.struct.schema" href="api/polars.Series.struct.schema.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -684,6 +684,7 @@ document.write(`
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Temporal</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/polars.Series.dt.base_utc_offset.html">polars.Series.dt.base_utc_offset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Series.dt.cast_time_unit.html">polars.Series.dt.cast_time_unit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Series.dt.replace_time_zone.html">polars.Series.dt.replace_time_zone</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Series.dt.combine.html">polars.Series.dt.combine</a></li>
@@ -691,6 +692,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Series.dt.datetime.html">polars.Series.dt.datetime</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Series.dt.day.html">polars.Series.dt.day</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Series.dt.days.html">polars.Series.dt.days</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/polars.Series.dt.dst_offset.html">polars.Series.dt.dst_offset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Series.dt.epoch.html">polars.Series.dt.epoch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Series.dt.hour.html">polars.Series.dt.hour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Series.dt.hours.html">polars.Series.dt.hours</a></li>
@@ -1343,6 +1345,7 @@ document.write(`
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../expressions/temporal.html">Temporal</a><input class="toctree-checkbox" id="toctree-checkbox-50" name="toctree-checkbox-50" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-50"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.dt.base_utc_offset.html">polars.Expr.dt.base_utc_offset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.dt.cast_time_unit.html">polars.Expr.dt.cast_time_unit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.dt.replace_time_zone.html">polars.Expr.dt.replace_time_zone</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.dt.combine.html">polars.Expr.dt.combine</a></li>
@@ -1350,6 +1353,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.dt.datetime.html">polars.Expr.dt.datetime</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.dt.day.html">polars.Expr.dt.day</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.dt.days.html">polars.Expr.dt.days</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.dt.dst_offset.html">polars.Expr.dt.dst_offset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.dt.epoch.html">polars.Expr.dt.epoch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.dt.hour.html">polars.Expr.dt.hour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.dt.hours.html">polars.Expr.dt.hours</a></li>
@@ -1583,26 +1587,32 @@ document.write(`
 <p>The following methods are available under the <cite>Series.dt</cite> attribute.</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Series.dt.cast_time_unit.html#polars.Series.dt.cast_time_unit" title="polars.Series.dt.cast_time_unit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.cast_time_unit</span></code></a>(time_unit)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Series.dt.base_utc_offset.html#polars.Series.dt.base_utc_offset" title="polars.Series.dt.base_utc_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.base_utc_offset</span></code></a>()</p></td>
+<td><p>Base offset from UTC.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Series.dt.cast_time_unit.html#polars.Series.dt.cast_time_unit" title="polars.Series.dt.cast_time_unit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.cast_time_unit</span></code></a>(time_unit)</p></td>
 <td><p>Cast the underlying data to another time unit.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Series.dt.replace_time_zone.html#polars.Series.dt.replace_time_zone" title="polars.Series.dt.replace_time_zone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.replace_time_zone</span></code></a>(time_zone, *[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Series.dt.replace_time_zone.html#polars.Series.dt.replace_time_zone" title="polars.Series.dt.replace_time_zone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.replace_time_zone</span></code></a>(time_zone, *[, ...])</p></td>
 <td><p>Replace time zone for a Series of type Datetime.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Series.dt.combine.html#polars.Series.dt.combine" title="polars.Series.dt.combine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.combine</span></code></a>(time[, time_unit])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Series.dt.combine.html#polars.Series.dt.combine" title="polars.Series.dt.combine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.combine</span></code></a>(time[, time_unit])</p></td>
 <td><p>Create a naive Datetime from an existing Date/Datetime expression and a Time.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Series.dt.date.html#polars.Series.dt.date" title="polars.Series.dt.date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.date</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Series.dt.date.html#polars.Series.dt.date" title="polars.Series.dt.date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.date</span></code></a>()</p></td>
 <td><p>Extract (local) date.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Series.dt.datetime.html#polars.Series.dt.datetime" title="polars.Series.dt.datetime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.datetime</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Series.dt.datetime.html#polars.Series.dt.datetime" title="polars.Series.dt.datetime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.datetime</span></code></a>()</p></td>
 <td><p>Extract (local) datetime.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Series.dt.day.html#polars.Series.dt.day" title="polars.Series.dt.day"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.day</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Series.dt.day.html#polars.Series.dt.day" title="polars.Series.dt.day"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.day</span></code></a>()</p></td>
 <td><p>Extract the day from the underlying date representation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Series.dt.days.html#polars.Series.dt.days" title="polars.Series.dt.days"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.days</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Series.dt.days.html#polars.Series.dt.days" title="polars.Series.dt.days"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.days</span></code></a>()</p></td>
 <td><p>Extract the days from a Duration type.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Series.dt.dst_offset.html#polars.Series.dt.dst_offset" title="polars.Series.dt.dst_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.dst_offset</span></code></a>()</p></td>
+<td><p>Additional offset currently in effect (typically due to daylight saving time).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api/polars.Series.dt.epoch.html#polars.Series.dt.epoch" title="polars.Series.dt.epoch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.dt.epoch</span></code></a>([time_unit])</p></td>
 <td><p>Get the time passed since the Unix EPOCH in the give time unit.</p></td>
@@ -1737,11 +1747,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="api/polars.Series.dt.cast_time_unit.html"
+       href="api/polars.Series.dt.base_utc_offset.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">polars.Series.dt.cast_time_unit</p>
+        <p class="prev-next-title">polars.Series.dt.base_utc_offset</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
