@@ -48,7 +48,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'reference/series/list';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="polars.Series.list.arg_max" href="api/polars.Series.list.arg_max.html" />
+    <link rel="next" title="polars.Series.list.all" href="api/polars.Series.list.all.html" />
     <link rel="prev" title="polars.Series.to_init_repr" href="api/polars.Series.to_init_repr.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -544,6 +544,8 @@ document.write(`
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">List</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/polars.Series.list.all.html">polars.Series.list.all</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/polars.Series.list.any.html">polars.Series.list.any</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Series.list.arg_max.html">polars.Series.list.arg_max</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Series.list.arg_min.html">polars.Series.list.arg_min</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Series.list.concat.html">polars.Series.list.concat</a></li>
@@ -1180,6 +1182,8 @@ document.write(`
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../expressions/list.html">List</a><input class="toctree-checkbox" id="toctree-checkbox-43" name="toctree-checkbox-43" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-43"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.list.all.html">polars.Expr.list.all</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.list.any.html">polars.Expr.list.any</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.list.arg_max.html">polars.Expr.list.arg_max</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.list.arg_min.html">polars.Expr.list.arg_min</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../expressions/api/polars.Expr.list.concat.html">polars.Expr.list.concat</a></li>
@@ -1587,6 +1591,12 @@ document.write(`
 <p>The following methods are available under the <cite>Series.list</cite> attribute.</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Series.list.all.html#polars.Series.list.all" title="polars.Series.list.all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.list.all</span></code></a>()</p></td>
+<td><p>Evaluate whether all boolean values in a list are true.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Series.list.any.html#polars.Series.list.any" title="polars.Series.list.any"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.list.any</span></code></a>()</p></td>
+<td><p>Evaluate whether any boolean value in a list is true.</p></td>
+</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Series.list.arg_max.html#polars.Series.list.arg_max" title="polars.Series.list.arg_max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Series.list.arg_max</span></code></a>()</p></td>
 <td><p>Retrieve the index of the maximum value in every sublist.</p></td>
 </tr>
@@ -1699,11 +1709,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="api/polars.Series.list.arg_max.html"
+       href="api/polars.Series.list.all.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">polars.Series.list.arg_max</p>
+        <p class="prev-next-title">polars.Series.list.all</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
