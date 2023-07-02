@@ -317,6 +317,18 @@
 <a href="#317" id="317">317</a>
 <a href="#318" id="318">318</a>
 <a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Much more opinionated, but also much faster strptrime than the one given in Chrono.
 //!
 </span><span class="kw">use </span>atoi::FromRadix10;
@@ -327,8 +339,11 @@
 
 <span class="kw">use </span><span class="kw">crate</span>::chunkedarray::{polars_bail, PolarsResult};
 
-<span class="kw">static </span>HOUR_PATTERN: Lazy&lt;Regex&gt; = Lazy::new(|| Regex::new(<span class="string">r&quot;%[HI]&quot;</span>).unwrap());
-<span class="kw">static </span>MINUTE_PATTERN: Lazy&lt;Regex&gt; = Lazy::new(|| Regex::new(<span class="string">r&quot;%M&quot;</span>).unwrap());
+<span class="kw">static </span>HOUR_PATTERN: Lazy&lt;Regex&gt; = Lazy::new(|| Regex::new(<span class="string">r&quot;%[_-]?[HkIl]&quot;</span>).unwrap());
+<span class="kw">static </span>MINUTE_PATTERN: Lazy&lt;Regex&gt; = Lazy::new(|| Regex::new(<span class="string">r&quot;%[_-]?M&quot;</span>).unwrap());
+<span class="kw">static </span>SECOND_PATTERN: Lazy&lt;Regex&gt; = Lazy::new(|| Regex::new(<span class="string">r&quot;%[_-]?S&quot;</span>).unwrap());
+<span class="kw">static </span>TWELVE_HOUR_PATTERN: Lazy&lt;Regex&gt; = Lazy::new(|| Regex::new(<span class="string">r&quot;%[_-]?[Il]&quot;</span>).unwrap());
+<span class="kw">static </span>MERIDIEM_PATTERN: Lazy&lt;Regex&gt; = Lazy::new(|| Regex::new(<span class="string">r&quot;%[_-]?[pP]&quot;</span>).unwrap());
 
 <span class="attr">#[inline]
 </span><span class="kw">fn </span>update_and_parse&lt;T: atoi::FromRadix10&gt;(
@@ -371,14 +386,23 @@
 /// E.g. chrono supports single letter date identifiers like %F, whereas polars only consumes
 /// year, day, month distinctively with %Y, %d, %m.
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>compile_fmt(fmt: <span class="kw-2">&amp;</span>str) -&gt; PolarsResult&lt;String&gt; {
-    <span class="kw">if </span>HOUR_PATTERN.is_match(fmt) &amp; !MINUTE_PATTERN.is_match(fmt) {
-        <span class="comment">// (hopefully) temporary hack. Ideally, chrono would return a ParseKindError indicating
-        // if `fmt` is too long for NaiveDate. If that&#39;s implemented, then this check could
-        // be removed, and that error could be matched against in `transform_datetime_*s`
-        // See https://github.com/chronotope/chrono/issues/1075.
-        </span><span class="macro">polars_bail!</span>(ComputeError: <span class="string">&quot;Invalid format string: found hour, but no minute directive. \
-            Please either specify both or neither.&quot;</span>);
+    <span class="comment">// (hopefully) temporary hacks. Ideally, chrono would return a ParseKindError indicating
+    // if `fmt` is too long for NaiveDate. If that&#39;s implemented, then this check could
+    // be removed, and that error could be matched against in `transform_datetime_*s`
+    // See https://github.com/chronotope/chrono/issues/1075.
+    </span><span class="kw">if </span>HOUR_PATTERN.is_match(fmt) ^ MINUTE_PATTERN.is_match(fmt) {
+        <span class="macro">polars_bail!</span>(ComputeError: <span class="string">&quot;Invalid format string: \
+            Please either specify both hour and minute, or neither.&quot;</span>);
     }
+    <span class="kw">if </span>SECOND_PATTERN.is_match(fmt) &amp;&amp; !HOUR_PATTERN.is_match(fmt) {
+        <span class="macro">polars_bail!</span>(ComputeError: <span class="string">&quot;Invalid format string: \
+            Found seconds directive, but no hours directive.&quot;</span>);
+    }
+    <span class="kw">if </span>TWELVE_HOUR_PATTERN.is_match(fmt) ^ MERIDIEM_PATTERN.is_match(fmt) {
+        <span class="macro">polars_bail!</span>(ComputeError: <span class="string">&quot;Invalid format string: \
+            Please either specify both 12-hour directive and meridiem directive, or neither.&quot;</span>);
+    }
+
     <span class="prelude-val">Ok</span>(fmt
         .replace(<span class="string">&quot;%D&quot;</span>, <span class="string">&quot;%m/%d/%y&quot;</span>)
         .replace(<span class="string">&quot;%R&quot;</span>, <span class="string">&quot;%H:%M&quot;</span>)
