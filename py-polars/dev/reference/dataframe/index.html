@@ -1756,7 +1756,7 @@ parameter with a dictionary of (name,dtype) pairs…</p>
 <td><p>Cheap deepcopy/clone.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="api/polars.DataFrame.corr.html#polars.DataFrame.corr" title="polars.DataFrame.corr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">corr</span></code></a></p></td>
-<td><p>Return Pearson product-moment correlation coefficients.</p></td>
+<td><p>Return pairwise Pearson product-moment correlation coefficients between columns.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api/polars.DataFrame.describe.html#polars.DataFrame.describe" title="polars.DataFrame.describe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">describe</span></code></a></p></td>
 <td><p>Summary statistics for a DataFrame.</p></td>
@@ -2350,7 +2350,7 @@ per column by passing a sequence of booleans.</p>
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">corr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference external" href="https://github.com/pola-rs/polars/blob/main/py-polars/polars/dataframe/frame.py#L8854-L8887"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Return Pearson product-moment correlation coefficients.</p>
+<dd><p>Return pairwise Pearson product-moment correlation coefficients between columns.</p>
 <p>See numpy <code class="docutils literal notranslate"><span class="pre">corrcoef</span></code> for more information:
 <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.corrcoef.html">https://numpy.org/doc/stable/reference/generated/numpy.corrcoef.html</a></p>
 <dl class="field-list simple">
