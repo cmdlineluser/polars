@@ -25,7 +25,7 @@ mod list;
 mod log;
 mod nan;
 mod pow;
-#[cfg(feature = "arange")]
+#[cfg(feature = "range")]
 mod range;
 #[cfg(all(feature = "rolling_window", feature = "moment"))]
 mod rolling;
@@ -69,7 +69,7 @@ pub use self::boolean::BooleanFunction;
 pub(crate) use self::cat::CategoricalFunction;
 #[cfg(feature = "temporal")]
 pub(super) use self::datetime::TemporalFunction;
-#[cfg(feature = "arange")]
+#[cfg(feature = "range")]
 pub(super) use self::range::RangeFunction;
 #[cfg(feature = "strings")]
 pub(crate) use self::strings::StringFunction;
@@ -97,7 +97,7 @@ pub enum FunctionExpr {
     BinaryExpr(BinaryFunction),
     #[cfg(feature = "temporal")]
     TemporalExpr(TemporalFunction),
-    #[cfg(feature = "arange")]
+    #[cfg(feature = "range")]
     Range(RangeFunction),
     #[cfg(feature = "date_offset")]
     DateOffset(polars_time::Duration),
@@ -215,7 +215,7 @@ impl Display for FunctionExpr {
             BinaryExpr(b) => return write!(f, "{b}"),
             #[cfg(feature = "temporal")]
             TemporalExpr(fun) => return write!(f, "{fun}"),
-            #[cfg(feature = "arange")]
+            #[cfg(feature = "range")]
             Range(func) => return write!(f, "{func}"),
             #[cfg(feature = "date_offset")]
             DateOffset(_) => "dt.offset_by",
@@ -399,7 +399,7 @@ impl From<FunctionExpr> for SpecialEq<Arc<dyn SeriesUdf>> {
             BinaryExpr(s) => s.into(),
             #[cfg(feature = "temporal")]
             TemporalExpr(func) => func.into(),
-            #[cfg(feature = "arange")]
+            #[cfg(feature = "range")]
             Range(func) => func.into(),
 
             #[cfg(feature = "date_offset")]
@@ -662,7 +662,7 @@ impl From<TemporalFunction> for SpecialEq<Arc<dyn SeriesUdf>> {
     }
 }
 
-#[cfg(feature = "arange")]
+#[cfg(feature = "range")]
 impl From<RangeFunction> for SpecialEq<Arc<dyn SeriesUdf>> {
     fn from(func: RangeFunction) -> Self {
         use RangeFunction::*;
