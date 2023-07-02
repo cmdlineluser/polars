@@ -1119,6 +1119,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.approx_unique.html">polars.approx_unique</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.arange.html">polars.arange</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.arg_sort_by.html">polars.arg_sort_by</a></li>
+<li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.arg_where.html">polars.arg_where</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.avg.html">polars.avg</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.coalesce.html">polars.coalesce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.concat_list.html">polars.concat_list</a></li>
@@ -1131,6 +1132,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.cumsum.html">polars.cumsum</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.date.html">polars.date</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.datetime.html">polars.datetime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.date_range.html">polars.date_range</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.duration.html">polars.duration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.element.html">polars.element</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.exclude.html">polars.exclude</a></li>
@@ -1141,6 +1143,8 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.groups.html">polars.groups</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.head.html">polars.head</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.implode.html">polars.implode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.int_range.html">polars.int_range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.int_ranges.html">polars.int_ranges</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.lit.html">polars.lit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.map.html">polars.map</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.max.html">polars.max</a></li>
@@ -1148,6 +1152,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.median.html">polars.median</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.min.html">polars.min</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.n_unique.html">polars.n_unique</a></li>
+<li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.ones.html">polars.ones</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.quantile.html">polars.quantile</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.reduce.html">polars.reduce</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.repeat.html">polars.repeat</a></li>
@@ -1160,8 +1165,10 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.sql_expr.html">polars.sql_expr</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.tail.html">polars.tail</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.time.html">polars.time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.time_range.html">polars.time_range</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.var.html">polars.var</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.when.html">polars.when</a></li>
+<li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.zeros.html">polars.zeros</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.all.html">polars.Expr.all</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.any.html">polars.Expr.any</a></li>
 <li class="toctree-l3"><a class="reference internal" href="expressions/api/polars.Expr.apply.html">polars.Expr.apply</a></li>
@@ -1419,13 +1426,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="api/polars.from_pandas.html">polars.from_pandas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/polars.from_records.html">polars.from_records</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/polars.from_repr.html">polars.from_repr</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/polars.arg_where.html">polars.arg_where</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/polars.concat.html">polars.concat</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/polars.date_range.html">polars.date_range</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/polars.ones.html">polars.ones</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/polars.time_range.html">polars.time_range</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/polars.zeros.html">polars.zeros</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/polars.align_frames.html">polars.align_frames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/polars.concat.html">polars.concat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/polars.collect_all.html">polars.collect_all</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/polars.StringCache.html">polars.StringCache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/polars.enable_string_cache.html">polars.enable_string_cache</a></li>
@@ -1620,37 +1622,15 @@ document.write(`
 </tbody>
 </table>
 </section>
-<section id="eager-lazy-functions">
-<h2>Eager/Lazy functions<a class="headerlink" href="#eager-lazy-functions" title="Permalink to this heading">#</a></h2>
-<table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.arg_where.html#polars.arg_where" title="polars.arg_where"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arg_where</span></code></a>()</p></td>
-<td><p>Return indices where <cite>condition</cite> evaluates <cite>True</cite>.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.concat.html#polars.concat" title="polars.concat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat</span></code></a>(items, *[, how, rechunk, parallel])</p></td>
-<td><p>Combine multiple DataFrames, LazyFrames, or Series into a single object.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.date_range.html#polars.date_range" title="polars.date_range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date_range</span></code></a>()</p></td>
-<td><p>Create a range of type <cite>Datetime</cite> (or <cite>Date</cite>).</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.ones.html#polars.ones" title="polars.ones"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ones</span></code></a>()</p></td>
-<td><p>Construct a column of length <cite>n</cite> filled with ones.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.time_range.html#polars.time_range" title="polars.time_range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">time_range</span></code></a>()</p></td>
-<td><p>Create a range of type <cite>Time</cite>.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.zeros.html#polars.zeros" title="polars.zeros"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros</span></code></a>()</p></td>
-<td><p>Construct a column of length <cite>n</cite> filled with zeros.</p></td>
-</tr>
-</tbody>
-</table>
-</section>
 <section id="miscellaneous">
 <h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this heading">#</a></h2>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="api/polars.align_frames.html#polars.align_frames" title="polars.align_frames"><code class="xref py py-obj docutils literal notranslate"><span class="pre">align_frames</span></code></a>(*frames, on[, how, select, ...])</p></td>
 <td><p>Align a sequence of frames using common values from one or more columns as a key.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.concat.html#polars.concat" title="polars.concat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat</span></code></a>(items, *[, how, rechunk, parallel])</p></td>
+<td><p>Combine multiple DataFrames, LazyFrames, or Series into a single object.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1733,7 +1713,6 @@ and a decorator, in order to explicitly scope cache lifetime.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conversion">Conversion</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eager-lazy-functions">Eager/Lazy functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miscellaneous">Miscellaneous</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelization">Parallelization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stringcache">StringCache</a></li>
