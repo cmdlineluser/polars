@@ -30,8 +30,12 @@
 <a href="#30" id="30">30</a>
 <a href="#31" id="31">31</a>
 <a href="#32" id="32">32</a>
+<a href="#33" id="33">33</a>
+<a href="#34" id="34">34</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>polars_core::prelude::<span class="kw-2">*</span>;
 
+<span class="attr">#[cfg(feature = <span class="string">&quot;list_any_all&quot;</span>)]
+</span><span class="kw">mod </span>any_all;
 <span class="kw">mod </span>count;
 <span class="attr">#[cfg(feature = <span class="string">&quot;hash&quot;</span>)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>hash;

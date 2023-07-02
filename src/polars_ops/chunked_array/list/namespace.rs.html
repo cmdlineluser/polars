@@ -575,6 +575,20 @@
 <a href="#575" id="575">575</a>
 <a href="#576" id="576">576</a>
 <a href="#577" id="577">577</a>
+<a href="#578" id="578">578</a>
+<a href="#579" id="579">579</a>
+<a href="#580" id="580">580</a>
+<a href="#581" id="581">581</a>
+<a href="#582" id="582">582</a>
+<a href="#583" id="583">583</a>
+<a href="#584" id="584">584</a>
+<a href="#585" id="585">585</a>
+<a href="#586" id="586">586</a>
+<a href="#587" id="587">587</a>
+<a href="#588" id="588">588</a>
+<a href="#589" id="589">589</a>
+<a href="#590" id="590">590</a>
+<a href="#591" id="591">591</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::convert::TryFrom;
 <span class="kw">use </span>std::fmt::Write;
 
@@ -590,6 +604,8 @@
 <span class="kw">use </span>polars_core::utils::{try_get_supertype, CustomIterTools};
 
 <span class="kw">use super</span>::<span class="kw-2">*</span>;
+<span class="attr">#[cfg(feature = <span class="string">&quot;list_any_all&quot;</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::chunked_array::list::any_all::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::chunked_array::list::min_max::{list_max_function, list_min_function};
 <span class="kw">use </span><span class="kw">crate</span>::chunked_array::list::sum_mean::sum_with_nulls;
 <span class="kw">use </span><span class="kw">crate</span>::prelude::list::sum_mean::{mean_list_numerical, sum_list_numerical};
@@ -689,6 +705,18 @@
 
     <span class="kw">fn </span>lst_max(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Series {
         list_max_function(<span class="self">self</span>.as_list())
+    }
+
+    <span class="attr">#[cfg(feature = <span class="string">&quot;list_any_all&quot;</span>)]
+    </span><span class="kw">fn </span>lst_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PolarsResult&lt;Series&gt; {
+        <span class="kw">let </span>ca = <span class="self">self</span>.as_list();
+        list_all(ca)
+    }
+
+    <span class="attr">#[cfg(feature = <span class="string">&quot;list_any_all&quot;</span>)]
+    </span><span class="kw">fn </span>lst_any(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PolarsResult&lt;Series&gt; {
+        <span class="kw">let </span>ca = <span class="self">self</span>.as_list();
+        list_any(ca)
     }
 
     <span class="kw">fn </span>lst_min(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Series {

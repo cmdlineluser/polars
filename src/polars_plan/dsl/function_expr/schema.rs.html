@@ -384,6 +384,10 @@
 <a href="#384" id="384">384</a>
 <a href="#385" id="385">385</a>
 <a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::<span class="kw-2">*</span>;
 
 <span class="kw">impl </span>FunctionExpr {
@@ -499,6 +503,10 @@
                     Sum =&gt; mapper.nested_sum_type(),
                     <span class="attr">#[cfg(feature = <span class="string">&quot;list_sets&quot;</span>)]
                     </span>SetOperation(<span class="kw">_</span>) =&gt; mapper.with_same_dtype(),
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;list_any_all&quot;</span>)]
+                    </span>Any =&gt; mapper.with_dtype(DataType::Boolean),
+                    <span class="attr">#[cfg(feature = <span class="string">&quot;list_any_all&quot;</span>)]
+                    </span>All =&gt; mapper.with_dtype(DataType::Boolean),
                 }
             }
             <span class="attr">#[cfg(feature = <span class="string">&quot;dtype-array&quot;</span>)]
