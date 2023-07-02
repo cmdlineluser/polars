@@ -388,6 +388,18 @@
 <a href="#388" id="388">388</a>
 <a href="#389" id="389">389</a>
 <a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
+<a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
 </pre></div><pre class="rust"><code><span class="kw">use super</span>::<span class="kw-2">*</span>;
 
 <span class="kw">impl </span>FunctionExpr {
@@ -475,6 +487,18 @@
                 mapper.with_dtype(dtype)
             }
 
+            <span class="attr">#[cfg(feature = <span class="string">&quot;arange&quot;</span>)]
+            </span>Range(fun) =&gt; {
+                <span class="kw">use </span>RangeFunction::<span class="kw-2">*</span>;
+                <span class="kw">let </span>field = <span class="kw">match </span>fun {
+                    ARange { .. } =&gt; Field::new(<span class="string">&quot;arange&quot;</span>, DataType::Int64), <span class="comment">// This is not always correct
+                    </span>IntRange { .. } =&gt; Field::new(<span class="string">&quot;int&quot;</span>, DataType::Int64),
+                    IntRanges { .. } =&gt; {
+                        Field::new(<span class="string">&quot;int_range&quot;</span>, DataType::List(Box::new(DataType::Int64)))
+                    }
+                };
+                <span class="prelude-val">Ok</span>(field)
+            }
             <span class="attr">#[cfg(feature = <span class="string">&quot;date_offset&quot;</span>)]
             </span>DateOffset(<span class="kw">_</span>) =&gt; mapper.with_same_dtype(),
             <span class="attr">#[cfg(feature = <span class="string">&quot;trigonometry&quot;</span>)]
