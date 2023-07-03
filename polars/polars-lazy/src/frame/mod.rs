@@ -714,6 +714,7 @@ impl LazyFrame {
                 maintain_order: false,
                 dynamic_options: None,
                 rolling_options: None,
+                slicing_options: None,
             }
         }
 
@@ -724,6 +725,41 @@ impl LazyFrame {
                 opt_state,
                 keys,
                 maintain_order: false,
+            }
+        }
+    }
+
+    #[cfg(feature = "dynamic_groupby")]
+    pub fn groupby_slicing(
+        self,
+        start_column: Expr,
+        end_column: Expr,
+        mut options: SlicingGroupOptions,
+    ) -> LazyGroupBy {
+        if let (Expr::Column(start_name), Expr::Column(end_name)) =
+            (start_column.clone(), end_column.clone())
+        {
+            options.start_column = start_name.as_ref().into();
+            options.end_column = end_name.as_ref().into();
+        } else {
+            let start_name = expr_output_name(&start_column).unwrap();
+            let end_name = expr_output_name(&end_column).unwrap();
+            return self
+                .with_column(start_column)
+                .with_column(end_column)
+                .groupby_slicing(Expr::Column(start_name), Expr::Column(end_name), options);
+        }
+
+        let opt_state = self.get_opt_state();
+        {
+            LazyGroupBy {
+                logical_plan: self.logical_plan,
+                opt_state,
+                keys: vec![],
+                maintain_order: false,
+                dynamic_options: None,
+                rolling_options: None,
+                slicing_options: Some(options),
             }
         }
     }
@@ -758,6 +794,7 @@ impl LazyFrame {
             maintain_order: true,
             dynamic_options: None,
             rolling_options: Some(options),
+            slicing_options: None,
         }
     }
 
@@ -799,6 +836,7 @@ impl LazyFrame {
             maintain_order: true,
             dynamic_options: Some(options),
             rolling_options: None,
+            slicing_options: None,
         }
     }
 
@@ -820,6 +858,7 @@ impl LazyFrame {
                 maintain_order: true,
                 dynamic_options: None,
                 rolling_options: None,
+                slicing_options: None,
             }
         }
 
@@ -1306,6 +1345,8 @@ pub struct LazyGroupBy {
     dynamic_options: Option<DynamicGroupOptions>,
     #[cfg(feature = "dynamic_groupby")]
     rolling_options: Option<RollingGroupOptions>,
+    #[cfg(feature = "dynamic_groupby")]
+    slicing_options: Option<SlicingGroupOptions>,
 }
 
 impl LazyGroupBy {
@@ -1341,6 +1382,7 @@ impl LazyGroupBy {
                 self.maintain_order,
                 self.dynamic_options,
                 self.rolling_options,
+                self.slicing_options,
             )
             .build();
 
@@ -1385,6 +1427,7 @@ impl LazyGroupBy {
         let options = GroupbyOptions {
             dynamic: self.dynamic_options,
             rolling: self.rolling_options,
+            slicing: self.slicing_options,
             slice: None,
         };
 

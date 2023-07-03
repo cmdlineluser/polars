@@ -83,6 +83,22 @@ impl Default for RollingGroupOptions {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+pub struct SlicingGroupOptions {
+    pub start_column: SmartString,
+    pub end_column: SmartString,
+}
+
+impl Default for SlicingGroupOptions {
+    fn default() -> Self {
+        Self {
+            start_column: "".into(),
+            end_column: "".into(),
+        }
+    }
+}
+
 fn check_sortedness_slice(v: &[i64]) -> PolarsResult<()> {
     polars_ensure!(v.is_sorted_ascending(), ComputeError: "input data is not sorted");
     Ok(())

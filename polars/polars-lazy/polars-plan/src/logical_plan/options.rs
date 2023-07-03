@@ -9,7 +9,7 @@ use polars_io::ipc::IpcCompression;
 use polars_io::parquet::ParquetCompression;
 use polars_io::RowCount;
 #[cfg(feature = "dynamic_groupby")]
-use polars_time::{DynamicGroupOptions, RollingGroupOptions};
+use polars_time::{DynamicGroupOptions, RollingGroupOptions, SlicingGroupOptions};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -139,6 +139,8 @@ pub struct GroupbyOptions {
     pub dynamic: Option<DynamicGroupOptions>,
     #[cfg(feature = "dynamic_groupby")]
     pub rolling: Option<RollingGroupOptions>,
+    #[cfg(feature = "dynamic_groupby")]
+    pub slicing: Option<SlicingGroupOptions>,
     /// Take only a slice of the result
     pub slice: Option<(i64, usize)>,
 }

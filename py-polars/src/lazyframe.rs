@@ -502,6 +502,20 @@ impl PyLazyFrame {
         PyLazyGroupBy { lgb: Some(lazy_gb) }
     }
 
+    fn groupby_slicing(&mut self, start_column: PyExpr, end_column: PyExpr) -> PyLazyGroupBy {
+        let ldf = self.ldf.clone();
+        let lazy_gb = ldf.groupby_slicing(
+            start_column.inner,
+            end_column.inner,
+            SlicingGroupOptions {
+                start_column: "".into(),
+                end_column: "".into(),
+            },
+        );
+
+        PyLazyGroupBy { lgb: Some(lazy_gb) }
+    }
+
     fn groupby_rolling(
         &mut self,
         index_column: PyExpr,

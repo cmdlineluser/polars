@@ -485,6 +485,7 @@ impl LogicalPlanBuilder {
         maintain_order: bool,
         #[cfg(feature = "dynamic_groupby")] dynamic_options: Option<DynamicGroupOptions>,
         #[cfg(feature = "dynamic_groupby")] rolling_options: Option<RollingGroupOptions>,
+        #[cfg(feature = "dynamic_groupby")] slicing_options: Option<SlicingGroupOptions>,
     ) -> Self {
         let current_schema = try_delayed!(self.0.schema(), &self.0, into);
         let current_schema = current_schema.as_ref();
@@ -551,6 +552,7 @@ impl LogicalPlanBuilder {
         let options = GroupbyOptions {
             dynamic: dynamic_options,
             rolling: rolling_options,
+            slicing: slicing_options,
             slice: None,
         };
 

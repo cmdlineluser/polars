@@ -412,6 +412,21 @@ pub fn create_physical_plan(
             )?;
 
             let _slice = options.slice;
+
+            #[cfg(feature = "dynamic_groupby")]
+            if let Some(options) = options.slicing {
+                let input = create_physical_plan(input, lp_arena, expr_arena)?;
+                return Ok(Box::new(executors::GroupBySlicingExec {
+                    input,
+                    //keys: phys_keys,
+                    aggs: phys_aggs,
+                    options,
+                    input_schema,
+                    slice: _slice,
+                    apply,
+                }));
+            }
+
             #[cfg(feature = "dynamic_groupby")]
             if let Some(options) = options.dynamic {
                 let input = create_physical_plan(input, lp_arena, expr_arena)?;

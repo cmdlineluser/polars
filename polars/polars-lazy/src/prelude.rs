@@ -10,7 +10,9 @@ pub(crate) use polars_plan::prelude::*;
 #[cfg(feature = "rolling_window")]
 pub use polars_time::{prelude::RollingOptions, Duration};
 #[cfg(feature = "dynamic_groupby")]
-pub use polars_time::{DynamicGroupOptions, PolarsTemporalGroupby, RollingGroupOptions};
+pub use polars_time::{
+    DynamicGroupOptions, PolarsTemporalGroupby, RollingGroupOptions, SlicingGroupOptions,
+};
 pub(crate) use polars_utils::arena::{Arena, Node};
 
 pub use crate::dsl::*;

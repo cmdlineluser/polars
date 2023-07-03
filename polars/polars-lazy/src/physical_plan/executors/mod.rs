@@ -6,6 +6,7 @@ mod groupby;
 mod groupby_dynamic;
 mod groupby_partitioned;
 mod groupby_rolling;
+mod groupby_slicing;
 mod join;
 mod projection;
 #[cfg(feature = "python")]
@@ -35,6 +36,8 @@ pub(super) use self::groupby_dynamic::*;
 pub(super) use self::groupby_partitioned::*;
 #[cfg(feature = "dynamic_groupby")]
 pub(super) use self::groupby_rolling::*;
+#[cfg(feature = "dynamic_groupby")]
+pub(super) use self::groupby_slicing::*;
 pub(super) use self::join::*;
 pub(super) use self::projection::*;
 #[cfg(feature = "python")]
