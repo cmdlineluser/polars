@@ -2,7 +2,6 @@
 use polars_core::frame::groupby::GroupBy;
 #[cfg(feature = "dynamic_groupby")]
 use polars_time::SlicingGroupOptions;
-use rayon::prelude::*;
 
 use super::*;
 
