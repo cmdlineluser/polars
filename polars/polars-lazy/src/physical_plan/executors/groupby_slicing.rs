@@ -45,7 +45,7 @@ impl GroupBySlicingExec {
                         let len = end - start as IdxSize;
                         [start, len]
                     }
-                    _ => [0, 0], // This is wrong. What to do here?
+                    _ => [0, 0], // Is this is wrong. What to do here?
                 }
             })
             .collect();
