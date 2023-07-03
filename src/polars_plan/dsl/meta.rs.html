@@ -118,11 +118,29 @@
 <a href="#118" id="118">118</a>
 <a href="#119" id="119">119</a>
 <a href="#120" id="120">120</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::ops::BitAnd;
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::Display;
+<span class="kw">use </span>std::ops::BitAnd;
 
 <span class="kw">use super</span>::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::dsl::selector::Selector;
 <span class="kw">use </span><span class="kw">crate</span>::logical_plan::projection::is_regex_projection;
+<span class="kw">use </span><span class="kw">crate</span>::logical_plan::tree_format::TreeFmtVisitor;
+<span class="kw">use </span><span class="kw">crate</span>::logical_plan::visitor::{AexprNode, TreeWalker};
 
 <span class="doccomment">/// Specialized expressions for Categorical dtypes.
 </span><span class="kw">pub struct </span>MetaNameSpace(<span class="kw">pub</span>(<span class="kw">crate</span>) Expr);
@@ -176,7 +194,8 @@
         <span class="self">self</span>.<span class="number">0
     </span>}
 
-    <span class="kw">pub fn </span>has_multiple_outputs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Whether this expression expands to multiple expressions.
+    </span><span class="kw">pub fn </span>has_multiple_outputs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.<span class="number">0</span>.into_iter().any(|e| <span class="kw">match </span>e {
             Expr::Selector(<span class="kw">_</span>) | Expr::Wildcard | Expr::Columns(<span class="kw">_</span>) | Expr::DtypeColumn(<span class="kw">_</span>) =&gt; <span class="bool-val">true</span>,
             Expr::Column(name) =&gt; is_regex_projection(name),
@@ -184,7 +203,8 @@
         })
     }
 
-    <span class="kw">pub fn </span>is_regex_projection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Whether this expression expands to multiple expressions with regex expansion.
+    </span><span class="kw">pub fn </span>is_regex_projection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.<span class="number">0</span>.into_iter().any(|e| <span class="kw">match </span>e {
             Expr::Column(name) =&gt; is_regex_projection(name),
             <span class="kw">_ </span>=&gt; <span class="bool-val">false</span>,
@@ -236,6 +256,16 @@
         </span>} <span class="kw">else </span>{
             Expr::Selector(Selector::new(<span class="self">self</span>.<span class="number">0</span>))
         }
+    }
+
+    <span class="doccomment">/// Get a hold to an implementor of the `Display` trait that will format as
+    /// the expression as a tree
+    </span><span class="kw">pub fn </span>into_tree_formatter(<span class="self">self</span>) -&gt; PolarsResult&lt;<span class="kw">impl </span>Display&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>arena = Default::default();
+        <span class="kw">let </span>node = to_aexpr(<span class="self">self</span>.<span class="number">0</span>, <span class="kw-2">&amp;mut </span>arena);
+        <span class="kw">let </span><span class="kw-2">mut </span>visitor = TreeFmtVisitor::new();
+        AexprNode::with_context(node, <span class="kw-2">&amp;mut </span>arena, |ae_node| ae_node.visit(<span class="kw-2">&amp;mut </span>visitor))<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(visitor)
     }
 }
 </code></pre></div></section></main></body></html>

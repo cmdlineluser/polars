@@ -289,6 +289,9 @@
 <a href="#289" id="289">289</a>
 <a href="#290" id="290">290</a>
 <a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::Debug;
 <span class="attr">#[cfg(any(feature = <span class="string">&quot;ipc&quot;</span>, feature = <span class="string">&quot;csv&quot;</span>, feature = <span class="string">&quot;parquet&quot;</span>))]
 </span><span class="kw">use </span>std::path::PathBuf;
@@ -321,6 +324,9 @@
 <span class="attr">#[cfg(feature = <span class="string">&quot;python&quot;</span>)]
 </span><span class="kw">mod </span>pyarrow;
 <span class="kw">mod </span>schema;
+<span class="attr">#[cfg(feature = <span class="string">&quot;meta&quot;</span>)]
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>tree_format;
+<span class="kw">pub mod </span>visitor;
 
 <span class="kw">pub use </span>aexpr::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>alp::<span class="kw-2">*</span>;
