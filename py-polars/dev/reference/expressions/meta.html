@@ -1280,6 +1280,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.meta.ne.html">polars.Expr.meta.ne</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.meta.output_name.html">polars.Expr.meta.output_name</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.meta.pop.html">polars.Expr.meta.pop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.meta.tree_format.html">polars.Expr.meta.tree_format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.meta.root_names.html">polars.Expr.meta.root_names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.meta.undo_aliases.html">polars.Expr.meta.undo_aliases</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/polars.Expr.meta.write_json.html">polars.Expr.meta.write_json</a></li>
@@ -1611,13 +1612,16 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.meta.pop.html#polars.Expr.meta.pop" title="polars.Expr.meta.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.meta.pop</span></code></a>()</p></td>
 <td><p>Pop the latest expression and return the input(s) of the popped expression.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.meta.root_names.html#polars.Expr.meta.root_names" title="polars.Expr.meta.root_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.meta.root_names</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.meta.tree_format.html#polars.Expr.meta.tree_format" title="polars.Expr.meta.tree_format"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.meta.tree_format</span></code></a>([return_as_string])</p></td>
+<td><p>Format the expression as a tree.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.meta.root_names.html#polars.Expr.meta.root_names" title="polars.Expr.meta.root_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.meta.root_names</span></code></a>()</p></td>
 <td><p>Get a list with the root column name.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.meta.undo_aliases.html#polars.Expr.meta.undo_aliases" title="polars.Expr.meta.undo_aliases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.meta.undo_aliases</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.meta.undo_aliases.html#polars.Expr.meta.undo_aliases" title="polars.Expr.meta.undo_aliases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.meta.undo_aliases</span></code></a>()</p></td>
 <td><p>Undo any renaming operation like <code class="docutils literal notranslate"><span class="pre">alias</span></code> or <code class="docutils literal notranslate"><span class="pre">keep_name</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/polars.Expr.meta.write_json.html#polars.Expr.meta.write_json" title="polars.Expr.meta.write_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.meta.write_json</span></code></a>([file])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/polars.Expr.meta.write_json.html#polars.Expr.meta.write_json" title="polars.Expr.meta.write_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Expr.meta.write_json</span></code></a>([file])</p></td>
 <td><p>Write expression to json.</p></td>
 </tr>
 </tbody>
