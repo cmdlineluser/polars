@@ -1155,7 +1155,6 @@ def test_describe() -> None:
     date_s = pl.Series([date(2021, 1, 1), date(2021, 1, 2), date(2021, 1, 3)])
     empty_s = pl.Series(np.empty(0))
 
-    pl.DataFrame
     assert dict(num_s.describe().rows()) == {  # type: ignore[arg-type]
         "count": 3.0,
         "max": 3.0,
@@ -1163,7 +1162,7 @@ def test_describe() -> None:
         "min": 1.0,
         "null_count": 0.0,
         "std": 1.0,
-        "median": 2.0,
+        "50%": 2.0,
         "25%": 1.0,
         "75%": 3.0,
     }
@@ -1174,7 +1173,7 @@ def test_describe() -> None:
         "min": 1.3,
         "null_count": 0.0,
         "std": 3.8109491381194442,
-        "median": 4.6,
+        "50%": 4.6,
         "25%": 1.3,
         "75%": 8.9,
     }
@@ -1192,7 +1191,7 @@ def test_describe() -> None:
         "count": "3",
         "max": "2021-01-03",
         "min": "2021-01-01",
-        "median": "2021-01-02",
+        "50%": "2021-01-02",
         "null_count": "0",
     }
 

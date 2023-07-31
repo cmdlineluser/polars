@@ -88,10 +88,7 @@ from polars.utils.convert import (
     _datetime_to_pl_timestamp,
     _time_to_pl_time,
 )
-from polars.utils.deprecation import (
-    deprecate_renamed_parameter,
-    issue_deprecation_warning,
-)
+from polars.utils.deprecation import deprecated_alias, issue_deprecation_warning
 from polars.utils.meta import get_index_type
 from polars.utils.various import (
     _is_generator,
@@ -1336,8 +1333,8 @@ class Series:
         │ std        ┆ 1.581139 │
         │ min        ┆ 1.0      │
         │ max        ┆ 5.0      │
-        │ median     ┆ 3.0      │
         │ 25%        ┆ 2.0      │
+        │ 50%        ┆ 3.0      │
         │ 75%        ┆ 4.0      │
         └────────────┴──────────┘
 
@@ -1373,11 +1370,20 @@ class Series:
                 "mean": s.mean(),
                 "std": s.std(),
                 "min": s.min(),
-                "max": s.max(),
-                "median": s.median(),
             }
             if percentiles:
-                stats.update({f"{p:.0%}": s.quantile(p) for p in percentiles})
+                pcts = {f"{p:.0%}": s.quantile(p) for p in percentiles}
+                pcts["50%"] = s.median()
+                stats.update(
+                    {
+                        k: pcts[k]
+                        for k in sorted(pcts, key=lambda pct: int(pct.rstrip("%")))
+                    }
+                )
+            else:
+                stats["50%"] = s.median()
+
+            stats["max"] = s.max()
 
         elif self.is_boolean():
             stats = {
@@ -1398,8 +1404,8 @@ class Series:
                 "count": str(self.len()),
                 "null_count": str(self.null_count()),
                 "min": str(self.dt.min()),
+                "50%": str(self.dt.median()),
                 "max": str(self.dt.max()),
-                "median": str(self.dt.median()),
             }
         else:
             raise TypeError("This type is not supported")
@@ -1624,7 +1630,7 @@ class Series:
         """
         return wrap_df(self._s.to_dummies(separator))
 
-    @deprecate_renamed_parameter("bins", "breaks", version="0.18.8")
+    @deprecated_alias(bins="breaks")
     def cut(
         self,
         breaks: list[float],
@@ -1740,7 +1746,7 @@ class Series:
             return res.struct.rename_fields([break_point_label, category_label])
         return res
 
-    @deprecate_renamed_parameter("quantiles", "q", version="0.18.8")
+    @deprecated_alias(quantiles="q")
     def qcut(
         self,
         q: list[float] | int,
@@ -5247,7 +5253,7 @@ class Series:
 
         """
 
-    @deprecate_renamed_parameter("frac", "fraction", version="0.17.0")
+    @deprecated_alias(frac="fraction")
     def sample(
         self,
         n: int | None = None,

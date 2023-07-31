@@ -86,10 +86,7 @@ from polars.utils._construction import (
 from polars.utils._parse_expr_input import parse_as_expression
 from polars.utils._wrap import wrap_expr, wrap_ldf, wrap_s
 from polars.utils.convert import _timedelta_to_pl_duration
-from polars.utils.deprecation import (
-    deprecate_renamed_parameter,
-    issue_deprecation_warning,
-)
+from polars.utils.deprecation import deprecated_alias, issue_deprecation_warning
 from polars.utils.various import (
     _prepare_row_count_args,
     _process_null_values,
@@ -3183,7 +3180,7 @@ class DataFrame:
                 file, compression, compression_level, statistics, row_group_size
             )
 
-    @deprecate_renamed_parameter("connection_uri", "connection", version="0.18.9")
+    @deprecated_alias(connection_uri="connection")
     def write_database(
         self,
         table_name: str,
@@ -3890,10 +3887,10 @@ class DataFrame:
         │ mean       ┆ 2.266667 ┆ 4.5      ┆ 0.666667 ┆ null ┆ null ┆ null       │
         │ std        ┆ 1.101514 ┆ 0.707107 ┆ 0.57735  ┆ null ┆ null ┆ null       │
         │ min        ┆ 1.0      ┆ 4.0      ┆ 0.0      ┆ b    ┆ eur  ┆ 2020-01-01 │
-        │ max        ┆ 3.0      ┆ 5.0      ┆ 1.0      ┆ c    ┆ usd  ┆ 2022-01-01 │
-        │ median     ┆ 2.8      ┆ 4.5      ┆ 1.0      ┆ null ┆ null ┆ null       │
         │ 25%        ┆ 1.0      ┆ 4.0      ┆ null     ┆ null ┆ null ┆ null       │
+        │ 50%        ┆ 2.8      ┆ 4.5      ┆ 1.0      ┆ null ┆ null ┆ null       │
         │ 75%        ┆ 3.0      ┆ 5.0      ┆ null     ┆ null ┆ null ┆ null       │
+        │ max        ┆ 3.0      ┆ 5.0      ┆ 1.0      ┆ c    ┆ usd  ┆ 2022-01-01 │
         └────────────┴──────────┴──────────┴──────────┴──────┴──────┴────────────┘
 
         """
@@ -3903,7 +3900,7 @@ class DataFrame:
             raise ValueError("Percentiles must all be in the range [0, 1].")
 
         # determine metrics (optional/additional percentiles)
-        metrics = ["count", "null_count", "mean", "std", "min", "max", "median"]
+        metrics = ["count", "null_count", "mean", "std", "min", "max", "50%"]
         percentile_exprs = []
         for p in percentiles or ():
             percentile_exprs.append(F.all().quantile(p).prefix(f"{p}:"))
@@ -3927,6 +3924,17 @@ class DataFrame:
             df_metrics[(n * n_cols) : (n + 1) * n_cols] for n in range(0, len(metrics))
         ]
 
+        # sort percentiles, put `max` last
+        metric_idxs, sorted_metrics = zip(
+            *sorted(
+                enumerate(metrics),
+                key=lambda t: (
+                    t[1] == "max",
+                    int(t[1].rstrip("%")) if t[1].endswith("%") else float("nan"),
+                ),
+            )
+        )
+
         # cast by column type (numeric/bool -> float), (other -> string)
         summary = dict(zip(self.columns, list(zip(*described))))
         num_or_bool = NUMERIC_DTYPES | {Boolean}
@@ -3935,12 +3943,13 @@ class DataFrame:
                 None
                 if (v is None or isinstance(v, dict))
                 else (float(v) if tp in num_or_bool else str(v))
-                for v in summary[c]
+                for idx in metric_idxs
+                for v in [summary[c][idx]]
             ]
 
         # return results as a frame
         df_summary = self.__class__(summary)
-        df_summary.insert_at_idx(0, pl.Series("describe", metrics))
+        df_summary.insert_at_idx(0, pl.Series("describe", sorted_metrics))
         return df_summary
 
     def find_idx_by_name(self, name: str) -> int:
@@ -5881,7 +5890,7 @@ class DataFrame:
         else:
             return self._from_pydf(self._df.hstack([s._s for s in columns]))
 
-    @deprecate_renamed_parameter("df", "other", version="0.18.8")
+    @deprecated_alias(df="other")
     def vstack(self, other: DataFrame, *, in_place: bool = False) -> Self:
         """
         Grow this DataFrame vertically by stacking a DataFrame to it.
@@ -8156,7 +8165,7 @@ class DataFrame:
         """
         return self._from_pydf(self._df.null_count())
 
-    @deprecate_renamed_parameter("frac", "fraction", version="0.17.0")
+    @deprecated_alias(frac="fraction")
     def sample(
         self,
         n: int | None = None,
