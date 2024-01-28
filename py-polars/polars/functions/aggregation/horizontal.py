@@ -159,6 +159,40 @@ def min_horizontal(*exprs: IntoExpr | Iterable[IntoExpr]) -> Expr:
     return wrap_expr(plr.min_horizontal(pyexprs))
 
 
+def mean_horizontal(*exprs: IntoExpr | Iterable[IntoExpr]) -> Expr:
+    """
+    Take the mean of all values horizontally across columns.
+
+    Parameters
+    ----------
+    *exprs
+        Column(s) to use in the aggregation. Accepts expression input. Strings are
+        parsed as column names, other non-expression inputs are parsed as literals.
+
+    Examples
+    --------
+    >>> df = pl.DataFrame(
+    ...     {
+    ...         "a": [1, 2, 3],
+    ...         "b": [4.0, 5.0, 6.0],
+    ...     }
+    ... )
+    >>> df.with_columns(mean=pl.mean_horizontal("a", "b"))
+    shape: (3, 3)
+    ┌─────┬─────┬──────┐
+    │ a   ┆ b   ┆ mean │
+    │ --- ┆ --- ┆ ---  │
+    │ i64 ┆ f64 ┆ f64  │
+    ╞═════╪═════╪══════╡
+    │ 1   ┆ 4.0 ┆ 2.5  │
+    │ 2   ┆ 5.0 ┆ 3.5  │
+    │ 3   ┆ 6.0 ┆ 4.5  │
+    └─────┴─────┴──────┘
+    """
+    pyexprs = parse_as_list_of_expressions(*exprs)
+    return wrap_expr(plr.mean_horizontal(pyexprs))
+
+
 def sum_horizontal(*exprs: IntoExpr | Iterable[IntoExpr]) -> Expr:
     """
     Sum all values horizontally across columns.

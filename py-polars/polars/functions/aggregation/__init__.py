@@ -4,6 +4,7 @@ from polars.functions.aggregation.horizontal import (
     cum_sum_horizontal,
     cumsum_horizontal,
     max_horizontal,
+    mean_horizontal,
     min_horizontal,
     sum_horizontal,
 )
@@ -32,4 +33,5 @@ __all__ = [
     "max_horizontal",
     "min_horizontal",
     "sum_horizontal",
+    "mean_horizontal",
 ]

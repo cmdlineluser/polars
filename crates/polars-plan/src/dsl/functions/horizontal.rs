@@ -309,6 +309,25 @@ pub fn sum_horizontal<E: AsRef<[Expr]>>(exprs: E) -> PolarsResult<Expr> {
     })
 }
 
+/// Create a new column with the mean of the values in each row.
+pub fn mean_horizontal<E: AsRef<[Expr]>>(exprs: E) -> PolarsResult<Expr> {
+    let exprs = exprs.as_ref().to_vec();
+    polars_ensure!(!exprs.is_empty(), ComputeError: "cannot return empty fold because the number of output rows is unknown");
+
+    Ok(Expr::Function {
+        input: exprs,
+        function: FunctionExpr::MeanHorizontal,
+        options: FunctionOptions {
+            collect_groups: ApplyOptions::ElementWise,
+            input_wildcard_expansion: true,
+            returns_scalar: false,
+            cast_to_supertypes: false,
+            allow_rename: true,
+            ..Default::default()
+        },
+    })
+}
+
 /// Folds the expressions from left to right keeping the first non-null values.
 ///
 /// It is an error to provide an empty `exprs`.

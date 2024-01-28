@@ -304,6 +304,7 @@ pub enum FunctionExpr {
         limit: FillNullLimit,
     },
     SumHorizontal,
+    MeanHorizontal,
     MaxHorizontal,
     MinHorizontal,
     #[cfg(feature = "ewma")]
@@ -378,8 +379,8 @@ impl Hash for FunctionExpr {
                 lib.hash(state);
                 symbol.hash(state);
             },
-            SumHorizontal | MaxHorizontal | MinHorizontal | DropNans | DropNulls | Reverse
-            | ArgUnique | Shift | ShiftAndFill => {},
+            SumHorizontal | MeanHorizontal | MaxHorizontal | MinHorizontal | DropNans
+            | DropNulls | Reverse | ArgUnique | Shift | ShiftAndFill => {},
             #[cfg(feature = "mode")]
             Mode => {},
             #[cfg(feature = "abs")]
@@ -691,6 +692,7 @@ impl Display for FunctionExpr {
             BackwardFill { .. } => "backward_fill",
             ForwardFill { .. } => "forward_fill",
             SumHorizontal => "sum_horizontal",
+            MeanHorizontal => "mean_horizontal",
             MaxHorizontal => "max_horizontal",
             MinHorizontal => "min_horizontal",
             #[cfg(feature = "ewma")]
@@ -1047,6 +1049,7 @@ impl From<FunctionExpr> for SpecialEq<Arc<dyn SeriesUdf>> {
             BackwardFill { limit } => map!(dispatch::backward_fill, limit),
             ForwardFill { limit } => map!(dispatch::forward_fill, limit),
             SumHorizontal => wrap!(dispatch::sum_horizontal),
+            MeanHorizontal => wrap!(dispatch::mean_horizontal),
             MaxHorizontal => wrap!(dispatch::max_horizontal),
             MinHorizontal => wrap!(dispatch::min_horizontal),
             #[cfg(feature = "ewma")]

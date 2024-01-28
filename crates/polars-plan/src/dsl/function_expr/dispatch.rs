@@ -77,6 +77,10 @@ pub(super) fn sum_horizontal(s: &mut [Series]) -> PolarsResult<Option<Series>> {
     polars_ops::prelude::sum_horizontal(s)
 }
 
+pub(super) fn mean_horizontal(s: &mut [Series]) -> PolarsResult<Option<Series>> {
+    polars_ops::prelude::mean_horizontal(s)
+}
+
 pub(super) fn max_horizontal(s: &mut [Series]) -> PolarsResult<Option<Series>> {
     polars_ops::prelude::max_horizontal(s)
 }
