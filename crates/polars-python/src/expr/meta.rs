@@ -62,6 +62,36 @@ impl PyExpr {
         self.inner.clone().meta().is_literal(allow_aliasing)
     }
 
+    fn meta_extract_root(&self) -> PyResult<Self> {
+        let out = self
+            .inner
+            .clone()
+            .meta()
+            .extract_root()
+            .map_err(PyPolarsErr::from)?;
+        Ok(out.into())
+    }
+
+    fn meta_replace_root(&self, other: PyExpr) -> PyResult<Self> {
+        let out = self
+            .inner
+            .clone()
+            .meta()
+            .replace_root(other.inner)
+            .map_err(PyPolarsErr::from)?;
+        Ok(out.into())
+    }
+
+    fn meta_rename_columns(&self, existing: Vec<String>, new: Vec<String>) -> PyResult<Self> {
+        let out = self
+            .inner
+            .clone()
+            .meta()
+            .rename_columns(existing, new)
+            .map_err(PyPolarsErr::from)?;
+        Ok(out.into())
+    }
+
     fn _meta_selector_add(&self, other: PyExpr) -> PyResult<PyExpr> {
         let out = self
             .inner

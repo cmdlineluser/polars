@@ -6,6 +6,7 @@ use crate::plans::conversion::is_regex_projection;
 use crate::plans::ir::tree_format::TreeFmtVisitor;
 use crate::plans::visitor::{AexprNode, TreeWalker};
 use crate::prelude::tree_format::TreeFmtVisitorDisplay;
+use crate::utils::rename_columns;
 
 /// Specialized expressions for Categorical dtypes.
 pub struct MetaNameSpace(pub(crate) Expr);
@@ -108,6 +109,80 @@ impl MetaNameSpace {
             Expr::Column(name) => is_regex_projection(name),
             _ => false,
         })
+    }
+
+    /// Extract root column selection from expression.
+    pub fn extract_root(&self) -> PolarsResult<Expr> {
+        let mut done = false;
+        let mut expr: Option<Expr> = None;
+        for e in self.0.clone().into_iter() {
+            match e {
+                Expr::Column(_)
+                | Expr::Columns(_)
+                | Expr::DtypeColumn(_)
+                | Expr::Exclude(_, _)
+                | Expr::Nth(_)
+                | Expr::IndexColumn(_)
+                | Expr::Selector(_)
+                | Expr::Wildcard => {
+                    done = true;
+                    expr = Some(e.clone());
+                },
+                _ => {},
+            }
+            if done {
+                break;
+            }
+        }
+        match expr {
+            Some(expr) => Ok(expr),
+            _ => polars_bail!(ComputeError: "no root column expression found"),
+        }
+    }
+
+    /// Replace root column selection in expression.
+    pub fn replace_root(self, other: Expr) -> PolarsResult<Expr> {
+        let mut done = false;
+        let out = self.0.map_expr(|e| {
+            if !done {
+                match e {
+                    Expr::Column(_)
+                    | Expr::Columns(_)
+                    | Expr::DtypeColumn(_)
+                    | Expr::Exclude(_, _)
+                    | Expr::Nth(_)
+                    | Expr::IndexColumn(_)
+                    | Expr::Selector(_)
+                    | Expr::Wildcard => {
+                        done = true;
+                        other.clone()
+                    },
+                    e => e,
+                }
+            } else {
+                e
+            }
+        });
+        match done {
+            true => Ok(out),
+            _ => polars_bail!(ComputeError: "no root column expression found"),
+        }
+    }
+
+    /// Rename named column selections in expression.
+    pub fn rename_columns(&self, existing: Vec<String>, new: Vec<String>) -> PolarsResult<Expr> {
+        let renames =
+            PlIndexMap::from_iter(existing.into_iter().zip(new).map(|(existing, new)| {
+                (
+                    PlSmallStr::from_string(existing),
+                    PlSmallStr::from_string(new),
+                )
+            }));
+
+        let mut arena = Arena::with_capacity(8);
+        let node = to_aexpr(self.0.clone(), &mut arena)?;
+        let new_node = rename_columns(node, &mut arena, &renames);
+        Ok(node_to_expr(new_node, &arena))
     }
 
     pub fn _selector_add(self, other: Expr) -> PolarsResult<Expr> {

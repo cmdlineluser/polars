@@ -10,6 +10,7 @@ from polars.exceptions import ComputeError
 
 if TYPE_CHECKING:
     import sys
+    from collections.abc import Mapping
     from io import IOBase
     from pathlib import Path
 
@@ -234,6 +235,101 @@ class ExprMetaNameSpace:
         False
         """
         return [wrap_expr(e) for e in self._pyexpr.meta_pop()]
+
+    @overload
+    def extract_root(self, *, strict: Literal[True] = True) -> Expr: ...
+
+    @overload
+    def extract_root(self, *, strict: Literal[False]) -> Expr | None: ...
+
+    def extract_root(self, *, strict: bool = True) -> Expr | None:
+        """
+        Extract the root column selection from expression.
+
+        Parameters
+        ----------
+        strict
+            If `True`, raise an error if no column selection is found. Otherwise,
+            return `None`.
+
+        Examples
+        --------
+        >>> pl.concat_list(pl.max_horizontal("foo", "bar")).meta.extract_root()
+        <Expr ['col("foo")'] at 0x11D0A8250>
+        >>> (pl.lit(1) + pl.col("bar")).meta.extract_root()
+        <Expr ['col("bar")'] at 0x104480150>
+        >>> pl.when(True).then(pl.col(pl.String)).meta.extract_root()
+        <Expr ['dtype_columns([String])'] at 0x10587E050>
+        """
+        try:
+            return wrap_expr(self._pyexpr.meta_extract_root())
+        except ComputeError:
+            if not strict:
+                return None
+            raise
+
+    @overload
+    def replace_root(self, other: Expr, *, strict: Literal[True] = True) -> Expr: ...
+
+    @overload
+    def replace_root(self, other: Expr, *, strict: Literal[False]) -> Expr | None: ...
+
+    def replace_root(self, other: Expr, *, strict: bool = True) -> Expr | None:
+        """
+        Replace the root column selection in expression.
+
+        Parameters
+        ----------
+        other
+            New root expression.
+        strict
+            If `True`, raise an error if no column selection is found. Otherwise,
+            return the original expression unchanged.
+
+        Examples
+        --------
+        >>> pl.sum_horizontal("foo").meta.replace_root(pl.col("bar"))
+        <Expr ['col("bar").sum_horizontal()'] at 0x10587E150>
+        >>> print((pl.lit(4) + pl.nth(2).sum()).meta.replace_root(pl.col("foo")))
+        [(dyn int: 4) + (col("foo").sum())]
+        >>> print((pl.col.a + pl.col.b).meta.replace_root(pl.col.c + pl.col.d))
+        [([(col("c")) + (col("d"))]) + (col("b"))]
+        """
+        try:
+            return wrap_expr(self._pyexpr.meta_replace_root(other._pyexpr))
+        except ComputeError:
+            if not strict:
+                return wrap_expr(self._pyexpr)
+            raise
+
+    def rename_columns(self, mapping: Mapping[str, str]) -> Expr:
+        """
+        Rename named column selections in expression.
+
+        Names that are not contained in mapping remain unchanged.
+
+        Parameters
+        ----------
+        mapping
+            Key value pairs that map from old name to new name.
+
+        Examples
+        --------
+        >>> e = pl.col.foo + 1 + pl.col.foo
+        >>> e.meta.rename_columns({"foo": "bar"}).meta == pl.col.bar + 1 + pl.col.bar
+        True
+        >>> e = pl.when(True).then(pl.col.bar + pl.col.foo)
+        >>> expected = pl.when(True).then(pl.col.foo + pl.col.bar)
+        >>> e.meta.rename_columns({"foo": "bar", "bar": "foo"}).meta == expected
+        True
+        >>> e = pl.col.baz
+        >>> e.meta.rename_columns({"foo": "bar"}).meta == e
+        True
+        """
+        existing = list(mapping.keys())
+        new = list(mapping.values())
+
+        return wrap_expr(self._pyexpr.meta_rename_columns(existing, new))
 
     def root_names(self) -> list[str]:
         """
