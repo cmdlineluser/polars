@@ -2685,10 +2685,8 @@ naive plan: (run LazyFrame.explain(optimized=True) to see the optimized plan)
             - `True`: enable default set of statistics (default). Some
               statistics may be disabled.
             - `False`: disable all statistics
-            - "full": calculate and write all available statistics. Cannot be
-              combined with `use_pyarrow`.
-            - `{ "statistic-key": True / False, ... }`. Cannot be combined with
-              `use_pyarrow`. Available keys:
+            - "full": calculate and write all available statistics.
+            - `{ "statistic-key": True / False, ... }`. Available keys:
 
               - "min": column minimum value (default: `True`)
               - "max": column maximum value (default: `True`)
@@ -2796,6 +2794,22 @@ naive plan: (run LazyFrame.explain(optimized=True) to see the optimized plan)
         --------
         >>> lf = pl.scan_csv("/path/to/my_larger_than_ram_file.csv")  # doctest: +SKIP
         >>> lf.sink_parquet("out.parquet")  # doctest: +SKIP
+
+        Sink to a `BytesIO` object.
+
+        >>> buf = io.BytesIO()  # doctest: +SKIP
+        >>> pl.LazyFrame({"x": [1, 2, 1]}).sink_parquet(buf)  # doctest: +SKIP
+
+        Split into a hive-partitioning style partition:
+
+        >>> pl.LazyFrame({"x": [1, 2, 1], "y": [3, 4, 5]}).sink_parquet(
+        ...     pl.PartitionByKey("./out/", by="x"),
+        ...     mkdir=True
+        ... )  # doctest: +SKIP
+
+        See Also
+        --------
+        PartitionByKey
         """
         engine = _select_engine(engine)
         if metadata is not None:
