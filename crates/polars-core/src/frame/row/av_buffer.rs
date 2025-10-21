@@ -153,6 +153,7 @@ impl<'a> AnyValueBuffer<'a> {
     }
 
     pub(crate) fn add_fallible(&mut self, val: &AnyValue<'a>) -> PolarsResult<()> {
+        dbg!(&val);
         self.add(val.clone()).ok_or_else(|| {
             polars_err!(
                 ComputeError: "could not append value: {} of type: {} to the builder; make sure that all rows \
@@ -165,6 +166,7 @@ impl<'a> AnyValueBuffer<'a> {
 
     pub fn reset(&mut self, capacity: usize, strict: bool) -> PolarsResult<Series> {
         use AnyValueBuffer::*;
+        dbg!(&strict);
         let out = match self {
             Boolean(b) => {
                 let mut new = BooleanChunkedBuilder::new(b.field.name().clone(), capacity);
@@ -177,8 +179,10 @@ impl<'a> AnyValueBuffer<'a> {
                 new.finish().into_series()
             },
             Int64(b) => {
+                dbg!(&"Here");
                 let mut new = PrimitiveChunkedBuilder::new(b.field.name().clone(), capacity);
                 std::mem::swap(&mut new, b);
+                dbg!(new.clone().finish());
                 new.finish().into_series()
             },
             UInt32(b) => {
@@ -276,7 +280,7 @@ impl<'a> AnyValueBuffer<'a> {
     }
 
     pub fn into_series(mut self) -> Series {
-        self.reset(0, false).unwrap()
+        self.reset(0, true).unwrap()
     }
 
     pub fn new(dtype: &DataType, capacity: usize) -> AnyValueBuffer<'a> {
@@ -685,7 +689,7 @@ impl<'a> AnyValueBufferTrusted<'a> {
 
     pub fn into_series(mut self) -> Series {
         // unwrap: non-strict does not error.
-        self.reset(0, false).unwrap()
+        self.reset(0, true).unwrap()
     }
 }
 

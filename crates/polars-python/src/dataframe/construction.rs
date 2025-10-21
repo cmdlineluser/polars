@@ -38,6 +38,8 @@ impl PyDataFrame {
         let schema = schema.map(|wrap| wrap.0);
         let schema_overrides = schema_overrides.map(|wrap| wrap.0);
 
+        dbg!(&schema);
+        dbg!(&schema_overrides);
         // determine row extraction strategy from the first item:
         // PyDict (faster), or PyMapping (more generic, slower)
         let from_mapping = data.len()? > 0 && {
@@ -52,19 +54,23 @@ impl PyDataFrame {
             }
         };
 
+        dbg!(&from_mapping);
         // read (or infer) field names, then extract row values
         let names = get_schema_names(data, schema.as_ref(), infer_schema_length, from_mapping)?;
+        dbg!(&names);
         let rows = if from_mapping {
             mappings_to_rows(data, &names, strict)?
         } else {
             dicts_to_rows(data, &names, strict)?
         };
 
+        dbg!(&rows);
         let schema = schema.or_else(|| {
             Some(columns_names_to_empty_schema(
                 names.iter().map(String::as_str),
             ))
         });
+        dbg!(&schema);
         py.enter_polars(move || {
             finish_from_rows(rows, schema, schema_overrides, infer_schema_length)
         })
@@ -89,11 +95,16 @@ fn finish_from_rows(
 ) -> PyResult<PyDataFrame> {
     let schema = if let Some(mut schema) = schema {
         resolve_schema_overrides(&mut schema, schema_overrides);
+        dbg!(&schema);
         update_schema_from_rows(&mut schema, &rows, infer_schema_length)?;
+        dbg!(&schema);
+        dbg!(&rows);
         schema
     } else {
         rows_to_schema_supertypes(&rows, infer_schema_length).map_err(PyPolarsErr::from)?
     };
+    dbg!(&schema);
+    dbg!(&rows);
 
     let df = DataFrame::from_rows_and_schema(&rows, &schema).map_err(PyPolarsErr::from)?;
     Ok(df.into())
@@ -105,13 +116,16 @@ fn update_schema_from_rows(
     infer_schema_length: Option<usize>,
 ) -> PyResult<()> {
     let schema_is_complete = schema.iter_values().all(|dtype| dtype.is_known());
+    dbg!(&schema_is_complete);
     if schema_is_complete {
         return Ok(());
     }
+    dbg!(&"Here");
 
     // TODO: Only infer dtypes for columns with an unknown dtype
     let inferred_dtypes =
         rows_to_supertypes(rows, infer_schema_length).map_err(PyPolarsErr::from)?;
+    dbg!(&inferred_dtypes);
     let inferred_dtypes_slice = inferred_dtypes.as_slice();
 
     for (i, dtype) in schema.iter_values_mut().enumerate() {

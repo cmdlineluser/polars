@@ -63,6 +63,7 @@ impl DataFrame {
             .iter_values()
             .map(|dtype| {
                 let buf: AnyValueBuffer = (dtype, capacity).into();
+                dbg!(&dtype);
                 buf
             })
             .collect();
@@ -71,6 +72,7 @@ impl DataFrame {
         rows.try_for_each::<_, PolarsResult<()>>(|row| {
             expected_len += 1;
             for (value, buf) in row.0.iter().zip(&mut buffers) {
+                dbg!(&value);
                 buf.add_fallible(value)?
             }
             Ok(())
@@ -79,9 +81,12 @@ impl DataFrame {
             .into_iter()
             .zip(schema.iter_names())
             .map(|(b, name)| {
+                dbg!(&b.clone().into_series());
                 let mut c = b.into_series().into_column();
                 // if the schema adds a column not in the rows, we
                 // fill it with nulls
+                dbg!(&c);
+                dbg!(&name);
                 if c.is_empty() {
                     Column::full_null(name.clone(), expected_len, c.dtype())
                 } else {
